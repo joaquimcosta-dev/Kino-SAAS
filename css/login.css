@@ -1,0 +1,476 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/*Estilização da parte do dispositivo mobile*/
+@media(max-width:480px){
+    body{
+        height: 100vh;
+        width: 100%;
+         display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    /*Estilização do conteiner delivery*/
+    .img{
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 100vh;
+        z-index:-1;
+        background-image: url(../../../public/kinoDelivery.png);
+        background-position: center; background-size: cover;
+        background-repeat: no-repeat;
+    }
+    /*Estilização do conteinner pai, formulario*/
+
+    .formulario{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 80vh;
+        width: 90%;
+        background-color: rgba(255, 255, 255, 0.808);
+        border-radius: 10px;
+        margin: auto 0;
+    }
+    #form{
+        width: 90%;
+        height: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    /* estilizacao dos inputs do login*/
+    #form input{
+        height: 40px;
+        margin: 5px 0;
+        border: 1px orangered  solid;
+        border-radius: 10px;
+        background-color: rgba(235, 156, 11, 0.514);
+        padding: 0px 5px;
+    }
+    /*estilos do botao */
+    #btn{
+        height: 40px;
+        background-color: orange;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 18px;
+        border: none;
+        box-shadow: 2px 2px 2px 2px rgb(0,0,0, 0.8);
+        margin: 5px 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    /* estilizacao do load login*/
+    .load{
+        width:20px;
+        height: 20px;
+        background-color:transparent;
+        border-radius: 50px;
+        margin: 0 5px;
+        overflow: hidden;
+        animation: load 2s infinite ease;
+    }
+    .loading{
+        width:20px;
+        height: 20px;
+        border-radius: 50px;
+        border: 2px #fff solid;
+        border-top: 2px orange solid;
+    }
+    @keyframes load {
+        0%{
+        transform: rotete(0deg); 
+        }
+        100%{
+            transform: rotate(360deg); 
+        }
+    
+    }
+    /* fin da estilizacao do load login*/
+
+    /*estilização do paragro para recurar senha*/
+    #form p{
+        margin: 15px 0;
+        text-align: center;
+        
+    }
+    #form p a{
+        text-decoration: none;
+    }
+
+    /*Estilização do metóde de sessão via redes*/
+    .logarFaceGoogle{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    /*Estilizacao dos btn de redes sociias*/
+    .logarFaceGoogle button{
+        height: 35px;
+        width: 80px;
+        border: 1px orangered  solid;
+        border-radius: 5px;
+    }
+
+  
+    /*Class responsavel para mostrar ou ativar o display*/
+    .mostrar{
+        display: flex;
+        
+    }
+  
+    /*estilizando notificacao de erro ou sucesso ao logar*/
+    .notificacao{
+        height: 60px;
+        width: 220px;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 2;
+        background: rgba(255, 0, 0, 0.61);
+        border: 1px orange solid;
+        border-radius: 10px;
+        margin: 10px 10px;
+        text-align: center;
+        padding: 10px;
+        animation: alerta 2s ease ;
+        transition-property: alerta;
+    }
+    @keyframes alerta {
+        0%{
+            transform: translateX(100%);
+        }
+        100%{
+            transform:translateX(-10%) ;
+        }
+        
+    }
+    /*fim da animação da notificacao de usuario*/
+    
+
+}
+@media(min-width:481px) and (max-width:769px){
+    body{
+        height: 100vh;
+        width: 100%;
+         display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    /*Estilização do conteiner delivery*/
+    .img{
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 100vh;
+        z-index:-1;
+        background-image: url(../../../public/kinoDelivery.png);
+        background-position: center; background-size: cover;
+        background-repeat: no-repeat;
+    }
+    /*Estilização do conteinner pai, formulario*/
+
+    .formulario{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 80vh;
+        width: 90%;
+        background-color: rgba(255, 255, 255, 0.808);
+        border-radius: 10px;
+        margin: auto 0;
+    }
+    #form{
+        width: 90%;
+        height: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    /* estilizacao dos inputs do login*/
+    #form input{
+        height: 50px;
+        margin: 5px 0;
+        border: 1px orangered  solid;
+        border-radius: 10px;
+        background-color: rgba(235, 156, 11, 0.514);
+        padding: 0px 5px;
+    }
+    /*estilos do botao */
+    #btn{
+        height: 50px;
+        background-color: orange;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 18px;
+        border: none;
+        box-shadow: 2px 2px 2px 2px rgb(0,0,0, 0.8);
+        margin: 5px 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    /* estilizacao do load login*/
+    .load{
+        width:20px;
+        height: 20px;
+        background-color:transparent;
+        border-radius: 50px;
+        margin: 0 5px;
+        overflow: hidden;
+        animation: load 2s infinite ease;
+    }
+    .loading{
+        width:20px;
+        height: 20px;
+        border-radius: 50px;
+        border: 2px #fff solid;
+        border-top: 2px orange solid;
+    }
+    @keyframes load {
+        0%{
+        transform: rotete(0deg); 
+        }
+        100%{
+            transform: rotate(360deg); 
+        }
+    
+    }
+    /* fin da estilizacao do load login*/
+
+    /*estilização do paragro para recurar senha*/
+    #form p{
+        margin: 15px 0;
+        text-decoration: none;
+        text-align: center;
+    }
+    #form p a{
+        text-decoration: none;
+    }
+
+    /*Estilização do metóde de sessão via redes*/
+    .logarFaceGoogle{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    /*Estilizacao dos btn de redes sociias*/
+    .logarFaceGoogle button{
+        height: 50px;
+        width: 100px;
+        border: 1px orangered  solid;
+        border-radius: 5px;
+    }
+
+    /*Class responsavel para mostrar ou ativar o display*/
+    .mostrar{
+        display: flex;
+        
+    }
+   
+     
+    /*estilizando notificacao de erro ou sucesso ao logar*/
+    .notificacao{
+        height: 60px;
+        max-width: 500px;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 2;
+        background: rgba(255, 0, 0, 0.61);
+        border: 1px orange solid;
+        border-radius: 10px;
+        margin: 10px 10px;
+        text-align: center;
+        padding: 10px;
+        animation: alerta 2s ease ;
+        transition-property: alerta;
+    }
+    @keyframes alerta {
+        0%{
+            transform: translateX(100%);
+        }
+        100%{
+            transform:translateX(-10%) ;
+        }
+        
+    }
+    /*fim da animação da notificacao de usuario*/
+    
+
+}
+@media(min-width:770px){
+     body{
+        height: 100vh;
+        width: 100%;
+         display: flex;
+        flex-direction: rom;
+        align-items: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    /*Logo do kino*/
+    #logo{
+        width: 150px;
+        height: 150px;
+    }
+    /*Logo do kino criar conta*/
+    #logo-Conta{
+        width: 150px;
+        height: 130;
+    }
+   
+    /*Estilização do conteiner delivery*/
+    .img{
+        height: 98vh;
+        width: 50%;
+        border-radius: 20px;
+        margin: 0 10px;
+        background-image: url(../../../public/kinoDelivery.png);
+        background-position: center; background-size: cover;
+        background-repeat: no-repeat;
+    }
+    /*Estilização do conteinner pai, formulario*/
+
+    .formulario{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 80vh;
+        width: 45%;
+        background-color: rgba(255, 255, 255, 0.808);
+        border-radius: 10px;
+        margin: auto 0;
+        
+    }
+    #form{
+        width: 90%;
+        height: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 10px 0;
+    }
+    /* estilizacao dos inputs do login*/
+    #form input{
+        height: 50px;
+        margin: 5px 0;
+        border: 1px orangered  solid;
+        border-radius: 10px;
+        background-color: rgba(235, 156, 11, 0.514);
+        padding: 0px 5px;
+    }
+    /*estilos do botao */
+    #btn{
+        height: 50px;
+        background-color: orange;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 18px;
+        border: none;
+        box-shadow: 2px 2px 2px 2px rgb(0,0,0, 0.8);
+        margin: 5px 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* estilizacao do load login*/
+    .load{
+        width:20px;
+        height: 20px;
+        background-color:transparent;
+        border-radius: 50px;
+        margin: 0 5px;
+        overflow: hidden;
+        animation: load 2s infinite ease;
+    }
+    .loading{
+        width:20px;
+        height: 20px;
+        border-radius: 50px;
+        border: 2px #fff solid;
+        border-top: 2px orange solid;
+    }
+    @keyframes load {
+        0%{
+        transform: rotete(0deg); 
+        }
+        100%{
+            transform: rotate(360deg); 
+        }
+    
+    }
+    /* fin da estilizacao do load login*/
+
+    /*estilização do paragro para recurar senha*/
+    #form p{
+        margin: 15px 0;
+        text-decoration: none;
+        text-align: center;
+    }
+    #form p a{
+        text-decoration: none;
+    }
+    /*Estilizando ja tem conta*/
+    #paEntrar{
+        margin: 10px 0 ;
+    }
+    
+
+    /*Estilização do metóde de sessão via redes*/
+    .logarFaceGoogle{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 10px 0;
+    }
+    /*Class responsavel para mostrar ou ativar o display*/
+    .mostrar{
+        display: flex;
+        
+    }
+    /*estilizando notificacao de erro ou sucesso ao logar*/
+    .notificacao{
+        height: 60px;
+        width: 300px;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 2;
+        background: rgba(255, 0, 0, 0.61);
+        border: 1px orange solid;
+        border-radius: 10px;
+        margin: 10px 10px;
+        text-align: center;
+        padding: 10px;
+        animation: alerta 2s ease ;
+        transition-property: alerta;
+    }
+    @keyframes alerta {
+        0%{
+            transform: translateX(100%);
+        }
+        100%{
+            transform:translateX(-10%) ;
+        }
+        
+    }
+    /*fim da animação da notificacao de usuario*/
+    
+
+}
