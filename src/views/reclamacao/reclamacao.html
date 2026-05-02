@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kino - Reclamações</title>
-    <link rel="stylesheet" href="./css/reclamacao_style.css">
+    <link rel="stylesheet" href="reclamacao_style.css">
     <script src="./js/reclamacao.js"></script>
 </head>
 <body>
@@ -29,6 +29,18 @@
     <main>
         <h1>Reclamações</h1>
         <form id="complaintForm">
+           <label for="nome">*Nome</label>
+            <input type="text" id="nome", required placeholder="Introduza o seu nome"autocomplete="off">
+            <label for="nome">*Tel</label>
+            <input type="text" id="nume", required placeholder="Introduza o seu numero" max="9" autocomplete="off">
+            <select name="selecao" id="selecaoReclamacao" required >
+                
+                <option >Não cumprimento com o tempo de espera no sistema </option>
+                <option >Má qualidade nos produtos</option>
+                <option >Má atendimento</option>
+                <option >Demora na entrega</option>
+                <option >outros</option>
+            </select>
             <div class="textarea-container">
                 <textarea id="message" placeholder="Digite a sua Reclamação..." required></textarea>
                 <div class="resize-handle">///</div>
@@ -55,6 +67,6 @@
     </footer>
 
 
-    <script src="script.js"></script>
+    <script src="reclamacao.js"></script>
 </body>
 </html>
