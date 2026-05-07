@@ -41,7 +41,7 @@ const enviarReclamacao = async (data) => {
     }
 };
 
-// [READ] - Listar Reclamações (Útil para uma página de admin)
+/* [READ] - Listar Reclamações (Útil para uma página de admin)
 const listarReclamacoes = async () => {
     try {
         const res = await fetch(`${BASE_URL}/listar`);
@@ -66,7 +66,7 @@ const apagarReclamacao = async (id) => {
     } catch (e) {
         console.error("Erro ao apagar:", e);
     }
-};
+};*/
 
 // --- FUNÇÕES AUXILIARES ---
 
