@@ -7,6 +7,8 @@ const mensagem = document.getElementById('message');
 
 // URL base para facilitar a manutenção
 const BASE_URL = "http://localhost:3000/index/reclamacao";
+const MENU_URL = "../../util/menu.html";
+const menu = document.querySelector(".menu");
 
 // 1. Restrição Visual para o Telefone
 telefone.addEventListener("input", function() {
@@ -40,8 +42,23 @@ const enviarReclamacao = async (data) => {
         resetarBotao();
     }
 };
+//funcao que import o menu na pasta uitl
+const getMenu = async () => {
+  try {
+    const res = await fetch(MENU_URL);
+    if (res.ok) {
+      const re = await res.text();
+      menu.innerHTML = re;
+      return;
+    }
+    console.log("nao carregado");
+    return;
+  } catch (e) {
+    console.log("erro ao tentar pegar o menu");
+    return;
+  }}
 
-// [READ] - Listar Reclamações (Útil para uma página de admin)
+/* [READ] - Listar Reclamações (Útil para uma página de admin)
 const listarReclamacoes = async () => {
     try {
         const res = await fetch(`${BASE_URL}/listar`);
@@ -66,7 +83,7 @@ const apagarReclamacao = async (id) => {
     } catch (e) {
         console.error("Erro ao apagar:", e);
     }
-};
+};*/
 
 // --- FUNÇÕES AUXILIARES ---
 
@@ -120,3 +137,4 @@ formulario.addEventListener('submit', (e) => {
 
     enviarReclamacao(data);
 });
+getMenu();

@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  --primary-orange: #ee860e;
+  --light-orange: #fdf0e4;
+  --border-orange: #f5ccae;
+  --text-color: #f08b17;
+}
+body {
+  width: 100%;
+  height: 100vh;
+  font-family: var(--font-main);
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+  overflow-x: hidden;
+  background-color: rgba(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+}
+/*Estilizando o main*/
+main {
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+ align-items: center;
+  width: 600px;
+  background-color: bisque;
+}
+header h3{
+    margin: 10px auto;
+    color: rgb(218,105,21);
+    font-size: 30px;
+
+}
+.form-pedido{
+    width: 100%;
+}
+#form-pedido {
+ 
+  height: 30px;
+  border-radius: 50px;
+  border: 1px rgba(255, 255, 255) solid;
+  background-color: aqua;
+  width: 50%;
+}
+.progresso{
+    width: 600px;
+    border: 1px orangered solid;
+}
+/*fixando o rodape no final da pagina*/
+.rodape {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}

@@ -488,4 +488,68 @@
       </div>
     </footer>
   </body>
+      <!--inicio Modal carrinho-->
+    <div class="modal_carrinho">
+      <div class="carrinho">
+        <button id="fechar_modal_carrinho">X</button>
+        <header><h4>Informações do cliente</h4></header>
+        <form id="form_carrinho">
+          <input
+            type="text"
+            id=" nome_pedido"
+            placeholder="Insira o seu nome"
+            required
+          />
+          <input
+            type="text"
+            id=" numero_pedido"
+            placeholder="+244| número"
+            required
+          />
+          <input
+            type="text"
+            id=" endereco_pedido"
+            placeholder="Insira o seu endereço"
+            required
+          />
+          <table>
+            <caption>
+              Lista de pedidos
+            </caption>
+            <thead>
+              <tr>
+                <th>Nº</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Qtd</th>
+                <th>Valor</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Hamburguer</td>
+                <td>1500 kz</td>
+                <td>2</td>
+                <td>3000 kz</td>
+                <td><p>remover</p></td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Hamburguer King</td>
+                <td>3000 kz</td>
+                <td>1</td>
+                <td>3000 kz</td>
+                <td><p>remover</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <button id="btn_pedido">Enviar pedido</button>
+        </form>
+      </div>
+    </div>
+    <!--fim Modal carrinho-->
+    <script src="script.js"></script>
+  
 </html>
