@@ -40,6 +40,21 @@ const enviarReclamacao = async (data) => {
         resetarBotao();
     }
 };
+//funcao que import o menu na pasta uitl
+const getMenu = async () => {
+  try {
+    const res = await fetch(MENU_URL);
+    if (res.ok) {
+      const re = await res.text();
+      menu.innerHTML = re;
+      return;
+    }
+    console.log("nao carregado");
+    return;
+  } catch (e) {
+    console.log("erro ao tentar pegar o menu");
+    return;
+  }
 
 /* [READ] - Listar Reclamações (Útil para uma página de admin)
 const listarReclamacoes = async () => {
