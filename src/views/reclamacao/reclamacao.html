@@ -1,72 +1,69 @@
 <!DOCTYPE html>
 <html lang="pt-pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kino - Reclamações</title>
-    <link rel="stylesheet" href="reclamacao_style.css">
-    <script src="./js/reclamacao.js"></script>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Kino - Reclamações</title>
+        <link rel="stylesheet" href="reclamacao_style.css">
+        <link rel="stylesheet" href="../../style.css" />
+        
+        <link rel="icon" href="../../../public/kino.svg">
+      
+    </head>
+    <body>
 
 
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <span class="kino-logo">Kino</span>
-                <i class="fa-solid fa-location-dot"></i>
-            </div>
-            <nav>
-                <a href="#">Home</a>
-            </nav>
-            <div class="user-icon">
-                <i class="fa-regular fa-circle-user"></i>
-            </div>
+        <div class="menu">
+            <!--aqui esta sendo importada o menu-->
+            
         </div>
-    </header>
 
 
-    <main>
-        <h1>Reclamações</h1>
-        <form id="complaintForm">
-           <label for="nome">*Nome</label>
-            <input type="text" id="nome", required placeholder="Introduza o seu nome"autocomplete="off">
-            <label for="nome">*Tel</label>
-            <input type="text" id="nume", required placeholder="Introduza o seu numero" max="9" autocomplete="off">
-            <select name="selecao" id="selecaoReclamacao" required >
-                
-                <option >Não cumprimento com o tempo de espera no sistema </option>
-                <option >Má qualidade nos produtos</option>
-                <option >Má atendimento</option>
-                <option >Demora na entrega</option>
-                <option >outros</option>
-            </select>
-            <div class="textarea-container">
-                <textarea id="message" placeholder="Digite a sua Reclamação..." required></textarea>
-                <div class="resize-handle">///</div>
+        <main>
+            <h1>Reclamações</h1>
+            <form id="complaintForm">
+                <input type="text" id="nome" required placeholder="Nome">
+
+                <input type="tel" id="telefone" required placeholder="Telefone" maxlength="9">
+
+                <select id="selecaoReclamacao" required>
+                    <option value="" disabled selected>A minha minha entrega demorou a chegar</option>
+                    <option value="atendimento">Mau atendimento</option>
+                    <option value="qualidade">Má qualidade nos produtos</option>
+                    <option value="entrega">Demora na entrega</option>
+                    <option value="outros">outros</option>
+                </select>
+
+                <!-- Removida a div extra aqui para o CSS pílula funcionar melhor -->
+                <textarea id="message" placeholder="Digite a sua reclamação" required></textarea>
+
+                <div class="button-wrapper">
+                    <button type="submit" id="submitBtn">enviar</button>
+                </div>
+            </form>
+        </main>
+        <!--rodapé do sistema-->
+        <footer>
+            <div class="footer-left">
+                <p>© Kino 2026</p>
+                <p>Todos os direitos reservados.</p>
             </div>
-            <div class="button-wrapper">
-                <button type="submit" id="submitBtn">Enviar</button>
+            
+            <div class="footer-right">
+                <span>siga-nos</span>
+                <div class="social-icons">
+                    <a href="https://wa.me/938628116">
+                        <img src="../../icons/whatsapp-circle.svg" alt="whatsapp" width="25px" height="25px" />
+                    </a>
+                    <a href="https://www.instagram.com/elano.skill/">
+                        <img src="../../icons/instagram-circle.svg" alt="instagram" width="25px" height="25px" />
+                    </a>
+                    <a href="https://www.facebook.com/elano.skill/">
+                        <img src="../../icons/facebook.svg" alt="facebook" width="25px" height="25px" />
+                    </a>
+                </div>
             </div>
-        </form>
-    </main>
-
-
-    <footer>
-        <div class="footer-left">
-            <p>© Kino 2026<br>Todos os direitos reservados.</p>
-        </div>
-        <div class="footer-right">
-            <span>siga-nos</span>
-            <div class="social-icons">
-                <i class="fa-brands fa-whatsapp"></i>
-                <i class="fa-brands fa-facebook-f"></i>
-                <i class="fa-brands fa-instagram"></i>
-            </div>
-        </div>
-    </footer>
-
-
-    <script src="reclamacao.js"></script>
-</body>
+        </footer>
+        <script src="reclamacao.js"></script>
+    </body>
 </html>
