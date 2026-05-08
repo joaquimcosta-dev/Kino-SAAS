@@ -7,6 +7,8 @@ const mensagem = document.getElementById('message');
 
 // URL base para facilitar a manutenção
 const BASE_URL = "http://localhost:3000/index/reclamacao";
+const MENU_URL = "../../util/menu.html";
+const menu = document.querySelector(".menu");
 
 // 1. Restrição Visual para o Telefone
 telefone.addEventListener("input", function() {
@@ -54,7 +56,7 @@ const getMenu = async () => {
   } catch (e) {
     console.log("erro ao tentar pegar o menu");
     return;
-  }
+  }}
 
 /* [READ] - Listar Reclamações (Útil para uma página de admin)
 const listarReclamacoes = async () => {
@@ -135,3 +137,4 @@ formulario.addEventListener('submit', (e) => {
 
     enviarReclamacao(data);
 });
+getMenu();
