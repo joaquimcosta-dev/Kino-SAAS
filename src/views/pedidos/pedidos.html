@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos - Kino</title>
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="pedidos.css">
+    <link rel="icon" href="../../../public/kino.svg">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="../../../public/kino.svg" alt="Logo Kino">
+        </div>
+        <nav class="nav">
+            <ul class="menu-dashboard">
+                <li><a href="#">Dashboard</a></li>
+                <li class="has-submenu">
+                    <a href="#">Cadastrar <span class="arrow-down"></span></a>
+                    <ul class="submenus">
+                        <li><a href="#">Novo Produto</a></li>
+                        <li><a href="#">Nova Categoria</a></li>
+                    </ul>
+                </li>
+                <li class="active-pill"><a href="pedidos.html">Pedidos</a></li>
+                <li><a href="#">Finanças</a></li>
+            </ul>
+        </nav>
+        <div class="conta">
+            <a href="#" class="conta-icones">
+                <img src="../../icons/user.svg" alt="Perfil">
+            </a>
+        </div>
+    </header>
+
+    <main class="pedidos-container">
+        <section class="pedidos-header">
+            <h1 class="page-title">Pedidos</h1>
+            <div class="search-box">
+                <input type="text" placeholder="pesquisar pedido" id="orderSearch">
+                <button class="search-btn">
+                    <img src="../../icons/search.svg" alt="Buscar" style="filter: invert(53%) sepia(87%) saturate(1478%) hue-rotate(345deg) brightness(98%) contrast(92%);">
+                </button>
+            </div>
+        </section>
+
+        <section class="pedidos-filters">
+            <div class="tabs">
+                <button class="tab-btn active" data-filter="todos">Todos</button>
+                <button class="tab-btn" data-filter="entrega">Entrega</button>
+                <button class="tab-btn" data-filter="restaurante">Restaurante</button>
+            </div>
+            <a href="#" class="history-link">Ver Histórico</a>
+        </section>
+
+        <section class="orders-card">
+            <h2>Novos pedidos</h2>
+            <div class="table-responsive">
+                <table id="ordersTable">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Tipo</th>
+                            <th>Produto</th>
+                            <th>Pago</th>
+                            <th>Endereço</th>
+                            <th>Data</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-type="restaurante">
+                            <td class="code">K5672INO</td>
+                            <td>José Adriano Brito</td>
+                            <td>+244 945 689 268</td>
+                            <td>Restaurante</td>
+                            <td>Hambúrguer</td>
+                            <td>3500</td>
+                            <td>HBO c. alta</td>
+                            <td>1/4/026</td>
+                            <td>
+                                <div class="status-dropdown">
+                                    <button class="status-btn">Por aprovar <span class="arrow-up"></span></button>
+                                    <ul class="status-menu">
+                                        <li>Aprovar</li>
+                                        <li>Preparando</li>
+                                        <li>Feito</li>
+                                        <li>Rejeitar</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-type="entrega">
+                            <td class="code">K3687INO</td>
+                            <td>Yo-Chin Ho</td>
+                            <td>+244 923 192 278</td>
+                            <td>Entrega</td>
+                            <td>Funge</td>
+                            <td>2870</td>
+                            <td>HBO c. Baixa</td>
+                            <td>1/4/026</td>
+                            <td>
+                                <div class="status-dropdown">
+                                    <button class="status-btn">Por aprovar <span class="arrow-up"></span></button>
+                                    <ul class="status-menu">
+                                        <li>Aprovar</li>
+                                        <li>Preparando</li>
+                                        <li>Feito</li>
+                                        <li>Rejeitar</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-type="entrega">
+                            <td class="code">K6492INO</td>
+                            <td>Jackie Chan</td>
+                            <td>+244 924 545 668</td>
+                            <td>Entrega</td>
+                            <td>Sandes</td>
+                            <td>1500</td>
+                            <td>HBO acad...</td>
+                            <td>1/4/026</td>
+                            <td>
+                                <div class="status-dropdown">
+                                    <button class="status-btn">Por aprovar <span class="arrow-up"></span></button>
+                                    <ul class="status-menu">
+                                        <li>Aprovar</li>
+                                        <li>Preparando</li>
+                                        <li>Feito</li>
+                                        <li>Rejeitar</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-type="entrega">
+                            <td class="code">K5789INO</td>
+                            <td>Antonio Chivango</td>
+                            <td>+244 975 566 899</td>
+                            <td>Entrega</td>
+                            <td>Água</td>
+                            <td>300</td>
+                            <td>HBO sao j...</td>
+                            <td>1/4/026</td>
+                            <td>
+                                <div class="status-dropdown">
+                                    <button class="status-btn">Por aprovar <span class="arrow-up"></span></button>
+                                    <ul class="status-menu">
+                                        <li>Aprovar</li>
+                                        <li>Preparando</li>
+                                        <li>Feito</li>
+                                        <li>Rejeitar</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-type="restaurante">
+                            <td class="code">K3259INO</td>
+                            <td>Vianety Jorge</td>
+                            <td>+244 914 323 176</td>
+                            <td>Restaurante</td>
+                            <td>Sumo</td>
+                            <td>800</td>
+                            <td>HBO rua 5</td>
+                            <td>1/4/026</td>
+                            <td>
+                                <div class="status-dropdown">
+                                    <button class="status-btn">Por aprovar <span class="arrow-down"></span></button>
+                                    <ul class="status-menu">
+                                        <li>Aprovar</li>
+                                        <li>Preparando</li>
+                                        <li>Feito</li>
+                                        <li>Rejeitar</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="direitos">
+            <div>
+                 <p>© Kino 2026</p>
+                <p>Todos os direitos reservados.</p>
+            </div>
+            <div class="sociais">
+                siga-nos
+                <a href="#"><img src="../../icons/whatsapp-circle.svg" alt="whatsapp" width="25px" height="25px"></a>
+                <a href="#"><img src="../../icons/instagram-circle.svg" alt="instagram" width="25px" height="25px"></a>
+                <a href="#"><img src="../../icons/facebook.svg" alt="facebook" width="25px" height="25px"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="pedidos.js"></script>
+</body>
+</html>

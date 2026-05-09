@@ -1,0 +1,300 @@
+/* =========================================
+   PEDIDOS PAGE STYLES
+   ========================================= */
+
+.pedidos-container {
+    padding: 130px 6% 40px 6%;
+    min-height: 100vh;
+}
+
+/* Header Dashboard Navigation */
+.menu-dashboard {
+    display: flex;
+    gap: 35px;
+    font-weight: 600;
+    align-items: center;
+}
+
+.logo img {
+    height: 70px !important;
+    margin: 0 !important;
+}
+
+.menu-dashboard li a {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: var(--transition);
+}
+
+.menu-dashboard .active-pill a {
+    background-color: var(--input-bg);
+    color: var(--primary-color);
+}
+
+.menu-dashboard .has-submenu {
+    position: relative;
+}
+
+.arrow-down::after {
+    content: ' \2304';
+}
+
+.arrow-up::after {
+    content: ' \2303';
+}
+
+/* Page Title and Search */
+.pedidos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.page-title {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    color: var(--primary-color);
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-white);
+    border: 1px solid var(--primary-color);
+    border-radius: 30px;
+    padding: 5px 20px;
+    width: 300px;
+}
+
+.search-box input {
+    border: none;
+    background: transparent;
+    padding: 8px 0;
+    outline: none;
+    width: 100%;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.search-box input::placeholder {
+    color: #e49e78;
+}
+
+.search-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Filters and History Link */
+.pedidos-filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.tabs {
+    display: flex;
+    gap: 20px;
+}
+
+.tab-btn {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding-bottom: 5px;
+    position: relative;
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+.history-link {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Orders Card and Table */
+.orders-card {
+    background-color: var(--input-bg);
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: var(--shadow-sm);
+}
+
+.orders-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead th {
+    text-align: left;
+    padding: 15px 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+tbody tr {
+    transition: background 0.2s;
+}
+
+tbody td {
+    padding: 15px 10px;
+    font-size: 0.95rem;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+tbody td.code {
+    font-weight: 600;
+}
+
+/* Status Dropdown */
+.status-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.status-btn {
+    background-color: white;
+    padding: 8px 15px;
+    border-radius: 12px;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 140px;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.status-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    z-index: 100;
+    width: 140px;
+    padding: 10px 0;
+    top: 100%;
+    margin-top: 0;
+}
+
+/* Robust bridge to maintain hover state */
+.status-menu::before {
+    content: '';
+    position: absolute;
+    top: -15px; /* Bridge the gap to the button */
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background: transparent;
+}
+
+.status-dropdown:hover .status-menu {
+    display: block;
+}
+
+.status-menu li {
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+    color: var(--text-muted);
+}
+
+.status-menu li:hover {
+    background-color: var(--input-bg);
+    color: var(--primary-color);
+}
+
+.status-dropdown:hover .status-menu {
+    display: block;
+}
+
+/* Footer Overrides for consistency */
+footer {
+    margin-top: 40px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .pedidos-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    
+    .search-box {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .orders-card {
+        padding: 20px;
+    }
+    
+    .page-title {
+        font-size: 2.5rem;
+    }
+}
+
+/* Scrollbar Removal and Header Fix */
+html, body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none;
+}
+
+.header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-white);
+    z-index: 2000;
+    height: 90px; /* Force a consistent height */
+    display: flex;
+    align-items: center;
+}
+
+.pedidos-container {
+    padding: 130px 6% 40px 6%; /* Adjusted padding for fixed header */
+    min-height: 100vh;
+}
