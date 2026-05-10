@@ -11,8 +11,8 @@ body{
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 5;
-  background: rgb(0,0,0,0.054);
+  z-index: 10;
+  background: rgb(0,0,0,0.5);
 }
 .div-load{
   width: 130px;
