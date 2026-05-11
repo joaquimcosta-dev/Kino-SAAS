@@ -4,7 +4,7 @@ const motivo = document.querySelector('#selecaoReclamacao');
 const formulario = document.getElementById('complaintForm');
 const btn = document.getElementById('submitBtn');
 const mensagem = document.getElementById('message');
-
+const not_reclamacao = document.querySelector('.not_reclamacao');
 // URL base para facilitar a manutenção
 const BASE_URL = "http://localhost:3000/index/reclamacao";
 const MENU_URL = "../../util/menu.html";
@@ -33,7 +33,9 @@ const enviarReclamacao = async (data) => {
 
         if (res.ok) {
  // removendo o load na tela 
-load.style.display = 'none';            alert("Reclamação enviada com sucesso!");
+load.style.display = 'none';    
+not_reclamacao.classList.toggle('not_mostrar');
+alert("Reclamação enviada com sucesso!");
             limpar();
         } else {
              // removendo o load na tela 
@@ -43,6 +45,7 @@ load.style.display = 'none';
         }
         
     } catch (e) {
+        not_reclamacao.classList.toggle('not_mostrar');
         console.error("Erro de conexão:", e);
         alert("Servidor desligado. Ligue o backend da Kino.");
         resetarBotao();
