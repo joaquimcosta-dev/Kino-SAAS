@@ -4,11 +4,14 @@ const motivo = document.querySelector('#selecaoReclamacao');
 const formulario = document.getElementById('complaintForm');
 const btn = document.getElementById('submitBtn');
 const mensagem = document.getElementById('message');
-
+const not_reclamacao = document.querySelector('.not_reclamacao');
 // URL base para facilitar a manutenção
 const BASE_URL = "http://localhost:3000/index/reclamacao";
 const MENU_URL = "../../util/menu.html";
+const LOAD_URL = "../../util/load.html";
 const menu = document.querySelector(".menu");
+const load = document.querySelector('.loading');
+const aviso=['Reclamcao enviado com sucesso','Formulário não enviado','Erro no servidor!, por favor tente mais tarde']
 
 // 1. Restrição Visual para o Telefone
 telefone.addEventListener("input", function() {
@@ -22,6 +25,10 @@ telefone.addEventListener("input", function() {
 
 // [CREATE] - Enviar Reclamação
 const enviarReclamacao = async (data) => {
+    setTimeout(()=>{
+         // removendo o load na tela
+load.style.display = 'none'; 
+    },3000);
     try {
         const res = await fetch(`${BASE_URL}/enviar`, {
             method: "POST",
@@ -30,15 +37,35 @@ const enviarReclamacao = async (data) => {
         });
 
         if (res.ok) {
-            alert("Reclamação enviada com sucesso!");
+  
+not_reclamacao.innerHTML=aviso[0];
+not_reclamacao.style.backgroundColor='green'
+not_reclamacao.classList.toggle('not_mostrar');
+setTimeout(()=>{
+    not_reclamacao.classList.toggle('not_mostrar');
+},5000
+)
             limpar();
         } else {
-            alert("Erro ao enviar para o servidor.");
+            not_reclamacao.innerHTML=aviso[1];
+not_reclamacao.style.backgroundColor='red'
+not_reclamacao.classList.toggle('not_mostrar');
+setTimeout(()=>{
+    not_reclamacao.classList.toggle('not_mostrar');
+},5000
+)
             resetarBotao();
         }
+        
     } catch (e) {
         console.error("Erro de conexão:", e);
-        alert("Servidor desligado. Ligue o backend da Kino.");
+        not_reclamacao.innerHTML=aviso[2];
+not_reclamacao.style.backgroundColor='red'
+not_reclamacao.classList.toggle('not_mostrar');
+setTimeout(()=>{
+    not_reclamacao.classList.toggle('not_mostrar');
+},5000
+)
         resetarBotao();
     }
 };
@@ -55,6 +82,21 @@ const getMenu = async () => {
     return;
   } catch (e) {
     console.log("erro ao tentar pegar o menu");
+    return;
+  }}
+  //funcao que import o load na pasta uitl
+const getLoad = async () => {
+  try {
+    const res = await fetch(LOAD_URL);
+    if (res.ok) {
+      const re = await res.text();
+      load.innerHTML = re;
+      return;
+    }
+    console.log("nao carregado load");
+    return;
+  } catch (e) {
+    console.log("erro ao tentar pegar o load");
     return;
   }}
 
@@ -134,7 +176,9 @@ formulario.addEventListener('submit', (e) => {
 
     btn.innerText = "enviando...";
     btn.disabled = true;
-
+    // colocando o load na tela 
+load.style.display = 'flex';
     enviarReclamacao(data);
 });
 getMenu();
+getLoad();

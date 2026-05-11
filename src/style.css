@@ -872,11 +872,15 @@ display: flex;
  margin-top:150vh ;
 justify-content: center;
 align-items: center;
-transition: margin-top 2s ease-in-out;
+visibility: hidden;
+opacity: 0;
+transition: margin-top 2s ease-in-out, opacity 1s ease-in-out, visibility 0.5s ease-in-out;
 }
 /*class para mostrae o modal pedidos*/
 .mostrar{
     margin-top:-10vh ;
+    opacity: 1;
+    visibility: visible;
    
 }
 .carrinho{
@@ -914,13 +918,18 @@ transition: margin-top 2s ease-in-out;
 }
 /*formulario do pedido carrinho*/
 #form_carrinho{
+    max-width: 600px;
+    width: 300px;
     display: flex;
     flex-direction: column;
+    margin: 2px auto;
 }
 /*inputs do formulario carrinho*/
 #form_carrinho input{
+    max-width: 600px;
+    width: 300px;
     height: 40px;
-    margin: 2px 0px;
+    margin: 2px auto;
     border: 1px orangered solid;
     border-radius: 50px;
     padding: 10px;
@@ -928,21 +937,24 @@ transition: margin-top 2s ease-in-out;
 }
 /*tabela do formulario pedido*/
 #form_carrinho table{
+    max-width: 600px;
+    width: 300px;
    border-collapse: collapse;
    font-family: 'segoe UI', sans-serif;
    font-size: 14px;
    overflow: hidden;
-   margin: 2px 0px;
+   margin: 2px auto;
 }
 
-/*estilizando a linhas da ttabelas pedidos*/
+/*estilizando a linhas da tabelas pedidos*/
 table thead{
     
     background-color:#f8f9fa;
 }
 /*estilizando a colunas da tabelas pedidos*/
 table th{
-    padding: 12px 16px;
+    max-padding: 12px 16px;
+    padding: 4px 8px;
     text-align: left;
     font-weight: 600;
     color: #495057;
@@ -951,7 +963,8 @@ table th{
 }
 /*estilizando a colunas da tabelas pedidos*/
 table td{
-    padding: 12px 16px;
+      max-padding: 12px 16px;
+    padding: 4px 8px;
     color: #212529;
     border-bottom: 1px solid #e9ecef;
     
@@ -959,11 +972,14 @@ table td{
 /*btn eviar pedido*/
 #btn_pedido{
     height: 40px;
-    width: 100%;
+    max-width: 400px;
+    width: 300px;
     background-color: orangered;
     margin: 5px auto;
-    border-radius: 50px;
+    border-radius: 10px;
     padding: 10px;
+    color: #fff;
+    font-size: 16px;
     
 }
 
