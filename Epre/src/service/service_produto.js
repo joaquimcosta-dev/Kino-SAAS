@@ -1,4 +1,4 @@
-import * as ProdutoModel from "/Epre/src/model/produto.js";
+import * as ProdutoModel from "../model/produto.js";
 
 export const listarProdutos = async() =>{
     try{
@@ -9,9 +9,10 @@ export const listarProdutos = async() =>{
     }
 };
 
+//buscar produto
 export const buscarProdutoId = async(id) => {
     try{
-        const [rows] = await ProdutoModel.buscarProdutoId();
+        const [rows] = await ProdutoModel.buscarProdutoId(id);
 
         if(rows.length === 0){
             throw new Error("Produto não encontrado");
@@ -24,7 +25,8 @@ export const buscarProdutoId = async(id) => {
     }
 };
 
-export const criarProduto = async(nome, img, preco, descricao, id_user, id_cat) =>{
+//criar
+export const cadastrarProduto = async(nome, img, preco, descricao, id_user, id_cat) =>{
     try{
 
         // validações
@@ -47,7 +49,7 @@ export const criarProduto = async(nome, img, preco, descricao, id_user, id_cat) 
         //remover espaços no inicio e no fim 
         const remvEspNome = nome.trim();
 
-        const [result] = await ProdutoModel.criarProduto(
+        const [result] = await ProdutoModel.cadastrarProduto(
             remvEspNome, img, preco, descricao, id_user, id_cat
         );
 
@@ -59,6 +61,7 @@ export const criarProduto = async(nome, img, preco, descricao, id_user, id_cat) 
 
 };
 
+//atualizar
 export const atualizarProduto = async(id, nome, img, preco, descricao, id_cat) =>{
     try{
 
@@ -95,6 +98,8 @@ export const atualizarProduto = async(id, nome, img, preco, descricao, id_cat) =
     }
 };
 
+
+//eliminar
 export const eliminarProduto = async (id) => {
     try {
         // 1. verificar se o produto existe
