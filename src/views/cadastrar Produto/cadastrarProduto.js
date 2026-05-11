@@ -1,6 +1,6 @@
 
 
-/* ── STATE ── */
+/* ── produtos provisorios ── */
 let products = [
   { id: 1, name: "Kino Burger", category: "Almoço",       desc: "Hambúrguer artesanal com molho especial", price: 2500, img: "" },
   { id: 2, name: "Chef Especial", category: "Kino's do chef", desc: "Combinação exclusiva do nosso chef", price: 3200, img: "" },
@@ -83,13 +83,13 @@ const fCatDrop = document.getElementById("fCatDropdown");
 const fCatLbl  = document.getElementById("fCatLabel");
 setupSelect(fCatBox, fCatDrop, fCatLbl, () => fCatSelected, v => fCatSelected = v);
 
-/* ── EDIT FORM SELECT ── */
+/* ── selecionar categoria (editar) ── */
 const editCatBox  = document.getElementById("editCatBox");
 const editCatDrop = document.getElementById("editCatDropdown");
 const editCatLbl  = document.getElementById("editCatLabel");
 setupSelect(editCatBox, editCatDrop, editCatLbl, () => editCatSelected, v => editCatSelected = v);
 
-/* ── MAIN IMAGE UPLOAD ── */
+/* ── inserir imagem ── */
 document.getElementById("mainImgInput").addEventListener("change", function() {
   const file = this.files[0]; if (!file) return;
   const reader = new FileReader();
@@ -104,7 +104,7 @@ document.getElementById("mainImgInput").addEventListener("change", function() {
   reader.readAsDataURL(file);
 });
 
-/* ── ADD PRODUCT ── */
+/* ── adicionar produto ── */
 document.getElementById("btnAdd").addEventListener("click", () => {
   const name  = document.getElementById("fNome").value.trim();
   const desc  = document.getElementById("fDesc").value.trim();
@@ -150,7 +150,7 @@ function renderGrid() {
     card.className = "prod-card";
     card.dataset.id = p.id;
 
-    const imgSrc = p.img || `https://placehold.co/72x72/FDE8D4/F47B20?text=🍔`;
+    const imgSrc = p
 
     card.innerHTML = `
       <img class="prod-img" src="${imgSrc}" alt="${p.name}" onerror="this.src='https://placehold.co/72x72/FDE8D4/F47B20?text=🍔'"/>
@@ -169,8 +169,8 @@ function renderGrid() {
       <div style="position:relative;align-self:flex-start;">
         <button class="menu-btn" data-pid="${p.id}">•••</button>
         <div class="ctx-menu" id="ctx_${p.id}">
-          <button class="edit-btn" data-pid="${p.id}">✏️ Editar</button>
-          <button class="danger del-btn" data-pid="${p.id}">🗑️ Excluir</button>
+          <button class="edit-btn" data-pid="${p.id}">Editar</button>
+          <button class="danger del-btn" data-pid="${p.id}">Excluir</button>
         </div>
       </div>
     `;
@@ -221,7 +221,7 @@ function renderGrid() {
   });
 }
 
-/* ── EDIT MODAL ── */
+/* ── editar produto modal ── */
 function openEditModal(id) {
   const p = products.find(x => x.id === id);
   if (!p) return;
@@ -267,7 +267,7 @@ document.getElementById("editSave").addEventListener("click", () => {
   document.getElementById("editImgInput").value = "";
 });
 
-// edit image upload
+// editar produto modal - imagem upload
 document.getElementById("editImgInput").addEventListener("change", function() {
   const file = this.files[0]; if (!file) return;
   const reader = new FileReader();
@@ -281,7 +281,7 @@ document.getElementById("editImgInput").addEventListener("change", function() {
   reader.readAsDataURL(file);
 });
 
-/* ── DELETE MODAL ── */
+/* ── excluir produto modal ── */
 function openDelModal(id) {
   deletingId = id;
   document.getElementById("delOverlay").classList.add("visible");
@@ -298,7 +298,7 @@ document.getElementById("delConfirm").addEventListener("click", () => {
   deletingId = null;
 });
 
-/* ── CATEGORY MODAL ── */
+/* ── nova categoria modal ── */
 function openCatModal() {
   document.getElementById("newCatName").value = "";
   document.getElementById("catOverlay").classList.add("visible");
@@ -315,7 +315,7 @@ document.getElementById("catSave").addEventListener("click", () => {
   document.getElementById("catOverlay").classList.remove("visible");
 });
 
-/* ── CLOSE OVERLAYS ON BG CLICK ── */
+/* ── fechar overlays ao clicar no fundo ── */
 ["editOverlay","delOverlay","catOverlay"].forEach(id => {
   document.getElementById(id).addEventListener("click", function(e) {
     if (e.target === this) this.classList.remove("visible");
