@@ -1,5 +1,6 @@
 import express from "express";
 import * as service from "../service/service_produto.js";
+import  { permissaoAdmin} from '../middlewares/auth.js';
 
 const controller = express.Router();
 
@@ -15,7 +16,7 @@ controller.get("/listar", async (req, res)=>{
 });
 
 //rota para cadastrar produto
-controller.post("/cadastrar", async(req, res)=>{
+controller.post("/cadastrar",permissaoAdmin, async(req, res)=>{
     try{
         const { nome, img, preco, descricao, id_cat} = req.body;
         const id_user = req.user.id;
@@ -29,8 +30,8 @@ controller.post("/cadastrar", async(req, res)=>{
     }
 });
 
-//rota pra buscar prosuto
-controller.get("listar/:id", async(req, res)=>{
+//rota pra buscar produto
+controller.get("/listar/:id", async(req, res)=>{
     try{
         const {id} = req.params.id;
 
@@ -49,6 +50,54 @@ controller.get("listar/:id", async(req, res)=>{
         return res.status(200).json(produto);
     }catch(e){
         console.log(e);
-        return res.status(400).json({ menssagem:"Erro ao encontrar o produto" });
+        return res.status(404).json({ menssagem:"Erro ao encontrar o produto" });
     }
 })
+
+//rota atualizar produto
+controller.put("/atualizar/:id", permissaoAdmin, async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        // verifica o id
+        if (isNaN(id) || id <= 0) {
+            return res.status(400).json({ mensagem: "Id inválido" });
+        }
+
+        
+        const { nome, img, preco, deescricao, id_cat } = req.body;
+
+        const resultado = await service.atualizarProduto(
+            id, nome, img, preco, deescricao, id_cat
+        );
+
+        return res.status(200).json(resultado);
+    } catch (e) {
+        console.log(e);
+        return res.status(400).json({ mensagem: "erro ao atualizar o produto"});
+    }
+});
+
+//rota Eliminar produto
+
+controller.delete("/eliminar/;id", permissaoAdmin, async(req, res)=>{
+    try{
+        const id = req.params.id;
+
+        //verifica o id
+        if(isNaN(id) || id <= 0){
+            return res.status(400).json({mensagem: "id invalido"});
+        }
+
+        const eliminar = service.eliminarProduto(id);
+        return res.status(200).json(eliminar);
+
+    }catch(e){
+        console.log(e);
+        return res.status(400).json({mensagem: "erro ao eliminar o produto"});
+    }   
+
+
+})
+
+export default controller;

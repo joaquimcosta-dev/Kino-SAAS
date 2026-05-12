@@ -21,6 +21,8 @@ body {
 }
 /*Estilizando o main*/
 main {
+    max-width: 600px;
+  width: 300px;
   margin: 10px auto;
   display: flex;
   flex-direction: column;
@@ -29,6 +31,7 @@ main {
   background-color: bisque;
 }
 header h3{
+
     margin: 10px auto;
     color: rgb(218,105,21);
     font-size: 30px;
