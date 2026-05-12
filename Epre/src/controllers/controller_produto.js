@@ -1,5 +1,6 @@
 import express from "express";
 import * as service from "../service/service_produto.js";
+import  { permissaoAdmin} from '../middlewares/auth.js';
 
 const controller = express.Router();
 
@@ -15,7 +16,7 @@ controller.get("/listar", async (req, res)=>{
 });
 
 //rota para cadastrar produto
-controller.post("/cadastrar", async(req, res)=>{
+controller.post("/cadastrar",permissaoAdmin, async(req, res)=>{
     try{
         const { nome, img, preco, descricao, id_cat} = req.body;
         const id_user = req.user.id;
@@ -29,7 +30,7 @@ controller.post("/cadastrar", async(req, res)=>{
     }
 });
 
-//rota pra buscar prosuto
+//rota pra buscar produto
 controller.get("/listar/:id", async(req, res)=>{
     try{
         const {id} = req.params.id;
@@ -49,12 +50,12 @@ controller.get("/listar/:id", async(req, res)=>{
         return res.status(200).json(produto);
     }catch(e){
         console.log(e);
-        return res.status(400).json({ menssagem:"Erro ao encontrar o produto" });
+        return res.status(404).json({ menssagem:"Erro ao encontrar o produto" });
     }
 })
 
 //rota atualizar produto
-controller.put("/atualizar/:id", async (req, res) => {
+controller.put("/atualizar/:id", permissaoAdmin, async (req, res) => {
     try {
         const id = req.params.id;
 
@@ -79,7 +80,7 @@ controller.put("/atualizar/:id", async (req, res) => {
 
 //rota Eliminar produto
 
-controller.delete("/eliminar/;id", async(req, res)=>{
+controller.delete("/eliminar/;id", permissaoAdmin, async(req, res)=>{
     try{
         const id = req.params.id;
 
