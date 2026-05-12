@@ -98,3 +98,5 @@ controller.delete("/eliminar/;id", async(req, res)=>{
 
 
 })
+
+export default controller;

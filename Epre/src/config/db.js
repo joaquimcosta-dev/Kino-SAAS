@@ -16,6 +16,7 @@ console.log("conectado com sucesso");
 
 } catch (e) {
     console.log("Erro ao tentar conectar o banco: ",e);
+    console.log("");
     
 }
 
