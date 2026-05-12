@@ -30,7 +30,7 @@ controller.post("/cadastrar", async(req, res)=>{
 });
 
 //rota pra buscar prosuto
-controller.get("listar/:id", async(req, res)=>{
+controller.get("/listar/:id", async(req, res)=>{
     try{
         const {id} = req.params.id;
 
@@ -52,3 +52,27 @@ controller.get("listar/:id", async(req, res)=>{
         return res.status(400).json({ menssagem:"Erro ao encontrar o produto" });
     }
 })
+
+//rota atualizar produto
+controller.put("/atualizar/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        // 1. validar o ID
+        if (isNaN(id) || id <= 0) {
+            return res.status(400).json({ mensagem: "ID inválido" });
+        }
+
+        // 2. extrai só o que precisamos — ignora tudo o resto
+        const { nome, img, preco, deescricao, id_cat } = req.body;
+
+        const resultado = await service.atualizarProduto(
+            id, nome, img, preco, deescricao, id_cat
+        );
+
+        return res.status(200).json(resultado);
+    } catch (e) {
+        console.log(e);
+        return res.status(400).json({ mensagem: e.message });
+    }
+});
