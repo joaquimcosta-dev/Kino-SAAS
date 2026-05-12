@@ -58,12 +58,12 @@ controller.put("/atualizar/:id", async (req, res) => {
     try {
         const id = req.params.id;
 
-        // 1. validar o ID
+        // verifica o id
         if (isNaN(id) || id <= 0) {
-            return res.status(400).json({ mensagem: "ID inválido" });
+            return res.status(400).json({ mensagem: "Id inválido" });
         }
 
-        // 2. extrai só o que precisamos — ignora tudo o resto
+        
         const { nome, img, preco, deescricao, id_cat } = req.body;
 
         const resultado = await service.atualizarProduto(
@@ -73,6 +73,28 @@ controller.put("/atualizar/:id", async (req, res) => {
         return res.status(200).json(resultado);
     } catch (e) {
         console.log(e);
-        return res.status(400).json({ mensagem: e.message });
+        return res.status(400).json({ mensagem: "erro ao atualizar o produto"});
     }
 });
+
+//rota Eliminar produto
+
+controller.delete("/eliminar/;id", async(req, res)=>{
+    try{
+        const id = req.params.id;
+
+        //verifica o id
+        if(isNaN(id) || id <= 0){
+            return res.status(400).json({mensagem: "id invalido"});
+        }
+
+        const eliminar = service.eliminarProduto(id);
+        return res.status(200).json(eliminar);
+
+    }catch(e){
+        console.log(e);
+        return res.status(400).json({mensagem: "erro ao eliminar o produto"});
+    }   
+
+
+})
