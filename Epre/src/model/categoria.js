@@ -14,8 +14,16 @@ export const listar = async () => {
     return lista;
 };
 
+//funcao para buscar por id
+export const listarId = async (id) => {
+    const [buscado] = await db.query("select nome from  categoria where id_cat =?", [
+        id
+    ]);
+};
+
+
 //funcao para deletar
-export const deletar = async id => {
+export const deletar = async (id) => {
     const deletado = await db.query("delete from  categoria where id_cat =?", [
         id
     ]);
