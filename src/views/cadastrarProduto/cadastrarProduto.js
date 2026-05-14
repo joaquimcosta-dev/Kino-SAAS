@@ -17,6 +17,8 @@ let deletingId     = null;
 
 let mainImgData  = "";
 let editImgData  = "";
+const navBar = document.querySelector(".nav");
+const MENU_URL = "../../util/menu_admin.html";
 
 /* ── HELPERS ── */
 function toast(msg, type = "success") {
@@ -321,6 +323,24 @@ document.getElementById("catSave").addEventListener("click", () => {
     if (e.target === this) this.classList.remove("visible");
   });
 });
+
+//funcao que import o menu admin na pasta uitl
+const getMenuAdmin = async () => {
+    try {
+        const res = await fetch(MENU_URL);
+        if (res.ok) {
+            const re = await res.text();
+           // menu.innerHTML = re;
+           console.log(re)
+            return;
+        }
+        console.log("nao carregado");
+        return;
+    } catch (e) {
+        console.log("erro ao tentar pegar o menu");
+        return;
+    }
+};
 
 /* ── INIT ── */
 renderGrid();
