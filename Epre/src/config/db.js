@@ -1,21 +1,15 @@
 import mysql from 'mysql2/promise'
-let  db;
-
-try {
-db = mysql.createPool({
+const  db = mysql.createPool({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
     database: process.env.DB,
     waitForConnections:true,
-});
+})
 
+try {
+db.getConnection();
 console.log("conectado com sucesso");
-console.log(process.env.HOST);
-console.log(process.env.USER);
-console.log(process.env.PASSWORD);
-console.log(process.env.DB);
-console.log(process.env.SECRET_KEY);
 
 } catch (e) {
     console.log("Erro ao tentar conectar o banco: ",e);

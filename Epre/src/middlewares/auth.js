@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 //verificando o token
 export const auth=(req,res,next)=>{
-    const SECRET=process.env.SECRET_KEY;
+    const SECRET="202122elanoskill1999";
    const token=req.headers.authorization;
         if(!token){
            return res.status(400).json({message:"Faça login para continuar"});
