@@ -1,5 +1,4 @@
 import express from "express";
-import mysql from "mysql2";
 import router from "./src/router/privado.js";
 import publica from "./src/router/publica.js";
 import dotenv from "dotenv";

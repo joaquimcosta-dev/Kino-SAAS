@@ -4,7 +4,7 @@ export const auth=(req,res,next)=>{
     const SECRET="202122elanoskill1999";
    const token=req.headers.authorization;
         if(!token){
-            res.status(400).json({message:"Faça login para continuar"});
+           return res.status(400).json({message:"Faça login para continuar"});
         }
    
     try {
@@ -15,12 +15,16 @@ export const auth=(req,res,next)=>{
         next();
         
     } catch (e) {
-        res.status(500).json({message:"Acesso negado"})
+       return res.status(500).json({message:"Acesso negado"})
     }
 
 }
 
 export const permissaoAdmin=(req,res,next)=>{
+    if (!req.user) {
+        return res.status(500).json({message:"Usuário invalido, faça login"});
+        
+    }
     const {perfil}=req.user;
    
     
