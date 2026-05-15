@@ -1,8 +1,8 @@
 import express from "express";
 import * as service from "../service/service_produto.js";
 import { permissaoAdmin } from "../middlewares/auth.js";
-import { buscarCatId, listarId } from "../service/service_categoria.js";
-import { bucarUsuarioId} from "../service/service_user.js";
+import *as servicoCategoria from "../service/service_categoria.js";
+import { buscar_usuarioId} from "../service/service_user.js";
 
 const controller = express.Router();
 
@@ -24,13 +24,13 @@ controller.post("/cadastrar", permissaoAdmin, async (req, res) => {
     }
   try {
     //buscar categoria
-    const cat = await buscarCatId(id_cat);
+    const cat = await servicoCategoria.buscarCatId(id_cat);
     //verificar se a categoria existe
     if(!cat){
         return res.status(404).json({message:"Categoria não econtrado"});
     }
     //buscar usuario
-    const user = await buscarCatId(id_cat);
+    const user = await buscar_usuarioId(id_user);
     //verificar se usuario existe
     if(!user){
         return res.status(404).json({message:"usuario não econtrado"});
