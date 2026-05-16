@@ -3,23 +3,32 @@ import * as service from "../service/service_user.js";
 import {permissaoAdmin} from '../middlewares/auth.js'
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import *as serviceFuncionario from '../service/serviceFuncionario.js';
 
 const controller = express.Router();
 
 //rota para criar usuario
-controller.post("/cadastrar",async (req, res) => {
+controller.post("/cadastrar:id",async (req, res) => {
   // verificando se os campos enviados estao vazios
   if (!req.body.username || !req.body.senha || !req.body.perfil) {
     return res
       .status(400)
       .json({ maessage: "Deve preecher os campos obrigatorio" });
   }
+  //pegando o id do funcionário 
+  const id_fun =req.params.id;
   try {
+    //buscando funcionário no banco
+    const fun = await serviceFuncionario.buscarFuncicionarioId(id_fun);
+    if (!fun) {
+      return res.status(404).json({message:"Funcionário não encontrado"});
+      
+    }
     const { username, senha, perfil } = req.body;
     //verifcando se o usuario ja existe no banco
     const user = await service.autenticacao({ username });
     if (user) {
-      return res.status(501).json({ message: "Este usuario ja existe" });
+      return res.status(400).json({ message: "Este usuario ja existe" });
     }
     const senhaCripto = await bcrypt.hash(senha,10);
     const estado = true;
@@ -29,6 +38,7 @@ controller.post("/cadastrar",async (req, res) => {
       senhaCripto,
       perfil,
       estado,
+      id_fun
     });
     return res.status(201).json(novo);
   } catch (e) {

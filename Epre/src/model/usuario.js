@@ -1,8 +1,8 @@
 import db from './../config/db.js';
 // funcao com sql para criar novo usuario
 export const criarUsuario = async (data)=>{
-    const {username,senhaCripto,perfil,estado}= data;
-    const novo =await db.query("insert into usuario (username,senha,perfil,estado) values (?,?,?,?)",[username,senhaCripto,perfil,estado]);
+    const {username,senhaCripto,perfil,estado,id_fun}= data;
+    const novo =await db.query("insert into usuario (username,senha,perfil,estado,id_fun) values (?,?,?,?,?)",[username,senhaCripto,perfil,estado,id_fun]);
     return novo
 }
 // funcao com sql para fazer login
