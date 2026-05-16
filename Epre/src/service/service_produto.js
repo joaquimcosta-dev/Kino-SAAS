@@ -12,7 +12,7 @@ export const buscarProdutoId = async(id) => {
 };
 
 //criar
-export const cadastrarProduto = async(nome, img, preco, descricao, id_user, id_cat) =>{
+export const cadastrarProduto = async(nome, img, preco, descricao, quantidade, id_user, id_cat) =>{
         // validações
         if(!nome || !preco || !id_cat){
             throw new Error("Campos obrigatorios em falta")
@@ -29,12 +29,18 @@ export const cadastrarProduto = async(nome, img, preco, descricao, id_user, id_c
         if(nome.trim().length() < 3){
             throw new Error("Nome muito curto");
         }
+        if(isNaN(quantidade)){
+            throw new Error("Quantidade invalida");
+        }
+        if(quantidade < 0){
+            throw new Error("A quantidade deve ser maior ou igual a zero")
+        }
 
         //remover espaços no inicio e no fim 
         const remvEspNome = nome.trim();
 
         const [result] = await ProdutoModel.cadastrarProduto(
-            remvEspNome, img, preco, descricao, id_user, id_cat
+            remvEspNome, img, preco, descricao, quantidade, id_user, id_cat
         );
 
         return {id_prod: result.insertId, mensagem: "produto criado com sucesso"}
@@ -42,7 +48,7 @@ export const cadastrarProduto = async(nome, img, preco, descricao, id_user, id_c
 };
 
 //atualizar
-export const atualizarProduto = async(id, nome, img, preco, descricao, id_cat) =>{
+export const atualizarProduto = async(id, nome, img, preco, descricao, quantidade, id_cat) =>{
         // verificar se o produto existe
         const [rows] = await ProdutoModel.buscarProdutoId(id)
 
@@ -67,7 +73,7 @@ export const atualizarProduto = async(id, nome, img, preco, descricao, id_cat) =
             throw new Error("Nome muito curto");
         }
 
-        await ProdutoModel.atualizarProduto(id, nome.trim(), img, preco, descricao, id_cat);
+        await ProdutoModel.atualizarProduto(id, nome.trim(), img, preco, descricao, quantidade, id_cat);
 
         return {mensagem: "produto atualizado com sucesso"}
 };

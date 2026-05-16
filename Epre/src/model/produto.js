@@ -11,17 +11,17 @@ export const buscarProdutoId = (id)=>{
     );
 };
 //função criar produto pela db
-export const cadastrarProduto = (id_prod, nome, img, preco, descricao, id_user, id_cat) =>{
+export const cadastrarProduto = (id_prod, nome, img, preco, descricao, quantidade, id_user, id_cat) =>{
     return db.promise().query(
-        "INSERT INTO produto (id_prod, nome, img, preco, descricao, id_user, id_cat) VALUES (?, ?, ?, ?, ?, ?, ?)",
-        [id_prod, nome, img, preco, descricao, id_user, id_cat]
+        "INSERT INTO produto (id_prod, nome, img, preco, descricao, quantidade, id_user, id_cat) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        [id_prod, nome, img, preco, descricao, quantidade, id_user, id_cat]
     );
 }
 //função atualizar produto pela db
-export const atualizarProduto = (id, nome, img, preco, descricao, id_cat) =>{
+export const atualizarProduto = (id, nome, img, preco, descricao, quantidade, id_cat) =>{
     return db.promise().query(
-        "UPDATE produto SET nome=?, img=?, preco=?, descricao=?, id_cat=? WHERE id_prod=?",
-        [nome, img, preco, descricao, id_cat, id]
+        "UPDATE produto SET nome=?, img=?, preco=?, descricao=?, quantidade=?, id_cat=? WHERE id_prod=?",
+        [nome, img, preco, descricao, quantidade, id_cat, id]
     );
 }
 

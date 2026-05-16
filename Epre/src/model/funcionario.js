@@ -15,7 +15,7 @@ export const buscarFuncicionarioId=async(id)=>{
 
 // funcao com sql para eliminar funcionarios
 export const deletarUsuario = async (id)=>{
-    const eliminado]= await db.query("delete from funcionario where id_fun=?",[id]);
+    const eliminado = await db.query("delete from funcionario where id_fun=?",[id]);
     return eliminado;
 
 }
