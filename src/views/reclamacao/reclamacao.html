@@ -1,33 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-pt">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Kino - Reclamações</title>
-        <link rel="stylesheet" href="reclamacao_style.css">
+        <link rel="stylesheet" href="reclamacao_style.css" />
+        <link rel="stylesheet" href="../../util/load.css" />
         <link rel="stylesheet" href="../../style.css" />
-        
-        <link rel="icon" href="../../../public/kino.svg">
-      
+
+        <link rel="icon" href="../../../public/kino.svg" />
     </head>
     <body>
-
-
+      
         <div class="menu">
             <!--aqui esta sendo importada o menu-->
-            
+            aqui
         </div>
-
-
+<div class="loading">
+            <!-- aqui esta sendo importada o load-->
+        </div>
         <main>
             <h1>Reclamações</h1>
             <form id="complaintForm">
-                <input type="text" id="nome" required placeholder="Nome">
+                <input type="text" id="nome" required placeholder="Nome" />
 
-                <input type="tel" id="telefone" required placeholder="Telefone" maxlength="9">
+                <input
+                    type="tel"
+                    id="telefone"
+                    required
+                    placeholder="Telefone"
+                    maxlength="9"
+                />
 
                 <select id="selecaoReclamacao" required>
-                    <option value="" disabled selected>A minha minha entrega demorou a chegar</option>
+                    <option value="" disabled selected>
+                        Motivo
+                    </option>
+                    <option value="A minha minha entrega demorou a chegar">A minha minha entrega demorou a chegar</option>
                     <option value="atendimento">Mau atendimento</option>
                     <option value="qualidade">Má qualidade nos produtos</option>
                     <option value="entrega">Demora na entrega</option>
@@ -35,7 +44,11 @@
                 </select>
 
                 <!-- Removida a div extra aqui para o CSS pílula funcionar melhor -->
-                <textarea id="message" placeholder="Digite a sua reclamação" required></textarea>
+                <textarea
+                    id="message"
+                    placeholder="Digite a sua reclamação"
+                    required
+                ></textarea>
 
                 <div class="button-wrapper">
                     <button type="submit" id="submitBtn">enviar</button>
@@ -48,22 +61,42 @@
                 <p>© Kino 2026</p>
                 <p>Todos os direitos reservados.</p>
             </div>
-            
+
             <div class="footer-right">
                 <span>siga-nos</span>
                 <div class="social-icons">
                     <a href="https://wa.me/938628116">
-                        <img src="../../icons/whatsapp-circle.svg" alt="whatsapp" width="25px" height="25px" />
+                        <img
+                            src="../../icons/whatsapp-circle.svg"
+                            alt="whatsapp"
+                            width="25px"
+                            height="25px"
+                        />
                     </a>
                     <a href="https://www.instagram.com/elano.skill/">
-                        <img src="../../icons/instagram-circle.svg" alt="instagram" width="25px" height="25px" />
+                        <img
+                            src="../../icons/instagram-circle.svg"
+                            alt="instagram"
+                            width="25px"
+                            height="25px"
+                        />
                     </a>
                     <a href="https://www.facebook.com/elano.skill/">
-                        <img src="../../icons/facebook.svg" alt="facebook" width="25px" height="25px" />
+                        <img
+                            src="../../icons/facebook.svg"
+                            alt="facebook"
+                            width="25px"
+                            height="25px"
+                        />
                     </a>
                 </div>
             </div>
         </footer>
+        <div class="not_reclamacao">
+        <!-- aqui vai estar a notificao-->
+      </div>
+
+        
         <script src="reclamacao.js"></script>
     </body>
 </html>

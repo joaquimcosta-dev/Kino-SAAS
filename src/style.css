@@ -2,967 +2,1018 @@
    LOCAL FONTS
    ========================================= */
 @font-face {
-    font-family: 'Inter';
-    src: url('fonts/inter-variable.woff2') format('woff2');
-    font-weight: 100 900;
-    font-display: swap;
+  font-family: "Inter";
+  src: url("fonts/inter-variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Lobster';
-    src: url('fonts/lobster-regular.woff2') format('woff2');
-    font-weight: normal;
-    font-display: swap;
+  font-family: "Lobster";
+  src: url("fonts/lobster-regular.woff2") format("woff2");
+  font-weight: normal;
+  font-display: swap;
 }
 
 /* =========================================
    VARIABLES & GLOBAL CSS
    ========================================= */
 :root {
-    --primary-color: #f26f21;
-    --primary-hover: #e05e10;
-    --text-dark: #333333;
-    --text-muted: #666666;
-    --text-light: #ffffff;
-    --bg-light: #fefefe;
-    --bg-white: #ffffff;
-    --input-bg: #fff1e8;
-    --border-radius: 16px;
-    --font-main: 'Inter', sans-serif;
-    --font-heading: 'Lobster', cursive;
-    --transition: all 0.3s ease;
-    --shadow-sm: 0 2px 10px rgba(0,0,0,0.05);
-    --shadow-md: 0 4px 15px rgba(0,0,0,0.1);
+  --primary-color: #f26f21;
+  --primary-hover: #e05e10;
+  --text-dark: #333333;
+  --text-muted: #666666;
+  --text-light: #ffffff;
+  --bg-light: #fefefe;
+  --bg-white: #ffffff;
+  --input-bg: #fff1e8;
+  --border-radius: 16px;
+  --font-main: "Inter", sans-serif;
+  --font-heading: "Lobster", cursive;
+  --transition: all 0.3s ease;
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: var(--font-main);
-    background-color: var(--bg-light);
-    color: var(--text-dark);
-    line-height: 1.6;
-    overflow-x: hidden;
+  font-family: var(--font-main);
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
-    transition: var(--transition);
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
 }
 
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 button {
-    cursor: pointer;
-    border: none;
-    background: none;
+  cursor: pointer;
+  border: none;
+  background: none;
 }
 
 /* =========================================
    HEADER (Anatomia Original)
    ========================================= */
 .header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 4%; /* Margens zeradas no topo/fundo forçam o header a encolher ao máximo até à extremidade da imagem */
-    background-color: var(--bg-white);
-    box-shadow: var(--shadow-sm);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4%; /* Margens zeradas no topo/fundo forçam o header a encolher ao máximo até à extremidade da imagem */
+  background-color: var(--bg-white);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .logo {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .logo img {
-    height: 115px; 
-    width: auto;
-    object-fit: contain;
-    margin: -15px 0; /* Esta margem negativa mágica faz o Logo sobrepor-se delicadamente e o Header perde 30 pixels na sua altura total! */
-    /* Removido o hover scale para evitar o salto abrupto que criava o corte na margem */
+  height: 115px;
+  width: auto;
+  object-fit: contain;
+  margin: -15px 0; /* Esta margem negativa mágica faz o Logo sobrepor-se delicadamente e o Header perde 30 pixels na sua altura total! */
+  /* Removido o hover scale para evitar o salto abrupto que criava o corte na margem */
 }
 
 .nav {
-    flex: 1;
-    display: flex;
-    justify-content: center;
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .Cabeçalho-menu {
-    display: none; 
+  display: none;
 }
 
 .menu {
-    display: flex;
-    gap: 35px;
-    font-weight: 600;
-    color: var(--primary-color);
+  display: flex;
+  gap: 35px;
+  font-weight: 600;
+  color: var(--primary-color);
 }
 
 .menu > li > a {
-    color: var(--primary-color);
-    font-size: 1.1rem;
-    position: relative;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  position: relative;
 }
 
 .menu > li > a:hover::after,
 .menu > li:first-child > a::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--primary-color);
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-color);
 }
 
-#submenu-categoria, .submenus {
-    display: none;
-    position: absolute;
-    background: white;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: var(--shadow-md);
-    flex-direction: column;
-    gap: 10px;
-    z-index: 10;
+#submenu-categoria,
+.submenus {
+  display: none;
+  position: absolute;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  flex-direction: column;
+  gap: 10px;
+  z-index: 10;
 }
 
 .menu > li:hover #submenu-categoria,
 .menu > li:hover .submenus {
-    display: flex;
+  display: flex;
 }
 
-#submenu-categoria a, .submenus a {
-    font-weight: normal;
-    font-size: 0.95rem;
-    white-space: nowrap;
+#submenu-categoria a,
+.submenus a {
+  font-weight: normal;
+  font-size: 0.95rem;
+  white-space: nowrap;
 }
 
 /* BOTÕES DE CONTA E CARRINHO MELHORADOS (TEMA DO SISTEMA) */
 .conta {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .conta form {
-    display: flex;
-    align-items: center;
-    background-color: var(--input-bg);
-    border-radius: 30px;
-    padding: 5px 15px;
-    border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  background-color: var(--input-bg);
+  border-radius: 30px;
+  padding: 5px 15px;
+  border: 1px solid transparent;
 }
 
 .conta form input {
-    border: none;
-    background: transparent;
-    padding: 8px 5px;
-    outline: none;
-    width: 150px;
-    font-family: inherit;
-    color: var(--primary-color);
+  border: none;
+  background: transparent;
+  padding: 8px 5px;
+  outline: none;
+  width: 150px;
+  font-family: inherit;
+  color: var(--primary-color);
 }
 
 .conta form input::placeholder {
-    color: #e49e78;
+  color: #e49e78;
 }
 
 .conta-icones {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 1.5px solid var(--primary-color);
-    transition: var(--transition);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid var(--primary-color);
+  transition: var(--transition);
 }
 
 .conta-icones img {
-    width: 22px;
-    height: 22px;
-    transition: var(--transition);
-    /* Força os SVG locais (se pretos/brancos) a ficarem no tom de laranja Kino via matriz */
-    filter: invert(53%) sepia(87%) saturate(1478%) hue-rotate(345deg) brightness(98%) contrast(92%);
+  width: 22px;
+  height: 22px;
+  transition: var(--transition);
+  /* Força os SVG locais (se pretos/brancos) a ficarem no tom de laranja Kino via matriz */
+  filter: invert(53%) sepia(87%) saturate(1478%) hue-rotate(345deg)
+    brightness(98%) contrast(92%);
 }
 
 .conta-icones:hover {
-    background-color: var(--primary-hover);
-    border-color: var(--primary-hover);
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 
 .conta-icones:hover img {
-    /* Passando para branco puro num hover top */
-    filter: brightness(0) invert(1);
+  /* Passando para branco puro num hover top */
+  filter: brightness(0) invert(1);
 }
 
 .cart-container {
-    position: relative;
-    display: flex;
-    align-items: center;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .cart-badge {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    background-color: #e63946; /* Vermelho alerta premium */
-    color: white;
-    font-size: 0.75rem;
-    font-weight: bold;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    border: 2px solid var(--bg-white);
-    pointer-events: none;
-    z-index: 5;
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: #e63946; /* Vermelho alerta premium */
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 2px solid var(--bg-white);
+  pointer-events: none;
+  z-index: 5;
 }
 
 #iconMenu {
-    display: none;
+  display: none;
 }
 
 /* =========================================
    HERO BANNER ANIMADO
    ========================================= */
 @keyframes heroSlides {
-    0%, 20% { background-image: url('img/hero1.jpg'); } /* Imagem Delivery */
-    25%, 45% { background-image: url('img/hero2.jpg'); } /* Hambúrguer Premium */
-    50%, 70% { background-image: url('img/hero3.jpg'); } /* Comida Mista */
-    75%, 95% { background-image: url('img/hero4.jpg'); } /* Burger e Fritas Delivery */
-    100% { background-image: url('img/hero1.jpg'); }
+  0%,
+  20% {
+    background-image: url("img/hero1.jpg");
+  } /* Imagem Delivery */
+  25%,
+  45% {
+    background-image: url("img/hero2.jpg");
+  } /* Hambúrguer Premium */
+  50%,
+  70% {
+    background-image: url("img/hero3.jpg");
+  } /* Comida Mista */
+  75%,
+  95% {
+    background-image: url("img/hero4.jpg");
+  } /* Burger e Fritas Delivery */
+  100% {
+    background-image: url("img/hero1.jpg");
+  }
 }
 
 .conteinnerBanner {
-    position: relative;
-    width: 100%;
-    height: 400px; /* BANNER REDUZIDO CONFORME PEDIDO */
-    background-size: cover;
-    background-position: center;
-    background-color: var(--primary-color);
-    animation: heroSlides 16s infinite;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 6%;
-    align-items: center;
-    overflow: hidden;
-    transition: background-image 1s ease-in-out;
+  position: relative;
+  width: 100%;
+  height: 400px; /* BANNER REDUZIDO CONFORME PEDIDO */
+  background-size: cover;
+  background-position: center;
+  background-color: var(--primary-color);
+  animation: heroSlides 16s infinite;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 6%;
+  align-items: center;
+  overflow: hidden;
+  transition: background-image 1s ease-in-out;
 }
 
 .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, rgba(230,80,0,0.85) 0%, rgba(230,80,0,0.5) 45%, rgba(0,0,0,0) 100%);
-    z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(230, 80, 0, 0.85) 0%,
+    rgba(230, 80, 0, 0.5) 45%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 1;
 }
 
 .conteinnerBanner > p {
-    position: relative;
-    z-index: 2;
-    font-family: var(--font-heading);
-    font-size: 5.5rem;
-    color: var(--text-light);
-    line-height: 1.1;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.4);
-    max-width: 600px;
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-heading);
+  font-size: 5.5rem;
+  color: var(--text-light);
+  line-height: 1.1;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+  max-width: 600px;
 }
 
 /* REDES SOCIAIS POSICIONADAS NUM LUGAR MELHOR E COM A COR DO TEMA */
 .redes {
-    position: absolute;
-    z-index: 2;
-    bottom: 30px;
-    right: 30px;
+  position: absolute;
+  z-index: 2;
+  bottom: 30px;
+  right: 30px;
 }
 
 .redeSocial {
-    display: flex;
-    gap: 15px;
-    background-color: var(--primary-color); /* Fundo com tema do sistema */
-    padding: 10px 15px;
-    border-radius: 30px;
-    box-shadow: var(--shadow-md);
+  display: flex;
+  gap: 15px;
+  background-color: var(--primary-color); /* Fundo com tema do sistema */
+  padding: 10px 15px;
+  border-radius: 30px;
+  box-shadow: var(--shadow-md);
 }
 
 .redeSocial a img {
-    width: 25px;
-    height: 25px;
-    transition: var(--transition);
-    filter: brightness(0) invert(1); /* Força a cor dos svg base a ficarem brancos */
+  width: 25px;
+  height: 25px;
+  transition: var(--transition);
+  filter: brightness(0) invert(1); /* Força a cor dos svg base a ficarem brancos */
 }
 
 .redeSocial a:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .hero-carousel-dots {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-    z-index: 2;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
 }
 
 .dot {
-    width: 12px;
-    height: 12px;
-    background-color: rgba(255, 255, 255, 0.4);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: var(--transition);
+  width: 12px;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
 .dot.active {
-    background-color: var(--primary-color);
-    width: 30px;
-    border-radius: 10px;
+  background-color: var(--primary-color);
+  width: 30px;
+  border-radius: 10px;
 }
 
 /* =========================================
    CATEGORIAS (Centralizadas com Zoom Suave)
    ========================================= */
 .categorias {
-    padding: 40px 6%;
+  padding: 40px 6%;
 }
 
 .categorias-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
 }
 
 .categorias-header h3 {
-    font-family: var(--font-heading);
-    font-size: 2.2rem;
-    color: var(--primary-color);
-    letter-spacing: 1px;
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  color: var(--primary-color);
+  letter-spacing: 1px;
 }
 
 .categorias-header a {
-    color: var(--primary-color);
-    font-weight: 500;
-    font-size: 1rem;
+  color: var(--primary-color);
+  font-weight: 500;
+  font-size: 1rem;
 }
 
 .sessao {
-    display: flex;
-    gap: 20px;
-    padding-bottom: 25px;
-    /* Alterações para centralizar no mobile/desktop */
-    justify-content: center;
-    flex-wrap: wrap; 
+  display: flex;
+  gap: 20px;
+  padding-bottom: 25px;
+  /* Alterações para centralizar no mobile/desktop */
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .categoria-card {
-    position: relative;
-    min-width: 180px;
-    height: 200px;
-    border-radius: var(--border-radius);
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding: 15px;
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
-    flex-shrink: 0;
+  position: relative;
+  min-width: 180px;
+  height: 200px;
+  border-radius: var(--border-radius);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 15px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition:
+    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.4s ease;
+  flex-shrink: 0;
 }
 
 .categoria-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 60%);
-    z-index: 1;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0) 60%
+  );
+  z-index: 1;
 }
 
 /* Efeito Zoom Suave para Frente */
 .categoria-card:hover {
-    transform: scale(1.08) translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    z-index: 5;
+  transform: scale(1.08) translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  z-index: 5;
 }
 
 .categoria-title {
-    position: relative;
-    z-index: 2;
-    color: var(--text-light);
-    font-family: var(--font-heading);
-    font-size: 1.4rem;
-    text-align: center;
-    letter-spacing: 0.5px;
+  position: relative;
+  z-index: 2;
+  color: var(--text-light);
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  text-align: center;
+  letter-spacing: 0.5px;
 }
 
 .bookmark-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: var(--bg-white);
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 3;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    transition: var(--transition);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: var(--bg-white);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: var(--transition);
 }
 
 .bookmark-btn:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .bookmark-btn img {
-    width: 18px;
-    height: 18px;
+  width: 18px;
+  height: 18px;
 }
 
 /* =========================================
    KINO'S DO CHEF (Cartões estilo Imagem Base)
    ========================================= */
 .pratos-chef {
-    padding: 0 6% 40px 6%;
+  padding: 0 6% 40px 6%;
 }
 
 .pratos-chef header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
 }
 
 .pratos-chef h4 {
-    font-family: var(--font-heading);
-    font-size: 2.2rem;
-    color: var(--primary-color);
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  color: var(--primary-color);
 }
 
 .pratos-chef nav ul {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  gap: 20px;
 }
 
 .pratos-chef nav a {
-    color: var(--text-muted);
-    font-weight: 500;
-    font-size: 1.1rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 1.1rem;
 }
-.pratos-chef nav a.active, .pratos-chef nav a:hover {
-    color: var(--primary-color);
+.pratos-chef nav a.active,
+.pratos-chef nav a:hover {
+  color: var(--primary-color);
 }
 
 .pratos {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
 }
 
 .prato-card {
-    position: relative;
-    height: 250px;
-    border-radius: 20px;
-    background-size: cover;
-    background-position: center;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  height: 250px;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
 }
 
 .prato-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  pointer-events: none;
 }
 
 .prato-card:hover {
-    transform: scale(1.03);
-    box-shadow: var(--shadow-md);
+  transform: scale(1.03);
+  box-shadow: var(--shadow-md);
 }
 
 .prato-price {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: rgba(255, 255, 255, 0.9);
-    color: var(--primary-color);
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    z-index: 2;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--primary-color);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  z-index: 2;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .prato-like {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(255, 255, 255, 0.9);
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.prato-like img { width: 20px; height: 20px; }
+.prato-like img {
+  width: 20px;
+  height: 20px;
+}
 
-.prato-like.disabled { background: rgba(255, 255, 255, 0.5); }
+.prato-like.disabled {
+  background: rgba(255, 255, 255, 0.5);
+}
 
 .prato-info {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-    display: flex;
-    justify-content: space-between; /* Título à esquerda, botões à direita */
-    align-items: center;
-    z-index: 2;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between; /* Título à esquerda, botões à direita */
+  align-items: center;
+  z-index: 2;
 }
 
 .prato-info h5 {
-    color: white;
-    font-size: 1.4rem;
-    font-family: var(--font-main);
-    font-weight: 700;
+  color: white;
+  font-size: 1.4rem;
+  font-family: var(--font-main);
+  font-weight: 700;
 }
 
 .prato-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Espaço entre o botão Detalhes e Carrinho */
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Espaço entre o botão Detalhes e Carrinho */
 }
 
 /* Novo botão link "Detalhes" */
 .btn-details {
-    background-color: transparent;
-    color: white; /* Cor brilhante para aparecer */
-    font-size: 0.95rem;
-    font-weight: 600;
-    text-shadow: 0px 2px 4px rgba(0,0,0,0.5); /* Sombra para o fazer destacar na imagem caso a foto seja clara */
-    transition: var(--transition);
+  background-color: transparent;
+  color: white; /* Cor brilhante para aparecer */
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para o fazer destacar na imagem caso a foto seja clara */
+  transition: var(--transition);
 }
 
 .btn-details:hover {
-    color: var(--primary-color);
-    text-decoration: underline;
+  color: var(--primary-color);
+  text-decoration: underline;
 }
 
 /* Redução do botão de add para apenas o ícone circular (+) */
 .btn-add-cart {
-    background-color: var(--primary-color);
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    transition: var(--transition);
+  background-color: var(--primary-color);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: var(--transition);
 }
 
 .btn-add-cart img {
-    width: 22px;
-    height: 22px;
+  width: 22px;
+  height: 22px;
 }
 
 .btn-add-cart:hover {
-    background-color: var(--primary-hover);
-    transform: scale(1.1);
+  background-color: var(--primary-hover);
+  transform: scale(1.1);
 }
 
 /* =========================================
    PEDIR KINO
    ========================================= */
 .pedirKino {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 60px 6%;
-    padding: 0;
-    gap: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 60px 6%;
+  padding: 0;
+  gap: 40px;
 }
 
 .pedirKino > div:first-child {
-    flex: 1;
-    padding: 30px;
+  flex: 1;
+  padding: 30px;
 }
 
 .pedirKino p {
-    font-size: 3.5rem; /* Ajustado um pouco para encaixar melhor ao lado de imagens completas */
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 25px;
-    line-height: 1.1;
-    max-width: 500px;
+  font-size: 3.5rem; /* Ajustado um pouco para encaixar melhor ao lado de imagens completas */
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 25px;
+  line-height: 1.1;
+  max-width: 500px;
 }
 
 .pedirKino button {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 15px 45px;
-    border-radius: 30px;
-    font-weight: bold;
-    font-size: 1.2rem;
-    transition: var(--transition);
+  background-color: var(--primary-color);
+  color: white;
+  padding: 15px 45px;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  transition: var(--transition);
 }
 
 .pedirKino button:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-2px);
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
 }
 
 .pedirKino > div:last-child {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .img {
-    max-width: 100%;
-    width: 450px; /* Largura controlada */
-    height: auto; /* Altura adapta-se à proporção original da imagem */
-    border-radius: 20px;
-    object-fit: contain; /* Não corta a imagem (sem croppping) */
-    display: block;
+  max-width: 100%;
+  width: 450px; /* Largura controlada */
+  height: auto; /* Altura adapta-se à proporção original da imagem */
+  border-radius: 20px;
+  object-fit: contain; /* Não corta a imagem (sem croppping) */
+  display: block;
 }
 
 /* =========================================
    FOOTER INFORMAÇÕES
    ========================================= */
 aside {
-    display: flex;
-    justify-content: flex-start;
-    gap: 40px;
-    flex-wrap: wrap;
-    padding: 60px 6%;
-    background-color: #f9f9f9;
-    color: #444;
-    border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding: 60px 6%;
+  background-color: #f9f9f9;
+  color: #444;
+  border-top: 1px solid #eee;
 }
 
 .col-footer {
-    display: flex;
-    flex-direction: column;
-    min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
 }
 
 .col-footer h3 {
-    color: #222;
-    margin-bottom: 20px;
-    font-size: 1.1rem;
+  color: #222;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
 }
 
 .col-footer a {
-    color: #666;
-    margin-bottom: 12px;
-    font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
 }
 
 .col-footer a:hover {
-    color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 footer {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 20px 6%;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 20px 6%;
+  width: 100%;
 }
 
 .direitos {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .sociais {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .direitos p {
-    font-size: 0.9rem;
+  font-size: 0.9rem;
 }
 
 /* =========================================
    RESPONSIVO / MOBILE
    ========================================= */
 @media (max-width: 900px) {
-    .nav {
-        display: none;
-    }
-    #iconMenu {
-        display: block;
-    }
-    .conta form {
-        display: none;
-    }
-    .conteinnerBanner > p {
-        font-size: 4rem;
-    }
-    .conteinnerBanner {
-        height: 320px;
-    }
-    .pedirKino {
-        flex-direction: column;
-        text-align: center;
-        gap: 30px;
-    }
-    .pedirKino p {
-        font-size: 3rem;
-    }
-    .img {
-        max-width: 100%;
-        border-radius: 20px;
-        height: auto;
-    }
-    .pratos-chef header {
-        flex-direction: column;
-        gap: 15px;
-        align-items: flex-start;
-    }
+  .nav {
+    display: none;
+  }
+  #iconMenu {
+    display: block;
+  }
+  .conta form {
+    display: none;
+  }
+  .conteinnerBanner > p {
+    font-size: 4rem;
+  }
+  .conteinnerBanner {
+    height: 320px;
+  }
+  .pedirKino {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+  .pedirKino p {
+    font-size: 3rem;
+  }
+  .img {
+    max-width: 100%;
+    border-radius: 20px;
+    height: auto;
+  }
+  .pratos-chef header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
 }
 
 @media (max-width: 600px) {
-    .header {
-        padding: 15px 5%;
-    }
-    .logo img {
-        height: 120px; /* Aumentado brutalmente no Mobile */
-    }
-    .conteinnerBanner {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        height: 350px;
-        padding-top: 20px;
-    }
-    .conteinnerBanner > p {
-        font-size: 3.5rem;
-    }
-    .redes {
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        height: auto;
-    }
-    .categoria-card {
-        min-width: 140px;
-        height: 160px;
-    }
-    .categoria-title {
-        font-size: 1.2rem;
-    }
-    aside {
-        gap: 30px;
-    }
-    .direitos {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-    }
+  .header {
+    padding: 15px 5%;
+  }
+  .logo img {
+    height: 120px; /* Aumentado brutalmente no Mobile */
+  }
+  .conteinnerBanner {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 350px;
+    padding-top: 20px;
+  }
+  .conteinnerBanner > p {
+    font-size: 3.5rem;
+  }
+  .redes {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    height: auto;
+  }
+  .categoria-card {
+    min-width: 140px;
+    height: 160px;
+  }
+  .categoria-title {
+    font-size: 1.2rem;
+  }
+  aside {
+    gap: 30px;
+  }
+  .direitos {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
 }
 
 /* Estilizacao da div pesquisar kino*/
-.pesquisar_kino{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: center;
-    padding: 5px;
-    margin: 2px 0;
+.pesquisar_kino {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  padding: 5px;
+  margin: 2px 0;
 }
 /*Estlizando o formulario pesquisar kino*/
-.form_pesquisar{
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: whitesmoke;
-    padding: 10px;
-
+.form_pesquisar {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+  padding: 10px;
 }
-.form_pesquisar input{
-    height: 35px;
-    width: 300px;
-    margin: 2px 5px;
-    padding: 10px;
-    border:  1px orangered solid;
-    background-color: rgb(219, 205, 179);
-    border-radius: 50px;
+.form_pesquisar input {
+  height: 35px;
+  width: 300px;
+  margin: 2px 5px;
+  padding: 10px;
+  border: 1px orangered solid;
+  background-color: rgb(219, 205, 179);
+  border-radius: 50px;
 }
-.form_pesquisar button{
-     height: 35px;
-     width: 80px;
-     background-color: orangered;
-     padding: 10px;
-     border-radius: 10px;
-
+.form_pesquisar button {
+  height: 35px;
+  width: 80px;
+  background-color: orangered;
+  padding: 10px;
+  border-radius: 10px;
 }
 /*Estilizacao da div resultado*/
-.result_pesquisa{
-    width: 100%;
-    display: flex;
-    height: 300px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 30px 20px;
-    scrollbar-width: auto;
-    overflow: auto;
-   
-  
-
+.result_pesquisa {
+  width: 100%;
+  display: flex;
+  height: 300px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  scrollbar-width: auto;
+  overflow: auto;
 }
 
 /*Estilizacao do modal carrinho*/
-.modal_carrinho{
-position:fixed;
-top: 0;
-right: 0;
-left: 0;
-bottom: 0;
-z-index: 1000;
-background-color:rgba(0, 0, 0, 0.50);
-display: flex;
- margin-top:150vh ;
-justify-content: center;
-align-items: center;
-transition: margin-top 2s ease-in-out;
+.modal_carrinho {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  margin-top: 150vh;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    margin-top 2s ease-in-out,
+    opacity 1s ease-in-out,
+    visibility 0.5s ease-in-out;
 }
 /*class para mostrae o modal pedidos*/
-.mostrar{
-    margin-top:-10vh ;
-   
+.mostrar {
+  margin-top: -10vh;
+  opacity: 1;
+  visibility: visible;
 }
-.carrinho{
-    width: 95%;
-    background-color: #fff;
-    margin: 20px;
-    padding: 20px;
-    border-radius: 10px;
-    position: relative;
+.carrinho {
+  width: 95%;
+  background-color: #fff;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 /*botao fechar modal*/
-#fechar_modal_carrinho{
-    position: absolute;
-    width: 35px;
-    height: 35px;
-    border-radius: 50px;
-    color: orangered;
-    padding: 10px;
-    border:  1px orangered solid;
-    right: 0%;
-    top: 0;
-    &:hover{
-        background-color: rgba(255, 68, 0, 0.459);
-        color: #000;
-        width: 40px;
-    height:40px;
-    border:  1px #000 solid;
-    }
+#fechar_modal_carrinho {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  border-radius: 50px;
+  color: orangered;
+  padding: 10px;
+  border: 1px orangered solid;
+  right: 0%;
+  top: 0;
+  &:hover {
+    background-color: rgba(255, 68, 0, 0.459);
+    color: #000;
+    width: 40px;
+    height: 40px;
+    border: 1px #000 solid;
+  }
 }
 /*header do conteinner modal pedido ou carrinho*/
-.carrinho header{
-    text-align: center;
-    margin: 2px 0;
-    font-size: 20px;
+.carrinho header {
+  text-align: center;
+  margin: 2px 0;
+  font-size: 20px;
 }
 /*formulario do pedido carrinho*/
-#form_carrinho{
-    display: flex;
-    flex-direction: column;
+#form_carrinho {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
 }
 /*inputs do formulario carrinho*/
-#form_carrinho input{
-    height: 40px;
-    margin: 2px 0px;
-    border: 1px orangered solid;
-    border-radius: 50px;
-    padding: 10px;
-    background-color: rgba(255, 68, 0, 0.185);
+#form_carrinho input {
+  width: 600px;
+  min-width: 300px;
+  height: 40px;
+  margin: 2px auto;
+  border: 1px orangered solid;
+  border-radius: 50px;
+  padding: 10px;
+  background-color: rgba(255, 68, 0, 0.185);
 }
 /*tabela do formulario pedido*/
-#form_carrinho table{
-   border-collapse: collapse;
-   font-family: 'segoe UI', sans-serif;
-   font-size: 14px;
-   overflow: hidden;
-   margin: 2px 0px;
+#form_carrinho table {
+  min-width: 600px;
+  width: 300px;
+  border-collapse: collapse;
+  font-family: "segoe UI", sans-serif;
+  font-size: 14px;
+  overflow: hidden;
+  margin: 2px auto;
 }
 
-/*estilizando a linhas da ttabelas pedidos*/
-table thead{
-    
-    background-color:#f8f9fa;
+/*estilizando a linhas da tabelas pedidos*/
+table thead {
+  background-color: #f8f9fa;
 }
 /*estilizando a colunas da tabelas pedidos*/
-table th{
-    padding: 12px 16px;
-    text-align: left;
-    font-weight: 600;
-    color: #495057;
-    border-bottom: 2px solid #dee2e6;
-    
+table th {
+  max-padding: 12px 16px;
+  padding: 4px 8px;
+  text-align: left;
+  font-weight: 600;
+  color: #495057;
+  border-bottom: 2px solid #dee2e6;
 }
 /*estilizando a colunas da tabelas pedidos*/
-table td{
-    padding: 12px 16px;
-    color: #212529;
-    border-bottom: 1px solid #e9ecef;
-    
+table td {
+  max-padding: 12px 16px;
+  padding: 4px 8px;
+  color: #212529;
+  border-bottom: 1px solid #e9ecef;
 }
 /*btn eviar pedido*/
-#btn_pedido{
-    height: 40px;
-    width: 100%;
-    background-color: orangered;
-    margin: 5px auto;
-    border-radius: 50px;
-    padding: 10px;
-    
+#btn_pedido {
+  height: 40px;
+  max-width: 400px;
+  width: 300px;
+  background-color: orangered;
+  margin: 5px auto;
+  border-radius: 10px;
+  padding: 10px;
+  color: #fff;
+  font-size: 16px;
 }
-

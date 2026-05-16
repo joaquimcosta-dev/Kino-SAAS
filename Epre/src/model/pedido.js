@@ -8,10 +8,11 @@ export const criar_pedido= async(data)=>{
 
 // funcao com sql para buscar pedido id
 export const buscarFPrdidoId=async(id)=>{
-    const encontrado= await db.query("select *from pedido where id_ped=?",[id]);
+    const [encontrado]= await db.query("select *from pedido where id_ped=?",[id]);
     return encontrado[0];
 
 }
+
 
 // funcao com sql para eliminar pedido
 export const deletarPedido = async (id)=>{

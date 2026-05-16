@@ -1,0 +1,387 @@
+/* =========================================
+   ESTILOS DA PÁGINA DE PEDIDOS
+   ========================================= */
+
+/* Layout e Container Principal */
+.container-pedidos {
+    padding: 130px 6% 40px 6%;
+    min-height: 100vh;
+}
+
+
+
+/* Título da Seção e Caixa de Pesquisa */
+.cabecalho-secao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.titulo-pagina {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    color: var(--primary-color);
+}
+
+.caixa-pesquisa {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-white);
+    border: 1px solid var(--primary-color);
+    border-radius: 30px;
+    padding: 5px 20px;
+    width: 300px;
+}
+
+.caixa-pesquisa input {
+    border: none;
+    background: transparent;
+    padding: 8px 0;
+    outline: none;
+    width: 100%;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.caixa-pesquisa input::placeholder {
+    color: #e49e78;
+}
+
+.botao-pesquisar img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Filtros de Abas e Histórico */
+.filtros-pedidos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.abas {
+    display: flex;
+    gap: 20px;
+}
+
+.botao-aba {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding-bottom: 5px;
+    position: relative;
+    cursor: pointer;
+}
+
+.botao-aba.ativa {
+    color: var(--primary-color);
+}
+
+.botao-aba.ativa::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+.link-historico {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Cartão de Pedidos e Tabela */
+.cartao-pedidos {
+    background-color: var(--input-bg);
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: var(--shadow-sm);
+}
+
+.cartao-pedidos h2 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.tabela-responsiva {
+    overflow-x: auto;
+    padding-bottom: 20px;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.tabela-responsiva::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead th {
+    text-align: left;
+    padding: 10px 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    white-space: nowrap; /* Evita quebra de linha nos títulos das colunas */
+}
+
+
+tbody td {
+    padding: 8px 10px; /* Reduzido de 10px para 8px para máxima compacidade */
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    font-weight: 500;
+    border-bottom: 1px solid rgba(242, 111, 33, 0.1); /* Linha sutil entre pedidos */
+}
+
+
+tbody tr:hover {
+    background-color: rgba(255, 241, 232, 0.5);
+    position: relative;
+    z-index: 100; /* Garante que a linha atual fique por cima das outras ao abrir o menu */
+}
+
+
+
+tbody td.codigo {
+    font-weight: 600;
+}
+
+/* Dropdown de Status na Tabela */
+.dropdown-status {
+    position: relative;
+    display: inline-block;
+    z-index: 10;
+}
+
+
+
+
+.botao-status {
+    background-color: white;
+    padding: 8px 15px;
+    border-radius: 12px;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 140px;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.menu-status {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0; /* Alinhado à direita para abrir "para dentro" da tabela */
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    z-index: 9999;
+    width: 140px; /* Reduzido levemente para melhor ajuste */
+    padding: 5px 0;
+    margin: 0;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+
+
+
+
+/* Ponte para manter o menu aberto ao mover o mouse entre o botão e o menu */
+.menu-status::before {
+    content: '';
+    position: absolute;
+    top: -25px; /* Aumentado para garantir cobertura total */
+    left: 0;
+    width: 100%;
+    height: 35px; /* Aumentado para cobrir o botão e o gap */
+    background: transparent;
+}
+
+
+.dropdown-status:hover .menu-status {
+    display: block;
+}
+
+.menu-status li {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    white-space: nowrap; /* Garante que o texto não quebre e empurre a altura */
+}
+
+
+.menu-status li:hover {
+    background-color: var(--input-bg);
+    color: var(--primary-color);
+}
+
+/* Ponto flutuante (bullet) nas opções */
+.menu-status li::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Cores específicas para cada estado */
+.menu-status li:nth-child(1)::before { background-color: #2ecc71; } /* Aprovar */
+.menu-status li:nth-child(2)::before { background-color: #f39c12; } /* Preparando */
+.menu-status li:nth-child(3)::before { background-color: #3498db; } /* Feito */
+.menu-status li:nth-child(4)::before { background-color: #e74c3c; } /* Rejeitar */
+
+/* Ponto flutuante dentro do botão após seleção (estilização) */
+.ponto-status {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+
+/* Faz o dropdown da última linha abrir para cima para evitar barra de rolagem e cortes */
+/* Faz o dropdown da última linha abrir para cima para evitar cortes no final da tabela */
+/* Abre para cima nas últimas 3 linhas para evitar que a tabela estique para baixo ou crie rolagem */
+tbody tr:nth-last-child(-n+3) .menu-status {
+    top: auto;
+    bottom: 100%;
+    margin-top: 0;
+    margin-bottom: 5px;
+    box-shadow: 0 -8px 20px rgba(0,0,0,0.15);
+}
+
+/* Ajusta a ponte de hover para o menu que abre para cima */
+tbody tr:nth-last-child(-n+3) .menu-status::before {
+    top: auto;
+    bottom: -25px;
+    height: 35px;
+}
+
+
+
+
+
+/* Rodapé */
+footer {
+    margin-top: 40px;
+}
+
+/* Ajustes de Scrollbar Globais para a Página */
+html, body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Responsividade Mobile e Tablet */
+@media (max-width: 1024px) {
+    .cabecalho-secao {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    
+    .caixa-pesquisa {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .cartao-pedidos {
+        padding: 25px 15px;
+        border-radius: 20px;
+    }
+    
+    .titulo-pagina {
+        font-size: 2.8rem;
+        text-align: center;
+        width: 100%;
+    }
+
+    .cabecalho-secao {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .caixa-pesquisa {
+        width: 100%;
+    }
+
+    .filtros-pedidos {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .abas {
+        width: 100%;
+        justify-content: center;
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+
+    thead th {
+        font-size: 0.85rem;
+        padding: 10px 5px;
+    }
+
+    tbody td {
+        font-size: 0.85rem;
+        padding: 10px 5px;
+    }
+
+    .botao-status {
+        width: 120px;
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+
+    .direitos {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .sociais {
+        justify-content: center;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .titulo-pagina {
+        font-size: 2.2rem;
+    }
+
+    .container-pedidos {
+        padding: 100px 4% 40px 4%;
+    }
+}
+
+
+
