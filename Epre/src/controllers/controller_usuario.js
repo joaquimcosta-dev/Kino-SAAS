@@ -8,7 +8,7 @@ import *as serviceFuncionario from '../service/serviceFuncionario.js';
 const controller = express.Router();
 
 //rota para criar usuario
-controller.post("/cadastrar:id",async (req, res) => {
+controller.post("/cadastrar/:id",async (req, res) => {
   // verificando se os campos enviados estao vazios
   if (!req.body.username || !req.body.senha || !req.body.perfil) {
     return res
@@ -21,7 +21,7 @@ controller.post("/cadastrar:id",async (req, res) => {
     //buscando funcionário no banco
     const fun = await serviceFuncionario.buscarFuncicionarioId(id_fun);
     if (!fun) {
-      return res.status(404).json({message:"Funcionário não encontrado"});
+      return res.status(401).json({message:"Funcionário não encontrado"});
       
     }
     const { username, senha, perfil } = req.body;
