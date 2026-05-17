@@ -8,14 +8,13 @@ export const criar_funcionario= async(data)=>{
 
 // funcao com sql para buscar funcionarios id
 export const buscarFuncicionarioId=async(id)=>{
-    const encontrado= await db.query("select *from funcionario where id_fun=?",[id]);
-    return encontrado[0];
-
+    const [encontrado]= await db.query("select *from funcionario where id_fun=?",[id]);
+    return encontrado[0] || null;
 }
 
 // funcao com sql para eliminar funcionarios
 export const deletarUsuario = async (id)=>{
-    const eliminado]= await db.query("delete from funcionario where id_fun=?",[id]);
+    const [eliminado]= await db.query("delete from funcionario where id_fun=?",[id]);
     return eliminado;
 
 }
@@ -30,4 +29,10 @@ export const atualizar_funcionario= async(data)=>{
     const {id,nome,bilhete,telefone,datas}=data;
     const atualizado = await db.query("update funcionario set (nome,bilhe,telefone,data) values (?,?,?,?) where id=?",[nome,bilhete,telefone,datas,id]);
     return atualizado;
+}
+//procurando bi do funcionario
+export const procurandoBi = async (bi)=>{
+    const[bilhete] = await db.query("select from funcionario where bi=?",[bi]);
+    return bilhete[0] || null;
+
 }
