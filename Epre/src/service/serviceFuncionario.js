@@ -5,10 +5,10 @@ export const criarFuncionario = async (data) => {
   const novo = await funcionario.criar_funcionario({nome,bi, tel,datas});
   return novo;
 }
-//funcao para buscar o usuario
-const buscarFuncionario = async (id) => {
-  const [encontrado] = await funcionario.buscarFuncicionarioId(id);
-  return encontrado[0] || null;
+//funcao para buscar o funcionario
+export const buscarFuncionarioId = async (id) => {
+  const encontrado= await funcionario.buscarFuncicionarioId(id);
+  return encontrado;
 }
 //Serviço para listar todos os usuarios
 export const listarFuncionarios = async()=>{

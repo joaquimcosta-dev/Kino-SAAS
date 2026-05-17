@@ -8,9 +8,8 @@ export const criar_funcionario= async(data)=>{
 
 // funcao com sql para buscar funcionarios id
 export const buscarFuncicionarioId=async(id)=>{
-    const encontrado= await db.query("select *from funcionario where id_fun=?",[id]);
-    return encontrado[0];
-
+    const [encontrado]= await db.query("select *from funcionario where id_fun=?",[id]);
+    return encontrado[0] || null;
 }
 
 // funcao com sql para eliminar funcionarios

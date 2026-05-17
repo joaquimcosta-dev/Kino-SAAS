@@ -3,7 +3,7 @@ import * as service from "../service/service_user.js";
 import {permissaoAdmin} from '../middlewares/auth.js'
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import *as serviceFuncionario from '../service/serviceFuncionario.js';
+import {buscarFuncionarioId} from '../service/serviceFuncionario.js';
 
 const controller = express.Router();
 
@@ -19,7 +19,7 @@ controller.post("/cadastrar/:id",async (req, res) => {
   const id_fun =req.params.id;
   try {
     //buscando funcionário no banco
-    const fun = await serviceFuncionario.buscarFuncicionarioId(id_fun);
+    const fun = await buscarFuncionarioId(id_fun);
     if (!fun) {
       return res.status(401).json({message:"Funcionário não encontrado"});
       
