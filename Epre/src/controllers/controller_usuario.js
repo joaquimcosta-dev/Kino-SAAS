@@ -48,14 +48,14 @@ controller.post("/login", async (req, res) => {
     const SECRET=process.env.SECRET_KEY;
     const {username, senha } = req.body;
     //fazer autenticacao
-    const user = await service.autenticacao({ username});
+    const user = await service.autenticacao({username});
     //verificado o usuario
     if (!user) {
      // return res.status(200).json(user);
       return res.status(404).json({ maessage: "Usuario invalido" });
     }
     //verificar a senha se e valida
-    const senha_verificada = await bcrypt.compare(senha,user.Senha);
+    const senha_verificada = await bcrypt.compare(senha,user.senha);
     if (!senha_verificada) {
       return res.status(400).json({ maessage: "Senha incorrecta" });
     }

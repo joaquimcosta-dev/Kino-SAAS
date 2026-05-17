@@ -18,38 +18,30 @@ controller.get("/listar", async (req, res) => {
 });
 
 //rota para cadastrar produto
-controller.post("/cadastrar/:id", async (req, res) => {
-    if(!req.body.nome || !req.params.id || !req.body.preco || !req.body.img){
-        return res.status(400).json({message:"Campo obrigatório"});
+controller.post("/cadastrar", async (req, res) => {
+    try {
+        const { nome, img, preco, descricao, quantidade } = req.body;
+        
+        // id_user vem do token
+        const id_user = req.user.id;
+
+        console.log("BODY:", req.body);
+        console.log("ID_USER:", id_user);
+
+        const resultado = await service.cadastrarProduto(
+            nome,
+            img,
+            preco,
+            descricao,
+            quantidade,
+            id_user
+        );
+
+        return res.status(201).json(resultado);
+    } catch (e) {
+        console.log(e);
+        return res.status(400).json({ mensagem: e.message });
     }
-  try {
-    const { nome, img, preco, descricao } = req.body;
-    //buscar categoria
-    const id = req.params.id;
-    const cat = await servicoCategoria.buscarCatId(id);
-    //verificar se a categoria existe
-    if(cat){
-        return res.status(404).json(cat);
-        //return res.status(404).json({message:"Categoria não econtrado"});
-    }
-    //buscar usuario
-   // const user = await buscar_usuarioId(id_user);
-    //verificar se usuario existe
-   /* if(!user){
-        return res.status(404).json({message:"usuario não econtrado"});
-    }*/
-    const resultado = await service.cadastrarProduto(
-      nome,
-      img,
-      preco,
-      descricao,
-    id
-    );
-    return res.status(201).json(resultado);
-  } catch (e) {
-    console.log(e);
-    return res.status(400).json({ menssagem: "Erro de cadastro" });
-  }
 });
 
 //rota pra buscar produto
