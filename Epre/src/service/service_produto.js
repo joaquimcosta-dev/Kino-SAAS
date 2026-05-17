@@ -56,15 +56,15 @@ export const atualizarProduto = async(id, nome, img, preco, descricao, quantidad
         // verificar se o produto existe
         const [rows] = await ProdutoModel.buscarProdutoId(id)
 
+        if(!nome || !img || !preco || !descricao || !quantidade){
+            throw new Error("Todos os campos são obrigatórios");
+        }
+
         if(rows.length === 0){
             throw new Error("Produto não encontrado")
         }
 
         // validações
-        if(!nome || !preco || !id_cat){
-            throw new Error("Campos obrigatorios em falta")
-        }
-
         if(isNaN(preco)){
             throw new Error("Preço invalido");
         }
@@ -73,7 +73,7 @@ export const atualizarProduto = async(id, nome, img, preco, descricao, quantidad
             throw new Error("O preco deve ser maior que zero")
         }
         
-        if(nome.trim().length() < 3){
+        if(nome.trim().length < 3){
             throw new Error("Nome muito curto");
         }
 

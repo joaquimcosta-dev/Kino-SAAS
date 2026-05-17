@@ -47,7 +47,7 @@ controller.post("/cadastrar", async (req, res) => {
 //rota pra buscar produto
 controller.get("/listar/:id", async (req, res) => {
   try {
-    const { id } = req.params.id;
+    const id = parseInt(req.params.id);
 
     //verifica se é um número válido
     if (isNaN(id)) {
@@ -56,7 +56,7 @@ controller.get("/listar/:id", async (req, res) => {
 
     // verifica se é positivo
     if (id <= 0) {
-      return res.status(400).json({ mensagem: "ID inválido" });
+      return res.status(400).json({ mensagem: "ID é inválido" });
     }
 
     const produto = await service.buscarProdutoId(id);
@@ -71,43 +71,44 @@ controller.get("/listar/:id", async (req, res) => {
 //rota atualizar produto
 controller.put("/atualizar/:id", permissaoAdmin, async (req, res) => {
   try {
-    const id = req.params.id;
+    const id = parseInt(req.params.id);
 
     // verifica o id
     if (isNaN(id) || id <= 0) {
       return res.status(400).json({ mensagem: "Id inválido" });
     }
 
-    const { nome, img, preco, deescricao, id_cat } = req.body;
+    const { nome, img, preco, descricao, quantidade, id_cat } = req.body;
 
     const resultado = await service.atualizarProduto(
       id,
       nome,
       img,
       preco,
-      deescricao,
-      id_cat,
+      descricao,
+      quantidade,
+      id_cat
     );
 
     return res.status(200).json(resultado);
   } catch (e) {
     console.log(e);
-    return res.status(400).json({ mensagem: "erro ao atualizar o produto" });
+    return res.status(400).json({ mensagem: "erro ao atualizar o produto", error: e.message });
   }
 });
 
 //rota Eliminar produto
 
-controller.delete("/eliminar/;id", permissaoAdmin, async (req, res) => {
+controller.delete("/eliminar/:id", permissaoAdmin, async (req, res) => {
   try {
-    const id = req.params.id;
+    const id = parseInt(req.params.id);
 
     //verifica o id
     if (isNaN(id) || id <= 0) {
       return res.status(400).json({ mensagem: "id invalido" });
     }
 
-    const eliminar = service.eliminarProduto(id);
+    const eliminar = await service.eliminarProduto(id);
     return res.status(200).json(eliminar);
   } catch (e) {
     console.log(e);

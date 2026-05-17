@@ -7,14 +7,14 @@ export const listarProdutos = () =>{
 //função procurar produto pela db
 export const buscarProdutoId = (id)=>{
     return db.query(
-        "SELECT * FROM produto WHERE id_prod = ?",[id]
+        "SELECT * FROM produto WHERE id_prod = ?", [id]
     );
 };
 //função criar produto pela db
-export const cadastrarProduto = (id_prod, nome, img, preco, descricao, quantidade, id_user, id_cat) =>{
+export const cadastrarProduto = (nome, img, preco, descricao, quantidade, id_user, id_cat) =>{
     return db.query(
-        "INSERT INTO produto (id_prod, nome, img, preco, descricao, quantidade, id_user, id_cat) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-        [id_prod, nome, img, preco, descricao, quantidade, id_user, id_cat]
+        "INSERT INTO produto (nome, img, preco, descricao, quantidade, id_user, id_cat) VALUES (?,?,?,?,?,?,?)",
+        [nome, img, preco, descricao, quantidade, id_user, id_cat]
     );
 }
 //função atualizar produto pela db
@@ -28,6 +28,6 @@ export const atualizarProduto = (id, nome, img, preco, descricao, quantidade, id
 //função deletar produto pela db
 export const eliminarProduto = (id)=>{
     return db.query(
-        "DELETE FROM produto WHERE id_prod=?" [id],
+        "DELETE FROM produto WHERE id_prod=?", [id],
     );
 }
