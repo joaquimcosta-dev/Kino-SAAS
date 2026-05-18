@@ -59,7 +59,7 @@ controller.post("/login", async (req, res) => {
     const SECRET="202122elanoskill1999"
     const {username, senha } = req.body;
     //fazer autenticacao
-    const user = await service.autenticacao({ username});
+    const user = await service.autenticacao({username});
     //verificado o usuario
     if (!user) {
       return res.status(404).json({ maessage: "Usuario invalido" });
