@@ -81,7 +81,7 @@ export const atualizarProduto = async (
     }
 
     // validações
-    if (!nome || !preco || !id_cat) {
+    if (!nome || !preco) {
         throw new Error("Campos obrigatorios em falta");
     }
 
@@ -89,7 +89,7 @@ export const atualizarProduto = async (
         throw new Error("Nome muito curto");
     }
 
-    await ProdutoModel.atualizarProduto(id, nome.trim(), img, preco, descricao);
+    await ProdutoModel.atualizarProduto(id, nome.trim(), img, preco, descricao,quantidade);
 
     return { mensagem: "produto criado com sucesso" };
 };

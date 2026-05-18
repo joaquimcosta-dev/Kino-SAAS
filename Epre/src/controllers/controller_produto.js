@@ -1,6 +1,6 @@
 import express from "express";
 import * as service from "../service/service_produto.js";
-import { auth,permissaoAdmin } from "../middlewares/auth.js";
+import { auth, permissaoAdmin } from "../middlewares/auth.js";
 import * as servicoCategoria from "../service/service_categoria.js";
 import { buscar_usuarioId } from "../service/service_user.js";
 
@@ -19,7 +19,7 @@ controller.get("/listar", async (req, res) => {
 
 //rota para cadastrar produto
 
-controller.post("/cadastrar/:id",auth,permissaoAdmin, async (req, res) => {
+controller.post("/cadastrar/:id", auth, permissaoAdmin, async (req, res) => {
     if (!req.body.nome || !req.params.id || !req.body.preco || !req.body.img) {
         return res.status(400).json({ message: "Campo obrigatório" });
     }
@@ -29,7 +29,7 @@ controller.post("/cadastrar/:id",auth,permissaoAdmin, async (req, res) => {
         const id_cat = req.params.id;
         const cat = await servicoCategoria.buscarCatId(id_cat);
         //verificar se a categoria existe
-      /*  if (!cat) {
+        /*  if (!cat) {
             return res
                 .status(404)
                 .json({ message: "categoria não encontrado" });
@@ -89,15 +89,15 @@ controller.put("/atualizar/:id", permissaoAdmin, async (req, res) => {
         if (isNaN(id) || id <= 0) {
             return res.status(400).json({ mensagem: "Id inválido" });
         }
-
-        const { nome, img, preco, deescricao, id_cat } = req.body;
+        const { nome, img, preco, deescricao, quantidade } = req.body;
 
         const resultado = await service.atualizarProduto(
             id,
             nome,
             img,
             preco,
-            deescricao
+            deescricao,
+            quantidade
         );
 
         return res.status(200).json(resultado);
