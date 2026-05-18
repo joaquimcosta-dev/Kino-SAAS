@@ -1,6 +1,6 @@
 import express from "express";
 import * as service from "../service/service_produto.js";
-import { permissaoAdmin } from "../middlewares/auth.js";
+import { auth,permissaoAdmin } from "../middlewares/auth.js";
 import * as servicoCategoria from "../service/service_categoria.js";
 import { buscar_usuarioId } from "../service/service_user.js";
 
@@ -18,7 +18,8 @@ controller.get("/listar", async (req, res) => {
 });
 
 //rota para cadastrar produto
-controller.post("/cadastrar/:id", async (req, res) => {
+
+controller.post("/cadastrar/:id",auth,permissaoAdmin, async (req, res) => {
     if (!req.body.nome || !req.params.id || !req.body.preco || !req.body.img) {
         return res.status(400).json({ message: "Campo obrigatório" });
     }
@@ -28,24 +29,24 @@ controller.post("/cadastrar/:id", async (req, res) => {
         const id_cat = req.params.id;
         const cat = await servicoCategoria.buscarCatId(id_cat);
         //verificar se a categoria existe
-        if (!cat) {
+      /*  if (!cat) {
             return res
                 .status(404)
                 .json({ message: "categoria não encontrado" });
             //return res.status(404).json({message:"Categoria não econtrado"});
-        }
+        }*/
         //pegar o id do usuario logado
-        const id_user = req.user.id_user;
-        console.log(nome,img,preco, descricao,id_cat,id_user);
-        const resultado = await service.cadastrarProduto(
-            {nome,
+        const id_user = req.user.id;
+        console.log(nome, img, preco, descricao, id_cat, id_user);
+        const resultado = await service.cadastrarProduto({
+            nome,
             img,
             preco,
             descricao,
             id_cat,
-            id_user}
-        );
-        
+            id_user
+        });
+
         return res.status(201).json(resultado);
     } catch (e) {
         console.log(e);
@@ -53,10 +54,10 @@ controller.post("/cadastrar/:id", async (req, res) => {
     }
 });
 
-//rota pra buscar produto
+//rota para buscar produto
 controller.get("/listar/:id", async (req, res) => {
     try {
-        const  id = req.params.id;
+        const id = parseInt(req.params.id);
 
         //verifica se é um número válido
         if (isNaN(id)) {
@@ -82,7 +83,7 @@ controller.get("/listar/:id", async (req, res) => {
 //rota atualizar produto
 controller.put("/atualizar/:id", permissaoAdmin, async (req, res) => {
     try {
-        const id = req.params.id;
+        const id = parseInt(req.params.id);
 
         // verifica o id
         if (isNaN(id) || id <= 0) {
@@ -98,8 +99,8 @@ controller.put("/atualizar/:id", permissaoAdmin, async (req, res) => {
             preco,
             deescricao
         );
-console.log(nome)
-        return res.status(201).json(resultado);
+
+        return res.status(200).json(resultado);
     } catch (e) {
         console.log(e);
         return res
@@ -110,16 +111,17 @@ console.log(nome)
 
 //rota Eliminar produto
 
-controller.delete("/eliminar/;id", permissaoAdmin, async (req, res) => {
+//rota Eliminar produto
+controller.delete("/eliminar/:id", permissaoAdmin, async (req, res) => {
     try {
-        const id = req.params.id;
+        const id = parseInt(req.params.id);
 
         //verifica o id
         if (isNaN(id) || id <= 0) {
             return res.status(400).json({ mensagem: "id invalido" });
         }
 
-        const eliminar = service.eliminarProduto(id);
+        const eliminar = await service.eliminarProduto(id);
         return res.status(200).json(eliminar);
     } catch (e) {
         console.log(e);

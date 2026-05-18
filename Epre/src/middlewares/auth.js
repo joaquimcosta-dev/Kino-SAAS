@@ -8,9 +8,8 @@ export const auth=(req,res,next)=>{
         }
    
     try {
-        const decode = jwt.verify(token.replace('Bearer ',''), SECRET,(err,user)=>{
-             req.user=user;
-        });
+        const decode = jwt.verify(token.replace('Bearer ',''), SECRET);
+        req.user=decode;
        
         next();
         

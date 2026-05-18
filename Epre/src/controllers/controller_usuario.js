@@ -9,10 +9,11 @@ const controller = express.Router();
 
 //rota para criar usuario
 controller.post("/cadastrar/:id",async (req, res) => {
+
   // verificando se os campos enviados estao vazios
   if (!req.body.username || !req.body.senha || !req.body.perfil) {
     return res
-      .status(400)
+      .status(500)
       .json({ maessage: "Deve preecher os campos obrigatorio" });
   }
   //pegando o id do funcionário 
@@ -51,17 +52,16 @@ controller.post("/login", async (req, res) => {
   // verificando se os campos enviados sao vazios
   if (!req.body.username || !req.body.senha) {
     return res
-      .status(400)
+      .status(500)
       .json({ maessage: "Deve preecher os campos obrigatorio" });
   }
   try {
-    const SECRET=process.env.SECRET_KEY;
+    const SECRET=process.env.SECRET_KEY
     const {username, senha } = req.body;
     //fazer autenticacao
-    const user = await service.autenticacao({ username});
+    const user = await service.autenticacao({username});
     //verificado o usuario
     if (!user) {
-     // return res.status(200).json(user);
       return res.status(404).json({ maessage: "Usuario invalido" });
     }
     //verificar a senha se e valida
@@ -69,13 +69,12 @@ controller.post("/login", async (req, res) => {
     if (!senha_verificada) {
       return res.status(400).json({ maessage: "Senha incorrecta" });
     }
-
     //gerar token
     const token = jwt.sign({id:user.id_user,perfil:user.perfil},SECRET,{expiresIn:"2h"});
     return res.status(200).json(token);
 } catch (e) {
     console.log(e)
-    return res.status(500).json({ maessage: "Erro ao tentar fazer o login" });
+    return res.status(500).json({ maessage: "Ao tentar fazer o login" });
   }
 });
 //rota para listar todos listar Todos Usuarios
