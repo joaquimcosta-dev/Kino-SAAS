@@ -1,5 +1,6 @@
 const body = document.querySelector("#tbody");
 const URL_RECLAMACAO = "http://localhost:3000/listar/listar-reclamacao";
+const funcionario = document.querySelector('#nomeFun')
 
 //função para listar as reclamacões
 const listarReclamacao = async () => {
@@ -14,8 +15,10 @@ const listarReclamacao = async () => {
   )
     .then((res) => res.json())
     .then((res) => {
+      funcionario.innerHTML=localStorage.user.nome;
       const sms = ["Lista de reclamação", "Lista vazia"];
 
+  //consol.log(localStorage.user)
       //Map para percorrer o lista vindo do bd
       res.map((e) => {
         //inicio de criacao dos elementos

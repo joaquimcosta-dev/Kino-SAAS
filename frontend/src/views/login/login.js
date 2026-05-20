@@ -20,9 +20,10 @@ if (response.ok) {
 
 load.classList.remove("mostrar-load");
 (response) => response.json();
-const token = await response.json();
-localStorage.setItem('token', token);
-
+const dados = await response.json();
+localStorage.setItem('token', dados.token);
+localStorage.setItem('user',JSON.stringify(dados.user))
+console.log(JSON.stringify(dados.user))
 window.location.href = '../dash_bord/das_bord.html'
 }
 alertaErro.classList.toggle("mostrar");
