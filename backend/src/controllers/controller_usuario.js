@@ -71,7 +71,7 @@ controller.post("/login", async (req, res) => {
     const token = jwt.sign({ id: user.id_user, perfil: user.perfil,nome:user.nome }, SECRET, {
       expiresIn: "2h",
     });
-    return res.status(200).json(token);
+    return res.status(200).json({token,user});
   } catch (e) {
     console.log(e);
     return res.status(500).json({ maessage: "Ao tentar fazer o login" });
