@@ -3,7 +3,15 @@ const URL_RECLAMACAO = "http://localhost:3000/listar/listar-reclamacao";
 
 //função para listar as reclamacões
 const listarReclamacao = async () => {
-  const response = await fetch(URL_RECLAMACAO)
+  
+  const response = await fetch(URL_RECLAMACAO,{
+    method:"GET",
+    headers:{
+      "Authorization":"Bearer "+localStorage.token,
+      "Content-Type":"application/json"
+    }
+  }
+  )
     .then((res) => res.json())
     .then((res) => {
       const sms = ["Lista de reclamação", "Lista vazia"];
@@ -20,9 +28,9 @@ const listarReclamacao = async () => {
         //fim de criacao dos elementos
         //inserirndo os elemrntos na
         id.innerHTML = e.id_recla;
-        nome.innerHTML = e.Nome;
-        tel.innerHTML = e.Telefone;
-        sms.innerHTML = e.Descricao;
+        nome.innerHTML = e.nome;
+        tel.innerHTML = e.tel;
+        sms.innerHTML = e.descricao;
         data.innerHTML = "20/05/2026";
         tr.append(id);
         tr.append(nome);

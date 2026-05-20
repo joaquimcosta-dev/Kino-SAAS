@@ -39,7 +39,6 @@ const enviarReclamacao = async data => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
         });
-        console.log(res.status)
 
         if (res.ok) {
             not_reclamacao.innerHTML = aviso[0];
