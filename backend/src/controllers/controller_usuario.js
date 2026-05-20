@@ -63,7 +63,7 @@ controller.post("/login", async (req, res) => {
       return res.status(404).json({ maessage: "Usuário invalido" });
     }
     //verificar a senha se e valida
-    const senha_verificada = await bcrypt.compare(senha, user.Senha);
+    const senha_verificada = await bcrypt.compare(senha, user.senha);
     if (!senha_verificada) {
       return res.status(400).json({ maessage: "Senha incorrecta" });
     }

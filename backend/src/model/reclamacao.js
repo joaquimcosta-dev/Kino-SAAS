@@ -18,7 +18,7 @@ export const listarReclamacaoPorld = async (id) => {
 //Funcao que contemm o sql para criar nova reclamacao no db
 export const criar_reclamacao = async (data)=>{
     const {nome, motivo,descricao, datas,tel}=data;
-    const reclamacao= await db.query("insert into reclamacao (Nome,Motivo,Descricao,Telefone) values(?,?,?,?)",[nome,motivo,descricao,tel])
+    const reclamacao= await db.query("insert into reclamacao (nome,motivo,descricao,telefone) values(?,?,?,?)",[nome,motivo,descricao,tel])
     return reclamacao;
 }
 //Funcao que contemm o sql para deletar reclamacao no db
