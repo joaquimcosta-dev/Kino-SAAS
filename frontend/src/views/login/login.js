@@ -40,6 +40,6 @@ username: username.value,
 senha: senha.value,
 };
 load.classList.toggle("mostrar-load");
-setTimeout(2000);
+setTimeout(5000);
 fazerLogin(data);
 });
