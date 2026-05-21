@@ -67,11 +67,20 @@ controller.post("/login", async (req, res) => {
     if (!senha_verificada) {
       return res.status(400).json({ maessage: "Senha incorrecta" });
     }
+    const fun = await buscarFuncionarioId(user.id_fun);
+    if (!fun) {
+      return res.status(401).json({ message: "Funcionário não encontrado" });
+    }
+    
+    
     //gerar token
     const token = jwt.sign({ id: user.id_user, perfil: user.perfil,nome:user.nome }, SECRET, {
       expiresIn: "2h",
     });
-    return res.status(200).json({token,user});
+    return res.status(200).json({token,user:{
+      perfil:user.perfil,
+      nome:fun.nome
+    }});
   } catch (e) {
     console.log(e);
     return res.status(500).json({ maessage: "Ao tentar fazer o login" });
