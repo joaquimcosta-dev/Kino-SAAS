@@ -99,6 +99,9 @@ const adicionarPedidoNaLista=()=>{
   const link =document.createElement("a");
   const qnt =document.createElement("td")
   const valor= document.createElement("td")
+  link.innerHTML='remover'
+  link.href='#';
+  link.onclick=()=>removerItens(`${e.id_prod}`)
   //inserindo conteudos nos elementos criados
   numero.innerHTML=quant;
   nome.innerHTML=e.nome;
@@ -111,6 +114,8 @@ const adicionarPedidoNaLista=()=>{
   linhaTabele.append(preco)
   linhaTabele.append(qnt)
   linhaTabele.append(valor)
+  remover.append(link)
+  linhaTabele.append(remover)
   corpoTbPedido.append(linhaTabele)
   
   
