@@ -6,8 +6,63 @@ const btnEnviarPedido = document.querySelector('#btn_pedido');
 const nome_cliente = document.querySelector('#nome_pedido');
 const cliente_telefone = document.querySelector('#numero_pedido');
 const cliente_endereco = document.querySelector('#endereco_pedido');
+const divChefe =document.querySelector('.pratos')
+const contadorCarrinho =document.querySelector('.cart-badge')
 const removerItem =[];
 const itensPedido =[];
+const listaProduto=[
+  {
+    "id_prod":1,
+    "nome":"Hambúrguer",
+    "preco":1500,
+    "img":"ghhhhhhfdyhgghjjjggffg"
+  },
+    {
+    "id_prod":1,
+    "nome":"Hambúrguer",
+    "preco":1500,
+    "img":"ghhhhhhfdyhgghjjjggffg"
+  },
+    {
+    "id_prod":1,
+    "nome":"Hambúrguer",
+    "preco":1500,
+    "img":"ghhhhhhfdyhgghjjjggffg"
+  },
+    {
+    "id_prod":1,
+    "nome":"Hambúrguer",
+    "preco":1500,
+    "img":"ghhhhhhfdyhgghjjjggffg"
+  },
+]
+//percorendo a lista de produto e colocar na tela
+listaProduto.forEach((e)=>{
+  //criação dos elementos html
+  const div =document.createElement('div')
+  const preco =document.createElement('span')
+  const nome =document.createElement('h5')
+  const imgAdd =document.createElement('img')
+  const btnAdd =document.createElement('button')
+  const divInf =document.createElement('div')
+  //adicionando class nos elementos 
+  preco.setAttribute("class","prato-price")
+  divInf.setAttribute("class","prato-info")
+  btnAdd.setAttribute("class","btn-add")
+  div.setAttribute("class","prato-card")
+  //adicionando informação nos elementos
+  preco.innerHTML=e.preco
+  nome.innerHTML=e.nome
+  //adicionano na div
+  divInf.append(nome)
+  btnAdd.append(imgAdd)
+  divInf.append(btnAdd)
+  div.append(preco)
+  div.append(divInf)
+  divChefe.append(div)
+  
+})
+contadorCarrinho.innerHTML=itensPedido.length
 //adicionando modal carrinho na tela
 abrir_carrinho.addEventListener("click", (e) => {
   modal_carrinho.classList.toggle("mostrar");
