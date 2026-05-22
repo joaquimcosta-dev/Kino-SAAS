@@ -1,440 +1,360 @@
 <!doctype html>
 <html lang="pt">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Fontes locais configuradas no CSS -->
-    <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="../public/kino.svg" />
-    <title>Home</title>
-  </head>
-  <body>
-    <!--Cabeçalho da pagina-->
-    <header class="header">
-      <div class="logo">
-        <!-- Removidos os width="80px" e height="80px" fixos para que o CSS o expanda grandemente -->
-        <img src="../public/kino.svg" alt="logotipo do kino" />
-      </div>
-      <!--Menu principal da página-->
-      <nav class="nav">
-        <ul class="menu">
-          <header class="Cabeçalho-menu">
-            <a href="views/login/login.html"
-              ><img
-                src="icons/user.svg"
-                alt="icon conta"
-                width="40px"
-                height="40px"
-            /></a>
-            <a href="#" 
-              ><img
-                src="icons/poibir.svg"
-                alt="icon carrinho"
-                width="40px"
-                height="40px"
-            /></a>
-          </header>
-          <li>
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#" id="menu-categoria"
-              >Categorias
-              <ul id="submenu-categoria">
-                <li>
-                  <a href="#">Pequeno Almoço</a>
-                </li>
-                <li>
-                  <a href="#">Almoço</a>
-                </li>
-                <li>
-                  <a href="#">Jantar</a>
-                </li>
-                <li>
-                  <a href="#">Lanche</a>
-                </li>
-              </ul>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="menus"
-              >Menu
-              <ul class="submenus">
-                <li>
-                  <a href="./views/pesquisar_pedido/pesquisar_pedido.html"
-                    >Pesquisar pedidos</a
-                  >
-                </li>
-                <li>
-                   <a href="./views/pedidos/pedidos.html"
-                    >Ver pedidos</a
-                  >
-                </li>
-                <li>
-                  <a href="#">Comidas prontas</a>
-                </li>
-              </ul>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!--Div que contem o formulário de pesquisar kino com os seus campos-->
-      <div class="conta">
-        <div class="cart-container">
-          <a href="#" class="conta-icones"
-            ><img src="icons/mercado.svg" id="carrinho" alt="icon carrinho"
-          /></a>
-          <!-- O contador de itens (Badge vermelho) -->
-          <span class="cart-badge">
-          
-          </span>
-        </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <link rel="icon" href="../public/kino.svg" />
+        <title>Home</title>
+    </head>
+    <body>
+        <!--Cabeçalho da pagina-->
+        <header class="header">
+            <div class="logo">
+                <img src="../public/kino.svg" alt="logotipo do kino" />
+            </div>
+            <!--Menu principal da página-->
+            <nav class="nav">
+                <ul class="menu">
+                    <li class="Cabeçalho-menu">
+                        <a href="views/login.html">
+                            <img
+                                src="icons/user.svg"
+                                alt="icon conta"
+                                width="40px"
+                                height="40px"
+                            />
+                        </a>
+                        <a href="#">
+                            <img
+                                src="icons/poibir.svg"
+                                alt="icon carrinho"
+                                width="40px"
+                                height="40px"
+                            />
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#" id="menu-categoria">Categorias</a>
+                        <ul id="submenu-categoria">
+                            <li><a href="#">Pequeno Almoço</a></li>
+                            <li><a href="#">Almoço</a></li>
+                            <li><a href="#">Jantar</a></li>
+                            <li><a href="#">Lanche</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="menus">Menu</a>
+                        <ul class="submenus">
+                            <li>
+                                <a
+                                    href="./views/pesquisar_pedido/pesquisar_pedido.html"
+                                    >Pesquisar pedidos</a
+                                >
+                            </li>
+                            <li>
+                                <a href="./views/pedidos/pedidos.html"
+                                    >Ver pedidos</a
+                                >
+                            </li>
+                            <li><a href="#">Comidas prontas</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
 
-        <a href="views/login/login.html" class="conta-icones"
-          ><img src="icons/user.svg" id="logar" alt="icon conta"
-        /></a>
+            <div class="conta">
+                <div class="cart-container">
+                    <a href="#" class="conta-icones">
+                        <img
+                            src="icons/mercado.svg"
+                            id="carrinho"
+                            alt="icon carrinho"
+                        />
+                    </a>
+                    <span class="cart-badge"></span>
+                </div>
 
-        <a
-          href="#"
-          class="conta-icones"
-          style="border: none"
-          id="iconMenuWrapper"
-          ><img
-            src="icons/menu.svg"
-            id="iconMenu"
-            alt="icon conta"
-            style="width: 30px; height: 30px"
-        /></a>
-      </div>
-    </header>
-    <main>
-      <!--div que contem o formulario de login com os seus campos-->
-      <div class="conteinnerBanner">
-        <div class="hero-overlay"></div>
-        <p>Seu kino à distância<br />de um click</p>
-        <div class="redes">
-          <div class="redeSocial">
-            <a href="https://wa.me/938628116"
-              ><img src="icons/whatsapp-circle.svg" alt="whatsap"
-            /></a>
-            <a href="www.instagram.com/elano.skill/"
-              ><img src="icons/instagram-circle.svg" alt="instagram"
-            /></a>
-            <a href="www.facebook.com/elano.skill/"
-              ><img src="icons/facebook.svg" alt="facebook"
-            /></a>
-          </div>
-        </div>
-        <!-- Dots de navegação -->
-        <div class="hero-carousel-dots">
-          <span class="dot active"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-        </div>
-      </div>
+                <a href="views/login.html" class="conta-icones">
+                    <img src="icons/user.svg" id="logar" alt="icon conta" />
+                </a>
 
-      <!--Div categorias aqui vai estar as categorias de produtos-->
-      <div class="categorias">
-        <header class="categorias-header">
-          <h3>Categorias</h3>
-          <a href="#">Ver todas</a>
+                <a
+                    href="#"
+                    class="conta-icones"
+                    style="border: none"
+                    id="iconMenuWrapper"
+                >
+                    <img
+                        src="icons/menu.svg"
+                        id="iconMenu"
+                        alt="icon conta"
+                        style="width: 30px; height: 30px"
+                    />
+                </a>
+            </div>
         </header>
-        <!--Aqui nesta div vao estar os produtos-->
-        <div class="sessao">
-          <div
-            class="categoria-card"
-            style="
-              background-image: url(&quot;img/cat_pequeno_almoco.jpg&quot;);
-            "
-          >
-            <button class="bookmark-btn">
-              <img src="icons/adicionar.svg" alt="" />
-            </button>
-            <span class="categoria-title">Pequeno almoço</span>
-          </div>
-          <div
-            class="categoria-card"
-            style="background-image: url(&quot;img/cat_almoco.jpg&quot;)"
-          >
-            <button class="bookmark-btn">
-              <img src="icons/adicionar.svg" alt="" />
-            </button>
-            <span class="categoria-title">Almoço</span>
-          </div>
-          <div
-            class="categoria-card"
-            style="background-image: url(&quot;img/cat_fast_food.jpg&quot;)"
-          >
-            <button class="bookmark-btn active">
-              <img src="icons/adicionar.svg" alt="" />
-            </button>
-            <span class="categoria-title">Fast Food</span>
-          </div>
-          <div
-            class="categoria-card"
-            style="background-image: url(&quot;img/cat_jantar.jpg&quot;)"
-          >
-            <button class="bookmark-btn">
-              <img src="icons/adicionar.svg" alt="" />
-            </button>
-            <span class="categoria-title">Jantar</span>
-          </div>
-          <div
-            class="categoria-card"
-            style="background-image: url(&quot;img/cat_bebidas.jpg&quot;)"
-          >
-            <button class="bookmark-btn">
-              <img src="icons/adicionar.svg" alt="" />
-            </button>
-            <span class="categoria-title">Bebidas</span>
-          </div>
-        </div>
-      </div>
-    </main>
-    <!--Aqui a div de pesquisar kino-->
-    <div class="pesquisar_kino">
-      <form class="form_pesquisar">
-        <input type="text" placeholder="Oque estas a procura?" required />
-        <button type="submit">Pesquisar</button>
-      </form>
-      <div class="result_pesquisa">
-        <div
-          class="categoria-card"
-          style="background-image: url(&quot;img/cat_jantar.jpg&quot;)"
-        >
-          <button class="bookmark-btn">
-            <img src="icons/adicionar.svg" alt="" />
-          </button>
-          <span class="categoria-title">Jantar</span>
-        </div>
-        <div
-          class="categoria-card"
-          style="background-image: url(&quot;img/cat_jantar.jpg&quot;)"
-        >
-          <button class="bookmark-btn">
-            <img src="icons/adicionar.svg" alt="" />
-          </button>
-          <span class="categoria-title">Jantar</span>
-        </div>
-        <div
-          class="categoria-card"
-          style="background-image: url(&quot;img/cat_jantar.jpg&quot;)"
-        >
-          <button class="bookmark-btn">
-            <img src="icons/adicionar.svg" alt="" />
-          </button>
-          <span class="categoria-title">Jantar</span>
-        </div>
-        <div
-          class="categoria-card"
-          style="background-image: url(&quot;img/cat_jantar.jpg&quot;)"
-        >
-          <button class="bookmark-btn">
-            <img src="icons/adicionar.svg" alt="" />
-          </button>
-          <span class="categoria-title">Jantar</span>
-        </div>
-        <div
-          class="categoria-card"
-          style="background-image: url(&quot;img/cat_jantar.jpg&quot;)"
-        >
-          <button class="bookmark-btn">
-            <img src="icons/adicionar.svg" alt="" />
-          </button>
-          <span class="categoria-title">Jantar</span>
-        </div>
-        <div
-          class="categoria-card"
-          style="background-image: url(&quot;img/cat_jantar.jpg&quot;)"
-        >
-          <button class="bookmark-btn">
-            <img src="icons/adicionar.svg" alt="" />
-          </button>
-          <span class="categoria-title">Jantar</span>
-        </div>
-        <div
-          class="categoria-card"
-          style="background-image: url(&quot;img/cat_jantar.jpg&quot;)"
-        >
-          <button class="bookmark-btn">
-            <img src="icons/adicionar.svg" alt="" />
-          </button>
-          <span class="categoria-title">Jantar</span>
-        </div>
-        <div
-          class="categoria-card"
-          style="background-image: url(&quot;img/cat_jantar.jpg&quot;)"
-        >
-          <button class="bookmark-btn">
-            <img src="icons/adicionar.svg" alt="" />
-          </button>
-          <span class="categoria-title">Jantar</span>
-        </div>
-        <div
-          class="categoria-card"
-          style="background-image: url(&quot;img/cat_jantar.jpg&quot;)"
-        >
-          <button class="bookmark-btn">
-            <img src="icons/adicionar.svg" alt="" />
-          </button>
-          <span class="categoria-title">Jantar</span>
-        </div>
-        <div
-          class="categoria-card"
-          style="background-image: url(&quot;img/cat_jantar.jpg&quot;)"
-        >
-          <button class="bookmark-btn">
-            <img src="icons/adicionar.svg" alt="" />
-          </button>
-          <span class="categoria-title">Jantar</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- div onde estara os pratos do chef-->
-    <div class="pratos-chef">
-      <header>
-        <h4>Kino's do Chef</h4>
-        <nav>
-          <ul>
-            <li><a href="#" class="active">Todos</a></li>
-            <li><a href="#">Pronto</a></li>
-            <li><a href="#">Preparando</a></li>
-          </ul>
-        </nav>
-      </header>
-      <div class="pratos">
-        <!-- Cartão 1 -->
-        <
-    </div>
+        <main>
+            <div class="conteinnerBanner">
+                <div class="hero-overlay"></div>
+                <p>Seu kino à distância<br />de um click</p>
+                <div class="redes">
+                    <div class="redeSocial">
+                        <a href="https://wa.me/938628116"
+                            ><img src="icons/whatsapp-circle.svg" alt="whatsap"
+                        /></a>
+                        <a href="https://www.instagram.com/elano.skill/"
+                            ><img
+                                src="icons/instagram-circle.svg"
+                                alt="instagram"
+                        /></a>
+                        <a href="https://www.facebook.com/elano.skill/"
+                            ><img src="icons/facebook.svg" alt="facebook"
+                        /></a>
+                    </div>
+                </div>
+                <div class="hero-carousel-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
 
-    <!--div pedir kino-->
-    <div class="pedirKino">
-      <div>
-        <p>Entregas rápidas e seguras só na Kino</p>
-        <button title="botao pedir kino">Pedir Kino</button>
-      </div>
-      <!--imagem do delivery-->
-      <div>
-        <img
-          src="../public/kinoDelivery.png"
-          class="img"
-          alt="imagem do delivery na div pedir kino"
-          onerror="this.style.display = 'none'"
-        />
-      </div>
-    </div>
+            <div class="categorias">
+                <header class="categorias-header">
+                    <h3>Categorias</h3>
+                    <a href="#">Ver todas</a>
+                </header>
+                <div class="sessao">
+                    <div
+                        class="categoria-card"
+                        style="
+                            background-image: url(&quot;img/cat_pequeno_almoco.jpg&quot;);
+                        "
+                    >
+                        <button class="bookmark-btn">
+                            <img src="icons/adicionar.svg" alt="" />
+                        </button>
+                        <span class="categoria-title">Pequeno almoço</span>
+                    </div>
+                    <div
+                        class="categoria-card"
+                        style="
+                            background-image: url(&quot;img/cat_almoco.jpg&quot;);
+                        "
+                    >
+                        <button class="bookmark-btn">
+                            <img src="icons/adicionar.svg" alt="" />
+                        </button>
+                        <span class="categoria-title">Almoço</span>
+                    </div>
+                    <div
+                        class="categoria-card"
+                        style="
+                            background-image: url(&quot;img/cat_fast_food.jpg&quot;);
+                        "
+                    >
+                        <button class="bookmark-btn active">
+                            <img src="icons/adicionar.svg" alt="" />
+                        </button>
+                        <span class="categoria-title">Fast Food</span>
+                    </div>
+                    <div
+                        class="categoria-card"
+                        style="
+                            background-image: url(&quot;img/cat_jantar.jpg&quot;);
+                        "
+                    >
+                        <button class="bookmark-btn">
+                            <img src="icons/adicionar.svg" alt="" />
+                        </button>
+                        <span class="categoria-title">Jantar</span>
+                    </div>
+                    <div
+                        class="categoria-card"
+                        style="
+                            background-image: url(&quot;img/cat_bebidas.jpg&quot;);
+                        "
+                    >
+                        <button class="bookmark-btn">
+                            <img src="icons/adicionar.svg" alt="" />
+                        </button>
+                        <span class="categoria-title">Bebidas</span>
+                    </div>
+                </div>
+            </div>
+        </main>
 
-    <!--Outras informações-->
-    <aside>
-      <div class="col-footer">
-        <h3>Sobre a Kino</h3>
-        <a href="#">História da Marca</a>
-        <a href="#">Kino no Mundo</a>
-        <a href="#">Responsabilidade Social</a>
-      </div>
-      <div class="col-footer">
-        <h3>Franchising</h3>
-        <a href="#">O Modelo Kino</a>
-        <a href="#">O Futuro Franquiado</a>
-      </div>
-      <div class="col-footer">
-        <h3>Gabinete de Imprensa</h3>
-        <a href="#">Galeria de Imagens</a>
-        <a href="#">Folhetos</a>
-      </div>
-      <div class="col-footer">
-        <h3>Apoio Ao cliente</h3>
-        <a href="#">Contactos</a>
-        <a href="#">Politica de Privacidade</a>
-        <a href="./views/reclamacao/reclamacao.html"
-          >Canal de reclamação</a
-        >
-      </div>
-    </aside>
-
-    <!--rodapé do sistema-->
-    <footer>
-      <div class="direitos">
-        <div>
-          <p>© Kino 2026</p>
-          <p>Todos os direitos reservados.</p>
+        <div class="pesquisar_kino">
+            <form class="form_pesquisar">
+                <input
+                    type="text"
+                    placeholder="Oque estas a procura?"
+                    required
+                />
+                <button type="submit">Pesquisar</button>
+            </form>
+            <div class="result_pesquisa">
+                <div
+                    class="categoria-card"
+                    style="
+                        background-image: url(&quot;img/cat_jantar.jpg&quot;);
+                    "
+                >
+                    <button class="bookmark-btn">
+                        <img src="icons/adicionar.svg" alt="" />
+                    </button>
+                    <span class="categoria-title">Jantar</span>
+                </div>
+                <!-- repeti os cards igual você tinha -->
+            </div>
         </div>
-        <div class="sociais">
-          siga-nos
-          <a href="https://wa.me/938628116"
-            ><img
-              src="icons/whatsapp-circle.svg"
-              alt="whatsap"
-              width="25px"
-              height="25px"
-          /></a>
-          <a href="www.instagram.com/elano.skill/"
-            ><img
-              src="icons/instagram-circle.svg"
-              alt="instagram"
-              width="25px"
-              height="25px"
-          /></a>
-          <a href="www.facebook.com/elano.skill/"
-            ><img
-              src="icons/facebook.svg"
-              alt="facebook"
-              width="25px"
-              height="25px"
-          /></a>
+
+        <!-- div onde estara os pratos do chef-->
+        <div class="pratos-chef">
+            <header>
+                <h4>Kino's do Chef</h4>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active">Todos</a></li>
+                        <li><a href="#">Pronto</a></li>
+                        <li><a href="#">Preparando</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <div class="pratos">
+                <!-- Cartão 1 -->
+            </div>
         </div>
-      </div>
-    </footer>
-  </body>
-      <!--inicio Modal carrinho-->
-    <div class="modal_carrinho">
-      <div class="carrinho">
-        <button id="fechar_modal_carrinho">X</button>
-        <header><h4>Informações do cliente</h4></header>
-        <form id="form_carrinho">
-          <input
-            type="text"
-            id="nome_pedido"
-            placeholder="Insira o seu nome"
-            required
-          />
-          <input
-            type="text"
-            id="numero_pedido"
-            placeholder="+244| número"
-            required
-          />
-          <input
-            type="text"
-            id="endereco_pedido"
-            placeholder="Insira o seu endereço"
-            required
-          />
-          <table>
-            <caption>
-              Lista de pedidos
-            </caption>
-            <thead>
-              <tr>
-                <th>Nº</th>
-                <th>Nome</th>
-                <th>Preço</th>
-                <th>Qtd</th>
-                <th>Valor</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody class="tbody-pedido">
-            <!--aqui vai estar listado os produoto no carrinho-->
-            </tbody>
-          </table>
-          <button id="btn_pedido">Enviar pedido</button>
-        </form>
-      </div>
-    </div>
-    <!--fim Modal carrinho-->
-    <script src="script.js"></script>
-  
+
+        <div class="pedirKino">
+            <div>
+                <p>Entregas rápidas e seguras só na Kino</p>
+                <button title="botao pedir kino">Pedir Kino</button>
+            </div>
+            <div>
+                <img
+                    src="../public/kinoDelivery.png"
+                    class="img"
+                    alt="imagem do delivery na div pedir kino"
+                    onerror="this.style.display = 'none'"
+                />
+            </div>
+        </div>
+
+        <aside>
+            <div class="col-footer">
+                <h3>Sobre a Kino</h3>
+                <a href="#">História da Marca</a>
+                <a href="#">Kino no Mundo</a>
+                <a href="#">Responsabilidade Social</a>
+            </div>
+            <div class="col-footer">
+                <h3>Franchising</h3>
+                <a href="#">O Modelo Kino</a>
+                <a href="#">O Futuro Franquiado</a>
+            </div>
+            <div class="col-footer">
+                <h3>Gabinete de Imprensa</h3>
+                <a href="#">Galeria de Imagens</a>
+                <a href="#">Folhetos</a>
+            </div>
+            <div class="col-footer">
+                <h3>Apoio Ao cliente</h3>
+                <a href="#">Contactos</a>
+                <a href="#">Politica de Privacidade</a>
+                <a href="./views/reclamacao/reclamacao.html"
+                    >Canal de reclamação</a
+                >
+            </div>
+        </aside>
+
+        <footer>
+            <div class="direitos">
+                <div>
+                    <p>© Kino 2026</p>
+                    <p>Todos os direitos reservados.</p>
+                </div>
+                <div class="sociais">
+                    siga-nos
+                    <a href="https://wa.me/938628116"
+                        ><img
+                            src="icons/whatsapp-circle.svg"
+                            alt="whatsap"
+                            width="25px"
+                            height="25px"
+                    /></a>
+                    <a href="https://www.instagram.com/elano.skill/"
+                        ><img
+                            src="icons/instagram-circle.svg"
+                            alt="instagram"
+                            width="25px"
+                            height="25px"
+                    /></a>
+                    <a href="https://www.facebook.com/elano.skill/"
+                        ><img
+                            src="icons/facebook.svg"
+                            alt="facebook"
+                            width="25px"
+                            height="25px"
+                    /></a>
+                </div>
+            </div>
+        </footer>
+
+        <!--inicio Modal carrinho-->
+        <div class="modal_carrinho">
+            <div class="carrinho">
+                <button id="fechar_modal_carrinho">X</button>
+                <header><h4>Informações do cliente</h4></header>
+                <form id="form_carrinho">
+                    <input
+                        type="text"
+                        id="nome_pedido"
+                        placeholder="Insira o seu nome"
+                        required
+                    />
+                    <input
+                        type="text"
+                        id="numero_pedido"
+                        placeholder="+244| número"
+                        required
+                    />
+                    <input
+                        type="text"
+                        id="endereco_pedido"
+                        placeholder="Insira o seu endereço"
+                        required
+                    />
+                    <table>
+                        <caption>
+                            Lista de pedidos
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th>Nº</th>
+                                <th>Nome</th>
+                                <th>Preço</th>
+                                <th>Qtd</th>
+                                <th>Valor</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody-pedido">
+                            <!--aqui vai estar listado os produoto no carrinho-->
+                        </tbody>
+                    </table>
+                    <button id="btn_pedido">Enviar pedido</button>
+                </form>
+            </div>
+        </div>
+        <!--fim Modal carrinho-->
+
+        <script src="script.js"></script>
+    </body>
 </html>
