@@ -8,6 +8,7 @@ const cliente_telefone = document.querySelector('#numero_pedido');
 const cliente_endereco = document.querySelector('#endereco_pedido');
 const divChefe =document.querySelector('.pratos')
 const contadorCarrinho =document.querySelector('.cart-badge')
+const corpoTbPedido=document.querySelector(".tbody-pedido")
 const removerItem =[];
 const itensPedido =[];
 const listaProduto=[
@@ -36,6 +37,9 @@ const listaProduto=[
     "img":"img/cat_jantar.jpg"
   },
 ]
+
+
+
 //percorendo a lista de produto e colocar na tela
 listaProduto.forEach((e)=>{
   //criação dos elementos html
@@ -49,6 +53,7 @@ listaProduto.forEach((e)=>{
   preco.setAttribute("class","prato-price")
   divInf.setAttribute("class","prato-info")
   btnAdd.setAttribute("class","btn-add-cart")
+  btnAdd.onclick=()=>adcionarCarrinho(`${e.id_prod}`)
   div.setAttribute("class","prato-card")
   imgAdd.src="icons/adicionar.svg"
   div.style.backgroundImage=`url(${e.img})`
@@ -65,7 +70,9 @@ listaProduto.forEach((e)=>{
   
   
 })
-contadorCarrinho.innerHTML=itensPedido.length
+//atualizar o contador a cada segundo
+setInterval(()=>{
+contadorCarrinho.innerHTML=itensPedido.length})
 //adicionando modal carrinho na tela
 abrir_carrinho.addEventListener("click", (e) => {
   modal_carrinho.classList.toggle("mostrar");
@@ -77,36 +84,72 @@ fechar_modal_carrinho.addEventListener("click", (e) => {
 });
 
 
-//função para remover um produto na lista de pedido
 
-const removerItens=(item)=>{
-  removerItem.filter((e)=>{
-    if(e.id===item.id){
-      return e;
-    }
+//adicionando elementos selecionados na tel
+ let quant =0
+const adicionarPedidoNaLista=()=>{
+   quant +=1;
+  itensPedido.forEach((e)=>{
+    //criar os elementos
+    const linhaTabele =document.createElement("tr")
+    const numero =document.createElement("td")
+  const nome = document.createElement("td")
+  const preco = document.createElement("td")
+  const remover =document.createElement("td")
+  const link =document.createElement("a");
+  //inserindo conteudos nos elementos criados
+  numero.innerHTML=quant;
+  nome.innerHTML=e.nome;
+  preco.innerHTML=e.preco
+  //adcionando elementos no td
+  linhaTabele.append(numero)
+  linhaTabele.append(nome)
+  linhaTabele.append(preco)
+  corpoTbPedido.append(linhaTabele)
+  
   
   }
   )
 }
+
+//funccao para adiciomar prato no carrinho
+const adcionarCarrinho =(id)=>{
+ listaProduto.forEach((e)=>{
+   let data={
+     id_prod:e.id_prod,
+     nome:e.nome,
+     preco:e.preco,
+     qtd:1
+   };
+   
+    if(e.id_prod==id){
+    itensPedido.push(data);
+    adicionarPedidoNaLista()
+    itensPedido.forEach((p)=>{
+      if (e.id_prod==p.id_prod) {
+        p.id_prod=+1;
+        
+      } else {
+        
+      }
+      
+    }
+    )
+    
+    }
+  }
+  )
+
+}
+
+
 removerItemCarrinho.addEventListener('click',(e)=>{
   const b=e.target.parentElement.parentNode.remove();
-  const removido=removerItens(b);
-  removido.remove();
+  
   
   
 });
 
-//função para adicionar item no carrinho ou array
-const adiocionarItensCarriho=(item)=>{
-  itensPedido.find((el)=>{
-    if (item.id===el.id) {
-      el.quantidade+=1;
-    } else {
-      itensPedido.push(item)
-    }
-    
-  })
-}
 //enviar pedido 
 btnEnviarPedido.addEventListener('submit',(e)=>{
   e.preventDefault();
