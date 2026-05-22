@@ -15,25 +15,25 @@ const listaProduto=[
     "id_prod":1,
     "nome":"Hambúrguer",
     "preco":1500,
-    "img":"ghhhhhhfdyhgghjjjggffg"
+    "img":"img/cat_fast_food.jpg"
   },
     {
-    "id_prod":1,
-    "nome":"Hambúrguer",
-    "preco":1500,
-    "img":"ghhhhhhfdyhgghjjjggffg"
+    "id_prod":2,
+    "nome":"Salda composto",
+    "preco":3000,
+    "img":"img/cat_almoco.jpg"
   },
     {
-    "id_prod":1,
-    "nome":"Hambúrguer",
-    "preco":1500,
-    "img":"ghhhhhhfdyhgghjjjggffg"
+    "id_prod":3,
+    "nome":"cocktail",
+    "preco":1000,
+    "img":"img/cat_bebidas.jpg"
   },
     {
-    "id_prod":1,
-    "nome":"Hambúrguer",
-    "preco":1500,
-    "img":"ghhhhhhfdyhgghjjjggffg"
+    "id_prod":4,
+    "nome":"Bife",
+    "preco":3000,
+    "img":"img/cat_jantar.jpg"
   },
 ]
 //percorendo a lista de produto e colocar na tela
@@ -51,8 +51,9 @@ listaProduto.forEach((e)=>{
   btnAdd.setAttribute("class","btn-add-cart")
   div.setAttribute("class","prato-card")
   imgAdd.src="icons/adicionar.svg"
+  div.style.backgroundImage=`url(${e.img})`
   //adicionando informação nos elementos
-  preco.innerHTML=e.preco
+  preco.innerHTML=e.preco+"Kz"
   nome.innerHTML=e.nome
   //adicionano na div
   divInf.append(nome)
@@ -61,7 +62,7 @@ listaProduto.forEach((e)=>{
   div.append(preco)
   div.append(divInf)
   divChefe.append(div)
-  console.log(div)
+  
   
 })
 contadorCarrinho.innerHTML=itensPedido.length
