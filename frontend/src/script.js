@@ -2,7 +2,7 @@ const abrir_carrinho = document.querySelector("#carrinho");
 const fechar_modal_carrinho = document.querySelector("#fechar_modal_carrinho");
 const modal_carrinho = document.querySelector(".modal_carrinho");
 const removerItemCarrinho = document.querySelector('.remover-item-pedido')
-const btnEnviarPedido = document.querySelector('#btn_pedido');
+const btnEnviarPedido = document.querySelector('#form_carrinho');
 const nome_cliente = document.querySelector('#nome_pedido');
 const cliente_telefone = document.querySelector('#numero_pedido');
 const cliente_endereco = document.querySelector('#endereco_pedido');
@@ -159,6 +159,6 @@ btnEnviarPedido.addEventListener('submit',(e)=>{
     endereco:cliente_endereco.value,
     item:itensPedido
   }
-  console.console.log(data);
+  console.log(data);
   
 });
