@@ -97,14 +97,20 @@ const adicionarPedidoNaLista=()=>{
   const preco = document.createElement("td")
   const remover =document.createElement("td")
   const link =document.createElement("a");
+  const qnt =document.createElement("td")
+  const valor= document.createElement("td")
   //inserindo conteudos nos elementos criados
   numero.innerHTML=quant;
   nome.innerHTML=e.nome;
   preco.innerHTML=e.preco
+  qnt.innerHTML=e.qtd
+  valor.innerHTML=(e.preco*e.qtd)+'kz'
   //adcionando elementos no td
   linhaTabele.append(numero)
   linhaTabele.append(nome)
   linhaTabele.append(preco)
+  linhaTabele.append(qnt)
+  linhaTabele.append(valor)
   corpoTbPedido.append(linhaTabele)
   
   
@@ -142,7 +148,13 @@ const adcionarCarrinho =(id)=>{
 
 }
 
-
+//funcao para remover elemntos da tela
+const removerItens= (id)=>{
+  const removido=id.target
+  console.log(removido)
+  
+  
+}
 removerItemCarrinho.addEventListener('click',(e)=>{
   const b=e.target.parentElement.parentNode.remove();
   
