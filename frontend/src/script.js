@@ -48,8 +48,9 @@ listaProduto.forEach((e)=>{
   //adicionando class nos elementos 
   preco.setAttribute("class","prato-price")
   divInf.setAttribute("class","prato-info")
-  btnAdd.setAttribute("class","btn-add")
+  btnAdd.setAttribute("class","btn-add-cart")
   div.setAttribute("class","prato-card")
+  imgAdd.src="icons/adicionar.svg"
   //adicionando informação nos elementos
   preco.innerHTML=e.preco
   nome.innerHTML=e.nome
@@ -60,6 +61,7 @@ listaProduto.forEach((e)=>{
   div.append(preco)
   div.append(divInf)
   divChefe.append(div)
+  console.log(div)
   
 })
 contadorCarrinho.innerHTML=itensPedido.length
