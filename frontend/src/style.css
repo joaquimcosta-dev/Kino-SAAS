@@ -858,9 +858,9 @@ footer {
 /*Estlizando o formulario pesquisar kino*/
 .form_pesquisar {
   width: 100%;
-  margin: 0 auto;
+  margin: 5px 20px;
   display: flex;
-  justify-content: center;
+  justify-content: fle;
   align-items: center;
   background-color: whitesmoke;
   padding: 10px;
@@ -892,6 +892,7 @@ footer {
   padding: 30px 20px;
   scrollbar-width: auto;
   overflow: auto;
+  display: none;
 }
 
 /*Estilizacao do modal carrinho*/
