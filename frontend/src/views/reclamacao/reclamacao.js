@@ -6,7 +6,7 @@ const btn = document.getElementById("submitBtn");
 const mensagem = document.getElementById("message");
 const not_reclamacao = document.querySelector(".not_reclamacao");
 // URL base para facilitar a manutenção
-const BASE_URL = "http://localhost:3000/index/reclamacao";
+const BASE_URL = "http://localhost:3000/index/fazer/reclamacao";
 const MENU_URL = "../../util/menu.html";
 const LOAD_URL = "../../util/load.html";
 const menu = document.querySelector(".menu");
@@ -67,6 +67,7 @@ const enviarReclamacao = async data => {
         }, 5000);
         resetarBotao();
     }
+    
 };
 //funcao que import o menu na pasta uitl
 const getMenu = async () => {
@@ -170,7 +171,7 @@ formulario.addEventListener("submit", e => {
 
     const data = {
         nome: nome.value.trim(),
-        telefone: telefone.value,
+        tel: telefone.value,
         motivo: motivo.value,
         descricao: mensagem.value.trim()
     };

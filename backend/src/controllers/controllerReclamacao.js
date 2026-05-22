@@ -2,6 +2,7 @@ import express from "express";
 import { listar, criarReclamacao } from "../service/servico_reclamacao.js";
 const controller = express.Router();
 import { auth } from "../middlewares/auth.js";
+
 controller.get("/listar-reclamacao",auth, async (req, res) => {
   try {
     const lista = await listar();
@@ -14,6 +15,7 @@ controller.get("/listar-reclamacao",auth, async (req, res) => {
     
   }
 });
+
 controller.post("/reclamacao", async (req, res) => {
   const data = {
     nome: req.body.nome,
@@ -25,6 +27,7 @@ controller.post("/reclamacao", async (req, res) => {
     const re = await criarReclamacao(data);
     return res.status(201).json({ message: "reclamação feita com sucesso" });
   } catch (e) {
+    console.error(e);
     return res.status(500).json({ message: "Erro ao tentar criar reclamção" });
   }
 });
