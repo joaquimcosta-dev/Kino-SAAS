@@ -101,7 +101,7 @@ const adicionarPedidoNaLista=()=>{
   const valor= document.createElement("td")
   link.innerHTML='remover'
   link.href='#';
-  link.onclick=(e)=>removerItens(e)
+  link.onclick=(b)=>removerItens(b,e.id_prod)
   //inserindo conteudos nos elementos criados
   numero.innerHTML=quant;
   nome.innerHTML=e.nome;
@@ -154,20 +154,20 @@ const adcionarCarrinho =(id)=>{
 }
 
 //funcao para remover elemntos da tela
-const removerItens= (e)=>{
+const removerItens= (e,id)=>{
   const remover=(e.target.parentElement.parentNode)
+ const index =itensPedido.findIndex(e=>e.id_prod==id);
+ //remover o item do array
+    itensPedido.splice(index,1)
+  
+  
   remover.remove();
   
   
   
   
 }
-/*removerItemCarrinho.addEventListener('click',(e)=>{
-  const b=e.target.parentElement.parentNode.remove();
-  
-  
-  
-});*/
+
 
 //enviar pedido 
 btnEnviarPedido.addEventListener('submit',(e)=>{
