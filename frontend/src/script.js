@@ -9,6 +9,9 @@ const cliente_endereco = document.querySelector('#endereco_pedido');
 const divChefe = document.querySelector('.pratos')
 const contadorCarrinho = document.querySelector('.cart-badge')
 const corpoTbPedido = document.querySelector(".tbody-pedido")
+const form_pesquisar=document.querySelector('.form_pesquisar')
+const inputProcurar =document.querySelector('#inputProcurar')
+const result_pesquisa = document.querySelector('.result_pesquisa')
 const removerItem = [];
 const itensPedido = [];
 const listaProduto = [
@@ -131,22 +134,52 @@ qtd: 1
 if (e.id_prod == id){
 itensPedido.push(data);
 adicionarPedidoNaLista()
-itensPedido.forEach((p)=>{
-if (e.id_prod == p.id_prod) {
-p.id_prod=+1;
+}}
+)}
+
+//para procurar comida
+form_pesquisar.addEventListener('submit',(e)=>{
+  e.preventDefault()
+const buscar=inputProcurar.value
+
+  listaProduto.forEach((e)=>{
+    if (e.nome.trim()==buscar.trim()) {
+      
+    
+//criação dos elementos html
+const div = document.createElement('div')
+const preco = document.createElement('span')
+const nome = document.createElement('h5')
+const imgAdd = document.createElement('img')
+const btnAdd = document.createElement('button')
+const divInf = document.createElement('div')
+//adicionando class nos elementos
+preco.setAttribute("class", "prato-price")
+divInf.setAttribute("class", "prato-info")
+btnAdd.setAttribute("class", "btn-add-cart")
+btnAdd.onclick = ()=>adcionarCarrinho(`${e.id_prod}`)
+div.setAttribute("class", "prato-card")
+imgAdd.src = "icons/adicionar.svg"
+div.style.backgroundImage = `url(${e.img})`
+//adicionando informação nos elementos
+preco.innerHTML = e.preco+"Kz"
+nome.innerHTML = e.nome
+//adicionano na div
+divInf.append(nome)
+btnAdd.append(imgAdd)
+divInf.append(btnAdd)
+div.append(preco)
+div.append(divInf)
+result_pesquisa.append(div)
+
 
 } else {
+  console.log("nao existe")
+}})
+  
 
-}
-
-}
-)
-
-}
-}
-)
-
-}
+  
+})
 
 //funcao para remover elemntos da tela
 const removerItens = (e,id)=>{
@@ -154,14 +187,9 @@ const remover = (e.target.parentElement.parentNode)
 const index = itensPedido.findIndex(e=>e.id_prod == id);
 //remover o item do array
 itensPedido.splice(index, 1)
-
-
 remover.remove();
-
-
-
-
 }
+
 
 
 //enviar pedido
