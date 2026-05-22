@@ -1,12 +1,12 @@
 
 
-/* ── produtos provisorios ── */
+/* ── produtos provisorios ── 
 let products = [
   { id: 1, name: "Kino Burger", category: "Almoço",       desc: "Hambúrguer artesanal com molho especial", price: 2500, img: "" },
   { id: 2, name: "Chef Especial", category: "Kino's do chef", desc: "Combinação exclusiva do nosso chef", price: 3200, img: "" },
   { id: 3, name: "Jantar Real",   category: "Jantar",       desc: "Refeição completa para o jantar",         price: 4000, img: "" },
   { id: 4, name: "Double Cheese", category: "Almoço",       desc: "Duplo queijo derretido e crocante",       price: 2800, img: "" },
-];
+];*/
 let categories = ["Almoço", "Kino's do chef", "Jantar"];
 let nextId = 5;
 
@@ -107,32 +107,72 @@ document.getElementById("mainImgInput").addEventListener("change", function() {
 });
 
 /* ── adicionar produto ── */
-document.getElementById("btnAdd").addEventListener("click", () => {
+document.getElementById("btnAdd").addEventListener("click", async () => {
   const name  = document.getElementById("fNome").value.trim();
   const desc  = document.getElementById("fDesc").value.trim();
   const price = parseFloat(document.getElementById("fPreco").value);
+  const quantity = parseInt(document.getElementById("fquantidade").value);
   const cat   = fCatSelected;
 
   if (!name)  { toast("Informe o nome do produto.", "error"); return; }
   if (!cat)   { toast("Selecione uma categoria.", "error"); return; }
   if (isNaN(price) || price < 0) { toast("Informe um preço válido.", "error"); return; }
+  if (isNaN(quantity) || quantity < 0) { toast("Informe uma quantidade válida.", "error"); return; }
 
-  products.push({ id: genId(), name, category: cat, desc, price, img: mainImgData });
-  renderGrid();
-  toast("Produto adicionado!");
+  document.getElementById("btnAdd").addEventListener("click", async () => {
+    const name     = document.getElementById("fNome").value.trim();
+    const desc     = document.getElementById("fDesc").value.trim();
+    const price    = parseFloat(document.getElementById("fPreco").value);
+    const quantity = parseInt(document.getElementById("fquantidade").value);
+    const cat      = fCatSelected;
 
-  // reset form
-  document.getElementById("fNome").value  = "";
-  document.getElementById("fDesc").value  = "";
-  document.getElementById("fPreco").value = "";
-  fCatSelected = "";
-  fCatLbl.textContent = "selecionar categoria";
-  mainImgData = "";
-  const preview = document.getElementById("mainImgPreview");
-  preview.src = ""; preview.style.display = "none";
-  document.getElementById("mainImgPlaceholder").style.display = "flex";
-  document.getElementById("mainImgInput").value = "";
+    if (!name)     { toast("Informe o nome do produto.", "error"); return; }
+    if (!cat)      { toast("Selecione uma categoria.", "error"); return; }
+    if (isNaN(price) || price < 0) { toast("Informe um preço válido.", "error"); return; }
+    if (isNaN(quantity) || quantity < 0) { toast("Informe uma quantidade válida.", "error"); return; }
+
+    // NOVO — fetch para a API
+    const token = localStorage.getItem("token");
+    try {
+        const res = await fetch("http://localhost:3000/produto/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                nome: name,
+                img: mainImgData,
+                preco: price,
+                descricao: desc,
+                quantidade: quantity
+            })
+        });
+        const data = await res.json();
+        if (res.ok) {
+            toast("Produto adicionado!");
+            carregarProdutos();
+        } else {
+            toast(data.mensagem || "Erro ao adicionar produto.", "error");
+        }
+    } catch (e) {
+        toast("Erro de conexão com o servidor.", "error");
+    }
+
+    // reset form
+    document.getElementById("fNome").value = "";
+    document.getElementById("fDesc").value = "";
+    document.getElementById("fPreco").value = "";
+    document.getElementById("fquantidade").value = "";
+    fCatSelected = "";
+    fCatLbl.textContent = "selecionar categoria";
+    mainImgData = "";
+    const preview = document.getElementById("mainImgPreview");
+    preview.src = ""; preview.style.display = "none";
+    document.getElementById("mainImgPlaceholder").style.display = "flex";
+    document.getElementById("mainImgInput").value = "";
 });
+
 
 /* ── RENDER GRID ── */
 function renderGrid() {
@@ -232,6 +272,7 @@ function openEditModal(id) {
 
   document.getElementById("editNome").value  = p.name;
   document.getElementById("editDesc").value  = p.desc;
+  document.getElementById("editQuantidade").value = p.quantity;
   document.getElementById("editPreco").value = p.price;
   editCatSelected = p.category;
   editCatLbl.textContent = p.category || "selecionar categoria";
@@ -253,13 +294,14 @@ document.getElementById("editCancel").addEventListener("click", () => {
 document.getElementById("editSave").addEventListener("click", () => {
   const name  = document.getElementById("editNome").value.trim();
   const desc  = document.getElementById("editDesc").value.trim();
+  const quantity = parseInt(document.getElementById("editQuantidade").value);
   const price = parseFloat(document.getElementById("editPreco").value);
   const cat   = editCatSelected;
 
   if (!name)  { toast("Informe o nome.", "error"); return; }
   if (!cat)   { toast("Selecione a categoria.", "error"); return; }
   if (isNaN(price) || price < 0) { toast("Preço inválido.", "error"); return; }
-
+  if (isNaN(quantity) || quantity < 0) { toast("Quantidade inválida.", "error"); return; }
   const prod = products.find(x => x.id === editingId);
   if (prod) { prod.name = name; prod.desc = desc; prod.price = price; prod.category = cat; if (editImgData) prod.img = editImgData; }
   renderGrid();
@@ -343,4 +385,4 @@ const getMenuAdmin = async () => {
 };
 
 /* ── INIT ── */
-renderGrid();
+renderGrid();})

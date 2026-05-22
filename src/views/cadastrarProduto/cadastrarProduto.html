@@ -27,6 +27,7 @@
 
   <!-- formulario -->
   <div class="form-card">
+
     <!-- input de imagem -->
     <div class="img-upload" id="mainImgUpload" title="Clique para escolher imagem">
       <input type="file" accept="image/*" id="mainImgInput"/>
@@ -38,11 +39,14 @@
     </div>
 
     <div class="form-fields">
+
+      <!-- input de nome -->
       <div class="field field-nome">
         <label>Nome</label>
         <input type="text" id="fNome" placeholder="nome do produto"/>
       </div>
 
+      <!-- input de Categoria -->
       <div class="field field-cat">
         <label>Categoria</label>
         <div class="sel-wrapper">
@@ -54,11 +58,19 @@
         </div>
       </div>
 
+      <!-- input de descrição -->
       <div class="field field-desc">
         <label>Descrição</label>
         <input type="text" id="fDesc" placeholder="descrição"/>
       </div>
 
+      <!-- input de quantidade -->
+      <div class="field field-quantidade">
+        <label>quantidade</label>
+        <input type="number" id="fquantidade" placeholder="0.00" step="1" min="0"/>
+      </div>
+
+      <!-- input de preço -->
       <div class="field field-preco">
         <label>Preço</label>
         <input type="number" id="fPreco" placeholder="0.00" step="0.10" min="0"/>
@@ -86,7 +98,7 @@
   </div>
 </footer>
 
-<!-- EDIT MODAL -->
+<!-- Editar produto MODAL -->
 <div class="overlay" id="editOverlay">
   <div class="modal">
     <h2>Editar Produto</h2>
@@ -111,7 +123,7 @@
         <label>Categoria</label>
         <div class="sel-wrapper">
           <div class="sel-box" id="editCatBox" tabindex="0">
-            <span id="editCatLabel">selecionar categoria</span>
+            <span id="editCatLabel">selecionar</span>
             <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
           </div>
           <ul class="dropdown" id="editCatDropdown"></ul>
@@ -120,6 +132,10 @@
       <div>
         <label>Descrição</label>
         <input type="text" id="editDesc"/>
+      </div>
+      <div>
+        <label>Quantidade</label>
+        <input type="number" id="editQuantidade" step="1" min="0"/>
       </div>
       <div>
         <label>Preço (Kz)</label>

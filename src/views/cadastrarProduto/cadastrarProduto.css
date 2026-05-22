@@ -181,7 +181,7 @@
       display: flex; 
       gap: 5px; 
       flex: 1; 
-      flex-wrap: wrap; 
+      flex-wrap: wrap;
       align-items: flex-end; 
     }
     .field { 
@@ -207,6 +207,8 @@
       transition: border-color .2s;
       width: 100%;
     }
+
+
     input:focus, .sel-box:focus { 
       border-color: var(--cor-principal); 
     }
