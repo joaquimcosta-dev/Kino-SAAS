@@ -900,6 +900,8 @@ footer {
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
     width: 100%;
     height: 100%;
     z-index: 1000;
@@ -908,8 +910,10 @@ footer {
     justify-content: center;
     align-items: center;
     visibility: hidden;
+      margin-top: 100vh;
     opacity: 0;
     transition:
+    margin-top 2s ease-in-out,
         opacity 0.3s ease,
         visibility 0.3s ease;
 }
@@ -917,6 +921,7 @@ footer {
 .mostrar {
     opacity: 1;
     visibility: visible;
+      margin-top: -10vh;
 }
 
 .carrinho {
