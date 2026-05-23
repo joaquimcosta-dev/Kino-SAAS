@@ -28,6 +28,7 @@ controller.post("/cadastrar/:id", auth, permissaoAdmin, async (req, res) => {
         //buscar categoria
         const id_cat = req.params.id;
         const cat = await servicoCategoria.buscarCatId(id_cat);
+
         //verificar se a categoria existe
         /*  if (!cat) {
             return res
@@ -35,6 +36,7 @@ controller.post("/cadastrar/:id", auth, permissaoAdmin, async (req, res) => {
                 .json({ message: "categoria não encontrado" });
             //return res.status(404).json({message:"Categoria não econtrado"});
         }*/
+       
         //pegar o id do usuario logado
         const id_user = req.user.id;
         console.log(nome, img, preco, descricao, id_cat, id_user);

@@ -1,10 +1,10 @@
 import db from "../config/db.js";
 // funcao com sql para criar funcionarios
 export const criar_funcionario = async data => {
-    const { nome, bilhete, telefone, datas } = data;
+    const { nome, bi, data_nasc, tel } = data;
     const novo = await db.query(
-        "insert into funcionario(nome,bilhe,telefone,data) values (?,?,?,?)",
-        [nome, bilhete, telefone, datas]
+        "insert into funcionario(nome, bi, data_nasc, tel) values (?,?,?,?)",
+        [nome, bi, data_nasc, tel]
     );
     return novo;
 };
@@ -29,22 +29,24 @@ export const deletarUsuario = async id => {
 // funcao com sql para buscar todos funcionarios
 export const listarTodosFuncionarios = async () => {
     const lista = await db.query(
-        "select id_fun, nome,bilhe, telefone, id_user from funcionario"
+        "select id_fun, nome, bi, tel, data_nasc from funcionario"
     );
     return lista;
 };
+
 // funcao com sql para atualizar funcionarios
 export const atualizar_funcionario = async data => {
-    const { id, nome, bilhete, telefone, datas } = data;
+    const { id, nome, bi, tel, data_nasc } = data;
     const atualizado = await db.query(
-        "update funcionario set (nome,bilhe,telefone,data) values (?,?,?,?) where id=?",
-        [nome, bilhete, telefone, datas, id]
+        "update funcionario set (nome, bi, tel, data_nasc) values (?,?,?,?) where id=?",
+        [nome, bi, tel, data_nasc, id]
     );
     return atualizado;
 };
+
 //procurando bi do funcionario
 export const procurandoBi = async bi => {
-    const [bilhete] = await db.query("select from funcionario where bi=?", [
+    const [bilhete] = await db.query("select * from funcionario where bi=?", [
         bi
     ]);
     return bilhete[0] || null;
