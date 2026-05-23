@@ -892,7 +892,8 @@ footer {
     padding: 30px 20px;
     scrollbar-width: auto;
     overflow: auto;
-    display: none;
+    display: flex;
+    border :1px orangered solid;
 }
 
 /*Estilizacao do modal carrinho*/

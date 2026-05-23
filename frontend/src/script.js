@@ -9,9 +9,10 @@ const cliente_endereco = document.querySelector('#endereco_pedido');
 const divChefe = document.querySelector('.pratos')
 const contadorCarrinho = document.querySelector('.cart-badge')
 const corpoTbPedido = document.querySelector(".tbody-pedido")
-const form_pesquisar=document.querySelector('.form_pesquisar')
-const inputProcurar =document.querySelector('#inputProcurar')
+const form_pesquisar = document.querySelector('.form_pesquisar')
+const inputProcurar = document.querySelector('#inputProcurar')
 const result_pesquisa = document.querySelector('.result_pesquisa')
+const URL_PEDIDO = "http://localhost:3000/Index/pedido/criar";
 const removerItem = [];
 const itensPedido = [];
 const listaProduto = [
@@ -138,14 +139,14 @@ adicionarPedidoNaLista()
 )}
 
 //para procurar comida
-form_pesquisar.addEventListener('submit',(e)=>{
-  e.preventDefault()
-const buscar=inputProcurar.value
+form_pesquisar.addEventListener('submit', (e)=>{
+e.preventDefault()
+const buscar = inputProcurar.value
 
-  listaProduto.forEach((e)=>{
-    if (e.nome.trim()==buscar.trim()) {
-      
-    
+
+const res = listaProduto.filter(p=>p.nome == buscar);
+
+res.forEach((e)=>{
 //criação dos elementos html
 const div = document.createElement('div')
 const preco = document.createElement('span')
@@ -170,15 +171,9 @@ btnAdd.append(imgAdd)
 divInf.append(btnAdd)
 div.append(preco)
 div.append(divInf)
+result_pesquisa.style.display = "flex"
 result_pesquisa.append(div)
-
-
-} else {
-  console.log("nao existe")
-}})
-  
-
-  
+} )
 })
 
 //funcao para remover elemntos da tela
@@ -189,9 +184,23 @@ const index = itensPedido.findIndex(e=>e.id_prod == id);
 itensPedido.splice(index, 1)
 remover.remove();
 }
+//funcao enviar dados no back
+const postPedido = async(data)=>{
+try{
+const response = await fetch(URL_PEDIDO, {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify(data)
+})
+if (response.ok)return console.log("sucesso")
+return console.log(await response.json())
 
-
-
+}catch(e){
+console.log(e);
+}
+}
 //enviar pedido
 btnEnviarPedido.addEventListener('submit', (e)=>{
 e.preventDefault();
@@ -201,6 +210,6 @@ telefone: cliente_telefone.value,
 endereco: cliente_endereco.value,
 item: itensPedido
 }
-console.log(data);
+postPedido(data);
 
 });
