@@ -10,9 +10,9 @@ export const criar_funcionario = async data => {
 };
 
 // funcao com sql para buscar funcionarios id
-export const buscarFuncicionarioId = async id => {
+export const buscarFuncionarioId = async id => {
     const [encontrado] = await db.query(
-        "select *from funcionario where id_fun=?",
+        "select * from funcionario where id_fun=?",
         [id]
     );
     return encontrado[0] || null;
@@ -28,7 +28,7 @@ export const deletarUsuario = async id => {
 
 // funcao com sql para buscar todos funcionarios
 export const listarTodosFuncionarios = async () => {
-    const lista = await db.query(
+    const [lista] = await db.query(
         "select id_fun, nome, bi, data_nasc, tel from funcionario"
     );
     return lista;
@@ -38,7 +38,7 @@ export const listarTodosFuncionarios = async () => {
 export const atualizar_funcionario = async data => {
     const { id, nome, bi, data_nasc, tel } = data;
     const atualizado = await db.query(
-        "update funcionario set (nome, bi, data_nasc, tel) values (?,?,?,?) where id=?",
+        "update funcionario set nome=?, bi=?, data_nasc=?, tel=? where id_fun=?",
         [nome, bi, data_nasc, tel, id]
     );
     return atualizado;

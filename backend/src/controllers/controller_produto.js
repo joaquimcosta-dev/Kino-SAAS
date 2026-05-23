@@ -91,14 +91,14 @@ controller.put("/atualizar/:id", permissaoAdmin, async (req, res) => {
         if (isNaN(id) || id <= 0) {
             return res.status(400).json({ mensagem: "Id inválido" });
         }
-        const { nome, img, preco, deescricao, quantidade } = req.body;
+        const { nome, img, preco, descricao, quantidade } = req.body;
 
         const resultado = await service.atualizarProduto(
             id,
             nome,
             img,
             preco,
-            deescricao,
+            descricao,
             quantidade
         );
 
@@ -108,7 +108,7 @@ controller.put("/atualizar/:id", permissaoAdmin, async (req, res) => {
         return res
             .status(400)
             .json({ mensagem: "erro ao atualizar o produto" });
-    }
+        }
 });
 
 //rota Eliminar produto

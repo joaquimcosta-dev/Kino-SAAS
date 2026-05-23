@@ -1,13 +1,13 @@
 import db from './../config/db.js';
 // funcao com sql para criar novo usuario
 export const criarUsuario = async (data)=>{
-    const {username,senhaCripto,perfil,estado,id_fun}= data;
-    const [novo] =await db.query("insert into usuario (username,senha,perfil,estado,id_fun) values (?,?,?,?,?)",[username,senhaCripto,perfil,estado,id_fun]);
+    const {nome,senhaCripto,perfil,estado,id_fun}= data;
+    const [novo] =await db.query("insert into usuario (nome,senha,perfil,estado,id_fun) values (?,?,?,?,?)",[nome,senhaCripto,perfil,estado,id_fun]);
     return novo[0]
 }
 // funcao com sql para fazer login
-export const login=async({username})=>{
-    const [logado] = await db.query("select *from usuario where Username = ?",[username])
+export const login=async({nome})=>{
+    const [logado] = await db.query("SELECT * FROM usuario WHERE nome = ?",[nome])
     return logado[0] || null;
 }
 // funcao com sql para buscar usuario id
@@ -24,6 +24,6 @@ export const deletarUsuario = async (id)=>{
 
 // funcao com sql para buscar todos usuarios 
 export const listarTodosUsuarios=async()=>{
-    const lista= await db.query("select id_user, username,perfil,estado,id_fun from usuario");
+    const lista= await db.query("select id_user, nome,perfil,estado,id_fun from usuario");
     return lista[0];
 }

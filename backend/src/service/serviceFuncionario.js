@@ -7,7 +7,7 @@ export const criarFuncionario = async (data) => {
 }
 //funcao para buscar o funcionario
 export const buscarFuncionarioId = async (id) => {
-  const encontrado= await funcionario.buscarFuncicionarioId(id);
+  const encontrado = await funcionario.buscarFuncionarioId(id);
   return encontrado;
 }
 //Serviço para listar todos os usuarios
