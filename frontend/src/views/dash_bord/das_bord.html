@@ -7,7 +7,7 @@
     <!-- Fontes locais configuradas no CSS -->
 <link rel="stylesheet" href="../../style.css" />  
 <link rel="stylesheet" href="dash_bord.css" />
-    <link rel="icon" href="../public/kino.svg" />
+ <link rel="icon" href="../../../public/kino.svg" />
 </head>
 <body>
      <!--Cabeçalho da pagina-->
@@ -72,7 +72,7 @@
 
         <header class="categorias-header">
             <h3>Dashboard</h3>
-            <a href="#">Nome do Funcionário</a>
+            <a href="#" id="nomeFun">Nome do Funcionário</a>
         </header>
 
 <!--conteiner principakl da dashboard-->
@@ -103,22 +103,10 @@
                         <th>Mensagem</th>
                         <th>data</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Riano Cristovão</td>
-                        <td>+244 940 938 106</td>
-                         <td> Eh Nengo fuiddy...</td>
-                          <td>28/04/2026</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Paula Maribel</td>
-                        <td>+244 925 795 7637</td>
-                         <td>Se continuarem assim vou no KFC?</td>
-                          <td>29/05/2026</td>
-                    </tr>
+
+                   
                 </thead>
-                <tbody>
+                <tbody id="tbody">
                     <!--Inserido via JS-->
                 </tbody>
             </table> 
@@ -182,6 +170,6 @@
             </div>
         </div>
     </footer>
-    <script src="../dash_bord/dash_bord.js"></script>
+    <script src="dash_bord.js" ></script>
 </body>
 </html>

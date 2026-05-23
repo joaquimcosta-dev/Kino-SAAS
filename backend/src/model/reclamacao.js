@@ -20,6 +20,7 @@ export const criar_reclamacao = async (data)=>{
     const {nome, motivo,descricao, datas,tel}=data;
     const reclamacao= await db.query("insert into reclamacao (nome,motivo,descricao,tel) values(?,?,?,?)",[nome,motivo,descricao,tel])
     return reclamacao;
+    
 }
 //Funcao que contemm o sql para deletar reclamacao no db
 export const deletarRelclamacao= async(id)=>{
