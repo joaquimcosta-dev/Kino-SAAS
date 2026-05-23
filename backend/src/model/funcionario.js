@@ -29,17 +29,17 @@ export const deletarUsuario = async id => {
 // funcao com sql para buscar todos funcionarios
 export const listarTodosFuncionarios = async () => {
     const lista = await db.query(
-        "select id_fun, nome, bi, tel, data_nasc from funcionario"
+        "select id_fun, nome, bi, data_nasc, tel from funcionario"
     );
     return lista;
 };
 
 // funcao com sql para atualizar funcionarios
 export const atualizar_funcionario = async data => {
-    const { id, nome, bi, tel, data_nasc } = data;
+    const { id, nome, bi, data_nasc, tel } = data;
     const atualizado = await db.query(
-        "update funcionario set (nome, bi, tel, data_nasc) values (?,?,?,?) where id=?",
-        [nome, bi, tel, data_nasc, id]
+        "update funcionario set (nome, bi, data_nasc, tel) values (?,?,?,?) where id=?",
+        [nome, bi, data_nasc, tel, id]
     );
     return atualizado;
 };
