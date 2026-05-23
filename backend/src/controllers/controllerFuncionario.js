@@ -5,10 +5,8 @@ const controller = express.Router();
 //controler para fazer o cadastro do funcionario
 controller.post("/cadastrar", async (req, res) => {
   //verificar os campos a serem enviados pelo corpo
-  if (!req.body.nome || !req.body.bilhete || !req.body.tel) {
-    return res
-      .status(400)
-      .json({ message: "Campos obrigatorio deve sem preenchido" });
+  if (!req.body.nome || !req.body.bi || !req.body.tel) {
+    return res.status(400).json({ message: "Campos obrigatorio deve sem preenchido" });
   }
   const { nome, bi, data_nasc, tel } = req.body;
   try {
@@ -17,7 +15,7 @@ controller.post("/cadastrar", async (req, res) => {
     if (fun) {
       return res.status(200).json({ message: "Este BI já existe no banco" });
     }
-    const novo = await servico.criarFuncionario({ name, bi, data_nasc, tel });
+    const novo = await servico.criarFuncionario({ nome, bi, data_nasc, tel });
     return res.status(201).json(novo);
   } catch (e) {
     return res
@@ -62,3 +60,5 @@ controller.delete("/deletar/:id", async (req, res) => {
       .json({ message: "Erro ao tentar eliminar funcionario" });
   }
 });
+
+export default controller;
