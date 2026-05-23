@@ -1,8 +1,8 @@
 import *as funcionario from "../model/funcionario.js";
 //funcao para criar novo funcionario
 export const criarFuncionario = async (data) => {
-  const {nome, bi, tel, datas}=data;
-  const novo = await funcionario.criar_funcionario({nome,bi, tel,datas});
+  const {nome, bi, data_nasc, tel}=data;
+  const novo = await funcionario.criar_funcionario({nome, bi, data_nasc, tel});
   return novo;
 }
 //funcao para buscar o funcionario

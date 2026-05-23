@@ -5,19 +5,19 @@ const controller = express.Router();
 //controler para fazer o cadastro do funcionario
 controller.post("/cadastrar", async (req, res) => {
   //verificar os campos a serem enviados pelo corpo
-  if (!req.body.nome || !req.body.bilhete || !req.body.data) {
+  if (!req.body.nome || !req.body.bilhete || !req.body.tel) {
     return res
       .status(400)
       .json({ message: "Campos obrigatorio deve sem preenchido" });
   }
-  const { nome, bilhete, data, tel } = req.body;
+  const { nome, bi, data_nasc, tel } = req.body;
   try {
     //procurando bilhete no banco
-    const fun = await servico.procurarBilhete(bilhete);
+    const fun = await servico.procurarBilhete(bi);
     if (fun) {
       return res.status(200).json({ message: "Este BI já existe no banco" });
     }
-    const novo = await servico.criarFuncionario({ name, bilhete, data, tel });
+    const novo = await servico.criarFuncionario({ name, bi, data_nasc, tel });
     return res.status(201).json(novo);
   } catch (e) {
     return res
@@ -37,9 +37,10 @@ controller.get("/listar", async (req, res) => {
       .json({ message: "Erro ao tentar listar funcionario" });
   }
 });
+
 //controler para procurar funcionario
 controller.get("/listar/:id", async (req, res) => {
-  const id = req.body.id;
+  const id = req.params.id;
   try {
     const encontrado = await servico.buscarFuncionario(id);
     return res.status(200).json(encontrado);
@@ -51,7 +52,7 @@ controller.get("/listar/:id", async (req, res) => {
 });
 // controler para deletar funcionario
 controller.delete("/deletar/:id", async (req, res) => {
-  const id = req.body.id;
+  const id = req.params.id;
   try {
     const eliminado = await servico.deletar_funcionario(id);
     return res.status(200).json({ message: "Eliminado com sucesso" });
