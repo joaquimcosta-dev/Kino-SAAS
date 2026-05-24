@@ -13,37 +13,32 @@ const form_pesquisar = document.querySelector('.form_pesquisar')
 const inputProcurar = document.querySelector('#inputProcurar')
 const result_pesquisa = document.querySelector('.result_pesquisa')
 const URL_PEDIDO = "http://localhost:3000/Index/pedido/criar";
+const URL_BASE = "http://localhost:3000"
 const removerItem = [];
 const itensPedido = [];
-const listaProduto = [
-{
-"id_prod": 1,
-"nome": "Hambúrguer",
-"preco": 1500,
-"img": "img/cat_fast_food.jpg"
-},
-{
-"id_prod": 2,
-"nome": "Salda composto",
-"preco": 3000,
-"img": "img/cat_almoco.jpg"
-},
-{
-"id_prod": 3,
-"nome": "cocktail",
-"preco": 1000,
-"img": "img/cat_bebidas.jpg"
-},
-{
-"id_prod": 4,
-"nome": "Bife",
-"preco": 3000,
-"img": "img/cat_jantar.jpg"
-},
-]
+//conexao com o back, usando o fetch
+const getProduto = async()=>{
+try{
+//fazendo o get
+const response = await fetch(`${URL_BASE}/Index/produto/listar`);
+//verificando o estatus
+if (response.ok){
+const res = await response.json();
+listaProduto(res);
+return res;
+}
+console.log("Não foi possivel listar pridutos");
+return;
 
+}catch(e){
+console.log("Erro ao tentar listar produto", e)
+}
+
+}
 //percorendo a lista de produto e colocar na tela
-listaProduto.forEach((e)=>{
+const listaProduto = (data)=>{
+  divChefe.innerHTML=''
+data.forEach((e)=>{
 //criação dos elementos html
 const div = document.createElement('div')
 const preco = document.createElement('span')
@@ -72,6 +67,7 @@ divChefe.append(div)
 
 
 })
+}
 //atualizar o contador a cada segundo
 setInterval(()=>{
 contadorCarrinho.innerHTML = itensPedido.length})
@@ -84,14 +80,11 @@ modal_carrinho.classList.toggle("mostrar");
 fechar_modal_carrinho.addEventListener("click", (e) => {
 modal_carrinho.classList.toggle("mostrar");
 });
-
-
-
 //adicionando elementos selecionados na tel
-let quant = 0
 const adicionarPedidoNaLista = ()=>{
-quant += 1;
-itensPedido.forEach((e)=>{
+//limpando o corpopedido
+corpoTbPedido.innerHTML = '';
+itensPedido.forEach((e, index)=>{
 //criar os elementos
 const linhaTabele = document.createElement("tr")
 const numero = document.createElement("td")
@@ -105,7 +98,7 @@ link.innerHTML = 'remover'
 link.href = '#';
 link.onclick = (b)=>removerItens(b, e.id_prod)
 //inserindo conteudos nos elementos criados
-numero.innerHTML = quant;
+numero.innerHTML = index + 1;
 nome.innerHTML = e.nome;
 preco.innerHTML = e.preco
 qnt.innerHTML = e.qtd
@@ -123,21 +116,35 @@ corpoTbPedido.append(linhaTabele)
 )
 }
 //funccao para adiciomar prato no carrinho
-const adcionarCarrinho = (id)=>{
-listaProduto.forEach((e)=>{
-let data = {
-id_prod: e.id_prod,
-nome: e.nome,
-preco: e.preco,
+const adcionarCarrinho = async(id)=>{
+//recebendo valores que vem da funcao getProduto
+const produto = await getProduto();
+let data;
+//achando o produto no array produto
+const enco = produto.find(e=>e.id_prod == id)
+if (!enco)return;
+const prod = itensPedido.find(e=>e.id_prod == enco.id_prod);
+if (!prod){
+data = {
+id_prod: enco.id_prod,
+nome: enco.nome,
+preco: enco.preco,
 qtd: 1
-};
-
-if (e.id_prod == id){
+}
+//adicionar produto na lidta de pedido
 itensPedido.push(data);
-adicionarPedidoNaLista()
-}}
-)}
+} else {
+//percorendo array oara atualizar a qtd
+itensPedido.forEach((e)=>{
+if (e.id_prod == enco.id_prod){
+return e.qtd++
+}
+});
+console.log(itensPedido);
 
+}
+adicionarPedidoNaLista()
+}
 //para procurar comida
 form_pesquisar.addEventListener('submit', (e)=>{
 e.preventDefault()
@@ -213,3 +220,4 @@ item: itensPedido
 postPedido(data);
 
 });
+getProduto()
