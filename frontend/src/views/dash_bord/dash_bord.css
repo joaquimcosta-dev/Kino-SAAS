@@ -64,7 +64,15 @@ margin-right: 30px;
     border-box:#eee;
     
 }
-
+/*estilizando div operacao dia */
+.operacao-dia{
+  display: flex;
+  flex-direction: column;
+}
+/*Estilizando div reclamacao*/
+.reclacao{
+  overflow-x: auto;
+}
 
 #dv3-cont{display: grid;
     max-width: 100%;}

@@ -2,8 +2,8 @@ import db from './../config/db.js';
 // funcao com sql para criar pedido
 export const criar_pedido = async(data)=>{
 const {nome, telefone, endereco, cod} = data;
-const novo = await db.query("insert into pedido(nome,telefone,endereco,codigo) values (?,?,?,?)", [nome, telefone, endereco, cod]);
-return novo;
+const [novo] = await db.query("insert into pedido(nome,tel,endereco,codigo) values (?,?,?,?)", [nome, telefone, endereco, cod]);
+return novo.insertId;
 }
 
 // funcao com sql para buscar pedido id

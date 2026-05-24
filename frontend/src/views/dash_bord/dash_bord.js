@@ -20,7 +20,7 @@ const listarReclamacao = async () => {
 
   //consol.log(localStorage.user)
       //Map para percorrer o lista vindo do bd
-      res.map((e) => {
+      res.forEach((e, index) => {
         //inicio de criacao dos elementos
         const tr = document.createElement("tr");
         const id = document.createElement("td");
@@ -30,7 +30,7 @@ const listarReclamacao = async () => {
         const data = document.createElement("td");
         //fim de criacao dos elementos
         //inserirndo os elemrntos na
-        id.innerHTML = e.id_recla;
+        id.innerHTML = index +1;
         nome.innerHTML = e.nome;
         tel.innerHTML = e.tel;
         sms.innerHTML = e.descricao;

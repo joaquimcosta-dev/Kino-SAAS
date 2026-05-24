@@ -12,6 +12,7 @@ return res.status(400).json({message: "O cambo nome é obrigatório"})
 const data=req.body;
 try{
 const novo = await servico.criarPedido(data)
+return res.status(201).json(novo);
 }catch(e){
   console.log(e)
   return res.status(500).json({message: "erro ao tentar fazer pedido"})
