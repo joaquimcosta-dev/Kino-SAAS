@@ -994,3 +994,7 @@ table td {
     font-weight: 600;
     margin: 0 auto;
 }
+
+#nomeFun {
+    font-size: 22px;
+}

@@ -23,8 +23,8 @@ export const criar_reclamacao = async (data)=>{
     
 }
 //Funcao que contemm o sql para deletar reclamacao no db
-export const deletarRelclamacao= async(id)=>{
-    const eliminado = await db.query("delete from reclamacao where id_reclamacao =?",[id]);
+export const deletarReclamacao= async(id)=>{
+    const eliminado = await db.query("delete from reclamacao where id_rec =?",[id]);
     return eliminado;
 }
 //Funcao que contemm o sql para listar reclamacao no db

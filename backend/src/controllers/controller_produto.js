@@ -120,7 +120,7 @@ controller.delete("/eliminar/:id", permissaoAdmin, async (req, res) => {
 
         //verifica o id
         if (isNaN(id) || id <= 0) {
-            return res.status(400).json({ mensagem: "id invalido" });
+            return res.status(400).json({ message: "id invalido" });
         }
 
         const eliminar = await service.eliminarProduto(id);

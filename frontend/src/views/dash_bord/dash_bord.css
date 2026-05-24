@@ -1,83 +1,111 @@
-
-.dashboard-conteiner{
+.dashboard-conteiner {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     padding: 20px;
     font-family: sans-serif;
 }
-.card{
+
+.card {
     background: var(--bg-card);
     border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
-h3{color: var(--text-dark); margin-top: 0;}
-.estatus{
+h3 {
+    color: var(--text-dark);
+    margin-top: 0;
+}
+
+.estatus {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     text-align: center;
 }
-.estatus span{
-    display: block; font-size: 0.9rem; color: #666;}
 
-.estatus strong{font-size: 1.5rem; color: var(--primary);}
-table{ width: 100%; border-collapse: collapse; margin-top: 10px;
-}
-th{ text-align: left; color: #888; font-weight: normal; padding: 10px 5px;}
-td{padding: 10px 5px; border-top: 1px solid #eee; color: var(--primary); font-size: 0.9rem;
-
+.estatus span {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
 }
 
-#header_dashboar{
+.estatus strong {
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th {
+    text-align: left;
+    color: #888;
+    font-weight: normal;
+    padding: 10px 5px;
+}
+
+td {
+    padding: 10px 5px;
+    border-top: 1px solid #eee;
+    color: var(--primary);
+    font-size: 0.9rem;
+}
+
+#header_dashboar {
     display: flex;
-    justify-content:right;
-    align-items:right;
+    justify-content: right;
+    align-items: right;
 
 }
 
-#nav_dashboard{
-justify-content: right;
-margin-right: 30px;
-    
+#nav_dashboard {
+    justify-content: right;
+    margin-right: 30px;
+
 }
-.div-dash{
+
+.div-dash {
     display: flex;
-    
+
     gap: 20px;
     padding: 20px;
     font-family: sans-serif;
     flex-wrap: wrap;
-    
+
 }
 
-.operacao-dia, .reclamacao{
-   display: flex;
-     grap: 20px;
+.operacao-dia,
+.reclamacao {
+    display: flex;
+    gap: 20px;
     max-height: 100%;
-    max-width: 100%; 
+    max-width: 100%;
     height: 250px;
     padding: 20px;
     padding-left: 40px;
     border-radius: 20px;
-    border-box:#eee;
-    
+    border-color: #eee;
 }
 
 
-#dv3-cont{display: grid;
-    max-width: 100%;}
+#dv3-cont {
+    display: grid;
+    max-width: 100%;
+}
 
-.novos-pedidos{
+.novos-pedidos {
     display: grid;
     background: #fdf2e9;
     padding: 20px;
     padding-left: 40px;
     height: 300px;
-    max-width: 100%;  
+    max-width: 100%;
     border-radius: 20px;
     margin-right: 74px;
     margin-left: 74px;
     margin-bottom: 30px;
-  }
+}

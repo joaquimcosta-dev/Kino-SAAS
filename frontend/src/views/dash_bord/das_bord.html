@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dash Bord</title>
     <!-- Fontes locais configuradas no CSS -->
-<link rel="stylesheet" href="../../style.css" />  
-<link rel="stylesheet" href="dash_bord.css" />
- <link rel="icon" href="../../../public/kino.svg" />
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="dash_bord.css" />
+    <link rel="icon" href="../../../public/kino.svg" />
 </head>
+
 <body>
-     <!--Cabeçalho da pagina-->
+    <!--Cabeçalho da pagina-->
     <header class="header" id="header_dashboar">
         <div class="logo">
             <!-- Removidos os width="80px" e height="80px" fixos para que o CSS o expanda grandemente -->
@@ -18,10 +20,11 @@
         </div>
         <!--Menu principal da página-->
         <nav class="nav" id="nav_dashboard">
-           
+
             <ul class="menu">
                 <header class="Cabeçalho-menu">
-                    <a href="views/login/login.html"><img src="../src/icons/user.svg" alt="icon conta" width="40px" height="40px"></a>
+                    <a href="views/login/login.html"><img src="../src/icons/user.svg" alt="icon conta" width="40px"
+                            height="40px"></a>
                     <a href="#"><img src="icons/poibir.svg" alt="icon carrinho" width="40px" height="40px"></a>
                 </header>
                 <li>
@@ -63,60 +66,61 @@
                 </li>
             </ul>
         </nav>
-            
-            <a href="views/login/login.html" class="conta-icones"><img src="../../icons/user.svg" id="logar" alt="icon conta"></a>
-            
+
+        <a href="views/login/login.html" class="conta-icones"><img src="../../icons/user.svg" id="logar"
+                alt="icon conta"></a>
+
     </header>
-   
+
     <div class="categorias">
 
         <header class="categorias-header">
             <h3>Dashboard</h3>
-            <a href="#" id="nomeFun">Nome do Funcionário</a>
+            <a href="#" id="nomeFun"></a>
         </header>
 
-<!--conteiner principakl da dashboard-->
-<div class="div-dash">
-    
-        <!--Operações do dia-->
-        <section class="card operacao-dia">
-            <h3>Operações do dia</h3>
-            <div class="estatus">
+        <!--conteiner principakl da dashboard-->
+        <div class="div-dash">
+
+            <!--Operações do dia-->
+            <section class="card operacao-dia">
+                <h3>Operações do dia</h3>
+                <div class="estatus">
                     <div><span>Pedidos</span><strong>15</strong></div>
                     <div><span>Pendentes</span><strong>5</strong></div>
                     <div><span>Preparando</span><strong>4</strong></div>
                     <div><span>Feito</span><strong>6</strong></div>
                     <div><span>Entregue</span><strong>6</strong></div>
-            </div>
-        </section>
-        <!--Reclamações-->
-        <section class=" card reclacao">
-            <h3>Reclamações</h3>
+                </div>
+            </section>
+            <!--Reclamações-->
+            <section class=" card reclacao">
+                <h3>Reclamações</h3>
 
-            <!--Tabela das reclamações-->
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Nome</th>
-                        <th>Telefone</th>
-                        <th>Mensagem</th>
-                        <th>data</th>
-                    </tr>
+                <!--Tabela das reclamações-->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Mensagem</th>
+                            <th>data</th>
+                        </tr>
 
-                   
-                </thead>
-                <tbody id="tbody">
-                    <!--Inserido via JS-->
-                </tbody>
-            </table> 
 
-        </section>
+                    </thead>
+                    <tbody id="tbody">
+                        <!--Inserido via JS-->
+                    </tbody>
+                </table>
 
-    
+            </section>
+
+
+        </div>
     </div>
-</div>
-<div id="dv3-cont">                                                                                                            
+    <div id="dv3-cont">
         <!--Novos Pedidos-->
         <section class="card novos-pedidos">
             <h3>Novos Pedidos</h3>
@@ -131,20 +135,20 @@
                         <th>Tipo</th>
                         <th>Produto</th>
                         <th>Estado</th>
-                        </tr>
-                        <tr>
+                    </tr>
+                    <tr>
                         <td>1</td>
                         <td>José Adriano Brito</td>
                         <td>+244 945 738 746</td>
-                         <td>Entrega</td>
-                          <td>Hamburger</td>
+                        <td>Entrega</td>
+                        <td>Hamburger</td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>Casimiro António</td>
                         <td>+244 943 963 703</td>
-                         <td>Entrega</td>
-                          <td>Picanha</td>
+                        <td>Entrega</td>
+                        <td>Picanha</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -152,24 +156,28 @@
                 </tbody>
             </table>
         </section>
-      </div>  
+    </div>
 
 
- <!--rodapé display:grid;  do sistema-->
+    <!--rodapé display:grid;  do sistema-->
     <footer>
         <div class="direitos">
             <div>
-                 <p>© Kino 2026</p>
+                <p>© Kino 2026</p>
                 <p>Todos os direitos reservados.</p>
             </div>
             <div class="sociais">
                 siga-nos
-                <a href="https://wa.me/938628116"><img src="../../icons/whatsapp-circle.svg" alt="whatsap" width="25px" height="25px"></a>
-                <a href="www.instagram.com/elano.skill/"><img src="../../icons/instagram-circle.svg" alt="instagram" width="25px" height="25px"></a>
-                <a href="www.facebook.com/elano.skill/"><img src="../../icons/facebook.svg" alt="facebook" width="25px" height="25px"></a>
+                <a href="https://wa.me/938628116"><img src="../../icons/whatsapp-circle.svg" alt="whatsap" width="25px"
+                        height="25px"></a>
+                <a href="www.instagram.com/elano.skill/"><img src="../../icons/instagram-circle.svg" alt="instagram"
+                        width="25px" height="25px"></a>
+                <a href="www.facebook.com/elano.skill/"><img src="../../icons/facebook.svg" alt="facebook" width="25px"
+                        height="25px"></a>
             </div>
         </div>
     </footer>
-    <script src="dash_bord.js" ></script>
+    <script src="dash_bord.js"></script>
 </body>
+
 </html>

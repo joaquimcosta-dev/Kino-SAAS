@@ -75,17 +75,20 @@ controller.post("/login", async (req, res) => {
     
     
     //gerar token
-    const token = jwt.sign({ id: user.id_user, perfil: user.perfil,nome:user.nome }, SECRET, {
+    const token = jwt.sign({ id: user.id_user, perfil: user.perfil, nome:user.nome }, SECRET, {
       expiresIn: "2h",
     });
-    return res.status(200).json({token,user:{
-      perfil:user.perfil,
-      nome:fun.nome
-    }});
-  } catch (e) {
+    return res.status(200).json({token,
+      user:{
+        id: user.id_user,
+        nome: fun.nome,
+        perfil:user.perfil
+      }
+    });
+  }catch (e) {
     console.log(e);
     return res.status(500).json({ message: "Erro ao tentar fazer o login" });
-  }
+    }
 });
 
 //rota para listar todos listar Todos Usuarios

@@ -1,5 +1,5 @@
 import express from "express";
-import { listar, criarReclamacao } from "../service/servico_reclamacao.js";
+import { listar, criarReclamacao, eliminar } from "../service/servico_reclamacao.js";
 const controller = express.Router();
 import { auth } from "../middlewares/auth.js";
 
@@ -31,4 +31,25 @@ controller.post("/reclamacao", async (req, res) => {
     return res.status(500).json({ message: "Erro ao tentar criar reclamção" });
   }
 });
+
+
+controller.delete("/eliminar-reclamacao/:id", auth, async(req, res)=>{
+  try{
+
+    const id = parseInt(req.params.id);
+
+    if(isNaN(id) || id <= 0){
+      return res.status(400).json({message: "ID invalido"});
+    }
+
+    const resultado = await eliminar(id);
+    return res.status(200).json({ resultado });
+
+  }catch(e){
+    console.log(e);
+    return res.status(400).json({message: "Erro ao eliminar reclamação"})
+  }
+});
+
+
 export default controller;
