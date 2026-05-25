@@ -3,23 +3,39 @@ const URL_RECLAMACAO = "http://localhost:3000/listar/listar-reclamacao";
 const funcionario = document.querySelector('#nomeFun')
 
 //função para listar as reclamacões
-const listarReclamacao = async () => {  
-  
-  const response = await fetch(URL_RECLAMACAO,{
-    method:"GET",
-    headers:{
-      "Authorization": "Bearer " + localStorage.token,
-      "Content-Type": "application/json"
-    }
+const listarReclamacao = async () => {
+  // Verificar se o usuário está logado
+  if (!localStorage.token || !localStorage.getItem("user")) {
+    window.location.href = "../login/login.html";
+    return;
   }
-  )
-    .then((res) => res.json())
-    .then((res) => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      funcionario.innerHTML = user.nome;
+
+  const response = await fetch(URL_RECLAMACAO, {
+    method: "GET",
+    headers: {
+        "Authorization": "Bearer " + localStorage.token,
+        "Content-Type": "application/json"
+    }
+})
+.then((res) => {
+    // verificação do token aqui
+    if (res.status === 401 || res.status === 403) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "../login/login.html";
+        return;
+    }
+    return res.json();
+})
+.then((res) => {
+    // resto do código igual
+    const user = JSON.parse(localStorage.getItem("user"));
+      if (user && user.nome) {
+        funcionario.innerHTML = user.nome;
+      }
       const sms = ["Lista de reclamação", "Lista vazia"];
 
-  //consol.log(localStorage.user)
+      //consol.log(localStorage.user)
       //Map para percorrer o lista vindo do bd
       res.map((e, index) => {
         //inicio de criacao dos elementos
