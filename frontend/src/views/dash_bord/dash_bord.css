@@ -88,9 +88,18 @@ td {
     padding: 20px;
     padding-left: 40px;
     border-radius: 20px;
-    border-color: #eee;
+    border-box:#eee;
+    
 }
-
+/*estilizando div operacao dia */
+.operacao-dia{
+  display: flex;
+  flex-direction: column;
+}
+/*Estilizando div reclamacao*/
+.reclacao{
+  overflow-x: auto;
+}
 
 #dv3-cont {
     display: grid;
@@ -105,7 +114,6 @@ td {
     height: 300px;
     max-width: 100%;
     border-radius: 20px;
-    margin-right: 74px;
-    margin-left: 74px;
-    margin-bottom: 30px;
-}
+    margin: 30px 5px;
+    overflow: auto;
+  }

@@ -17,7 +17,7 @@
             <nav class="nav">
                 <ul class="menu">
                     <li class="Cabeçalho-menu">
-                        <a href="views/login.html">
+                        <a href="views/login/login.html">
                             <img
                                 src="icons/user.svg"
                                 alt="icon conta"
@@ -78,7 +78,7 @@
                     <span class="cart-badge"></span>
                 </div>
 
-                <a href="views/login.html" class="conta-icones">
+                <a href="views/login/login.html" class="conta-icones">
                     <img src="icons/user.svg" id="logar" alt="icon conta" />
                 </a>
 
@@ -193,6 +193,7 @@
         <div class="pesquisar_kino">
             <form class="form_pesquisar">
                 <input
+                    id="inputProcurar"
                     type="text"
                     placeholder="Oque estas a procura?"
                     required
@@ -200,18 +201,7 @@
                 <button type="submit">Pesquisar</button>
             </form>
             <div class="result_pesquisa">
-                <div
-                    class="categoria-card"
-                    style="
-                        background-image: url(&quot;img/cat_jantar.jpg&quot;);
-                    "
-                >
-                    <button class="bookmark-btn">
-                        <img src="icons/adicionar.svg" alt="" />
-                    </button>
-                    <span class="categoria-title">Jantar</span>
-                </div>
-                <!-- repeti os cards igual você tinha -->
+                <!!--aqui vai estar os resultados da pesquisa-->
             </div>
         </div>
 
@@ -351,6 +341,29 @@
                     </table>
                     <button id="btn_pedido">Enviar pedido</button>
                 </form>
+            </div>
+            <!--aviso do pedido-->
+            <div class="modalPagamento">
+                <div class="pagamento">
+                  <button id="fecharPagamento">x</button>
+                    <h4>Pagamento Express</h4>
+                    <div class="input">
+                        <input id="expressInput" value="938628116" disabled /><button id="copiarExpress">
+                            Copiar
+                        </button>
+                    </div>
+
+                    <p>
+                        Att: Faça o pagamento via express, depois envia-nos
+                        comprovativo no whatsap pelo mesmo número, para o seu
+                        pedido ser aceite.
+                    abaixo copia o codigo para consultares o andamento do teu pedido.
+                    </p>
+
+                    <div class="codPedido">
+                        <input id="codPedido" disabled /><button id="copiarCod">Copiar</button>
+                    </div>
+                </div>
             </div>
         </div>
         <!--fim Modal carrinho-->

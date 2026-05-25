@@ -13,14 +13,14 @@ export const cadastrarProduto = async data => {
     const { nome, img, preco, descricao, quantidade,id_user, id_cat } = data;
     console.log(JSON.stringify(data));
     return await db.query(
-        "INSERT INTO produto (nome, img, preco, descricao,quantidade, id_user, id_cat) VALUES (?, ?, ?, ?, ?, ?,?)",
+        "INSERT INTO produto (nome, img, preco, descricao,qtd, id_user, id_cat) VALUES (?, ?, ?, ?, ?, ?,?)",
         [nome, img, preco, descricao, quantidade,id_user, id_cat]
     );
 };
 //função atualizar produto pela db
 export const atualizarProduto = async(id, nome, img, preco, descricao,quantidade) => {
     return await db.query(
-            "UPDATE produto SET nome=?, img=?, preco=?, descricao=? ,quantidade=? WHERE id_prod=?",
+            "UPDATE produto SET nome=?, img=?, preco=?, descricao=? ,qtd=? WHERE id_prod=?",
             [nome, img, preco, descricao,quantidade, id]
         );
 };

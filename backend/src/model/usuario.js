@@ -6,8 +6,8 @@ export const criarUsuario = async (data)=>{
     return novo[0]
 }
 // funcao com sql para fazer login
-export const login=async({nome})=>{
-    const [logado] = await db.query("SELECT * FROM usuario WHERE nome = ?",[nome])
+export const login=async({username})=>{
+    const [logado] = await db.query("select *from usuario where username = ?",[username])
     return logado[0] || null;
 }
 // funcao com sql para buscar usuario id

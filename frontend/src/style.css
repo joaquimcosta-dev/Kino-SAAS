@@ -892,7 +892,8 @@ footer {
     padding: 30px 20px;
     scrollbar-width: auto;
     overflow: auto;
-    display: none;
+    display: flex;
+    border :1px orangered solid;
 }
 
 /*Estilizacao do modal carrinho*/
@@ -994,7 +995,67 @@ table td {
     font-weight: 600;
     margin: 0 auto;
 }
-
-#nomeFun {
-    font-size: 22px;
+/*aviso de pagamento*/
+.modalPagamento{
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1001;
+  height: 100vh;
+  width: 100%;
+  background:rgba(0, 0, 0, 0.8) ;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+      
+}
+.mostrarPagamento{
+  
+        opacity:1;
+        visibility:visible;
+}
+.pagamento{
+ max-width: 600px;
+  border-radius: 10px;
+  background: whitesmoke;
+  padding: 5px 1px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+pagamento p{
+  width: 100%;
+  margin: 10px;
+  text-align: center;
+}
+.input, .codPedido{
+  width: 100%;
+  margin: 50px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-block:0px 5px;
+}
+.input button,input,.codPedido button{
+  margin: 5px 1px;
+  height: 40px;
+}
+.input button, .codPedido button{
+  background: orangered;
+  width: 80px;
+}
+#fecharPagamento{
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 40px;
+  width: 40px;
+  border-radius: 50px;
+  border: 1px orangered solid;
 }
