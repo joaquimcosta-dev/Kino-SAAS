@@ -14,6 +14,12 @@ const inputProcurar = document.querySelector('#inputProcurar')
 const result_pesquisa = document.querySelector('.result_pesquisa')
 const URL_PEDIDO = "http://localhost:3000/Index/pedido/criar";
 const URL_BASE = "http://localhost:3000"
+const fecharPagamento = document.querySelector("#fecharPagamento")
+const modalPagamento = document.querySelector(".modalPagamento")
+const codigoPedido = document.querySelector("#codPedido")
+const copiarCod =document.querySelector("#copiarCod");
+const expressInput =document.querySelector('#expressInput');
+const copiarEpress =document.querySelector("#copiarExpress");
 const removerItem = [];
 const itensPedido = [];
 //conexao com o back, usando o fetch
@@ -37,7 +43,7 @@ console.log("Erro ao tentar listar produto", e)
 }
 //percorendo a lista de produto e colocar na tela
 const listaProduto = (data)=>{
-  divChefe.innerHTML=''
+divChefe.innerHTML = ''
 data.forEach((e)=>{
 //criação dos elementos html
 const div = document.createElement('div')
@@ -77,7 +83,7 @@ modal_carrinho.classList.toggle("mostrar");
 });
 
 //removendo modal carrinho na tela
-fechar_modal_carrinho.addEventListener("click", (e) => {
+fechar_modal_carrinho.addEventListener("click", (e)=>{
 modal_carrinho.classList.toggle("mostrar");
 });
 //adicionando elementos selecionados na tel
@@ -201,13 +207,23 @@ headers: {
 },
 body: JSON.stringify(data)
 })
-if (response.ok)return console.log("sucesso")
-return console.log(await response.json())
-
+if (response.ok){
+const cod = await response.json();
+codigoPedido.value = cod;
+modalPagamento.classList.add("mostrarPagamento");
+return;
+}
+return;
 }catch(e){
 console.log(e);
 }
 }
+//fechar modal mostarPagamento
+fecharPagamento.addEventListener("click", (e)=>{
+  
+modalPagamento.classList.toggle("mostrarPagamento")
+
+})
 //enviar pedido
 btnEnviarPedido.addEventListener('submit', (e)=>{
 e.preventDefault();
@@ -217,6 +233,20 @@ telefone: cliente_telefone.value,
 endereco: cliente_endereco.value,
 item: itensPedido
 }
+//copiar o codigo no input pedido
+copiarCod.addEventListener("click",()=>{
+  //navigator.clipbord.writeText(codigoPedido.value)
+  console.log(codigoPedido.value)
+  alert("copiado com sucesso")
+})
+
+//copiar o referencia expresss no input
+copiarEpress.addEventListener("click",()=>{
+  //navigator.clipbord.writeText(expressInput.value)
+  console.log(expressInput)
+  alert("copiado com sucesso")
+})
+
 postPedido(data);
 
 });

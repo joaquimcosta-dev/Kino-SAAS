@@ -26,8 +26,8 @@ const listaProdutos = await serviceProduto.listarProdutos();
 //atualizar a wuantidade de produto no webkitCancelAnimationFrame
 for (const prod of listaProdutos){
 for (const p of novo){
-if(prod.id_prod>=p.id_prod){
-if (prod.qtd>=p.qtd/* && prod.preco == p.preco*/){
+if(p.id_prod==prod.id_prod){
+if (p.qtd<=prod.qtd/* && prod.preco == p.preco*/){
 serviceProduto.atualizarProduto(
 prod.id_prod,
 prod.nome,
