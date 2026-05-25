@@ -85,7 +85,6 @@ margin-right: 30px;
     height: 300px;
     max-width: 100%;  
     border-radius: 20px;
-    margin-right: 74px;
-    margin-left: 74px;
-    margin-bottom: 30px;
+    margin: 30px 5px;
+    overflow: auto;
   }

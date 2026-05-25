@@ -82,11 +82,11 @@
         <section class="card operacao-dia">
             <h3>Operações do dia</h3>
             <div class="estatus">
-                    <div><span>Pedidos</span><strong>15</strong></div>
-                    <div><span>Pendentes</span><strong>5</strong></div>
-                    <div><span>Preparando</span><strong>4</strong></div>
-                    <div><span>Feito</span><strong>6</strong></div>
-                    <div><span>Entregue</span><strong>6</strong></div>
+                    <div><span>Pedidos</span><strong id="pedidos"></strong></div>
+                    <div><span>Pendentes</span><strong id="pendente"></strong></div>
+                    <div><span>Preparando</span><strong id="preparando"></strong></div>
+                    <div><span>Feito</span><strong id="feito"></strong></div>
+                    <div><span>Entregue</span><strong id="entrega"></strong></div>
             </div>
         </section>
         <!--Reclamações-->
@@ -128,26 +128,11 @@
                         <th>#</th>
                         <th>Nome</th>
                         <th>Telefone</th>
-                        <th>Tipo</th>
-                        <th>Produto</th>
+                        <th>Endereço</th>
                         <th>Estado</th>
                         </tr>
-                        <tr>
-                        <td>1</td>
-                        <td>José Adriano Brito</td>
-                        <td>+244 945 738 746</td>
-                         <td>Entrega</td>
-                          <td>Hamburger</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Casimiro António</td>
-                        <td>+244 943 963 703</td>
-                         <td>Entrega</td>
-                          <td>Picanha</td>
-                    </tr>
                 </thead>
-                <tbody>
+                <tbody class="tbody-pedido">
                     <!--Inserido via JS-->
                 </tbody>
             </table>

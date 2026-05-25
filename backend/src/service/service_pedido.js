@@ -50,3 +50,8 @@ novo.forEach((e)=>{
 })
 return cod;
 }
+
+export const listarPedido=async()=>{
+  const listaPedido = await model.listarTodosPedido();
+  return listaPedido;
+}
