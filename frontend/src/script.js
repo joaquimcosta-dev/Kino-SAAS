@@ -235,15 +235,15 @@ item: itensPedido
 }
 //copiar o codigo no input pedido
 copiarCod.addEventListener("click",()=>{
-  //navigator.clipbord.writeText(codigoPedido.value)
+  navigator.clipboard.writeText(codigoPedido.value)
   console.log(codigoPedido.value)
   alert("copiado com sucesso")
 })
 
 //copiar o referencia expresss no input
 copiarEpress.addEventListener("click",()=>{
-  //navigator.clipbord.writeText(expressInput.value)
-  console.log(expressInput)
+  navigator.clipboard.writeText(expressInput.value)
+  console.log(expressInput.value)
   alert("copiado com sucesso")
 })
 
