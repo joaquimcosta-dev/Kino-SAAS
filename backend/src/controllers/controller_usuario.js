@@ -10,10 +10,10 @@ const controller = express.Router();
 //rota para criar usuario
 controller.post("/cadastrar/:id", async (req, res) => {
   // verificando se os campos enviados estao vazios
-  if (!req.body.nome || !req.body.senha || !req.body.perfil) {
+  if (!req.body.username || !req.body.senha || !req.body.perfil) {
     return res
       .status(500)
-      .json({ message: "Deve preecher os campos obrigatorio" });
+      .json({ maessage: "Deve preecher os campos obrigatorio" });
   }
   //pegando o id do funcionário
   const id_fun = req.params.id;
@@ -23,9 +23,9 @@ controller.post("/cadastrar/:id", async (req, res) => {
     if (!fun) {
       return res.status(401).json({ message: "Funcionário não encontrado" });
     }
-    const { nome, senha, perfil } = req.body;
+    const { username, senha, perfil } = req.body;
     //verifcando se o usuario ja existe no banco
-    const user = await service.autenticacao({ nome });
+    const user = await service.autenticacao({ username });
     if (user) {
       return res.status(400).json({ message: "Este usuário ja existe" });
     }
@@ -33,7 +33,7 @@ controller.post("/cadastrar/:id", async (req, res) => {
     const estado = true;
     //chamando o service para criar o novo usuario
     const novo = await service.criar_usuario({
-      nome,
+      username,
       senhaCripto,
       perfil,
       estado,
@@ -45,28 +45,27 @@ controller.post("/cadastrar/:id", async (req, res) => {
     return res.status(500).json({ message: "Erro ao tentar criar usuário" });
   }
 });
-
 //rota para login
 controller.post("/login", async (req, res) => {
   // verificando se os campos enviados sao vazios
-  if (!req.body.nome || !req.body.senha) {
+  if (!req.body.username || !req.body.senha) {
     return res
       .status(500)
-      .json({ message: "Deve preecher os campos obrigatorio" });
+      .json({ maessage: "Deve preecher os campos obrigatorio" });
   }
   try {
     const SECRET = process.env.SECRET_KEY;
-    const { nome, senha } = req.body;
+    const { username, senha } = req.body;
     //fazer autenticacao
-    const user = await service.autenticacao({nome});
+    const user = await service.autenticacao({ username });
     //verificado o usuario
     if (!user) {
-      return res.status(404).json({ message: "Usuário invalido" });
+      return res.status(404).json({ maessage: "Usuário invalido" });
     }
     //verificar a senha se e valida
     const senha_verificada = await bcrypt.compare(senha, user.senha);
     if (!senha_verificada) {
-      return res.status(400).json({ message: "Senha incorrecta" });
+      return res.status(400).json({ maessage: "Senha incorrecta" });
     }
     const fun = await buscarFuncionarioId(user.id_fun);
     if (!fun) {
@@ -75,22 +74,18 @@ controller.post("/login", async (req, res) => {
     
     
     //gerar token
-    const token = jwt.sign({ id: user.id_user, perfil: user.perfil, nome:user.nome }, SECRET, {
+    const token = jwt.sign({ id: user.id_user, perfil: user.perfil,nome:user.nome }, SECRET, {
       expiresIn: "2h",
     });
-    return res.status(200).json({token,
-      user:{
-        id: user.id_user,
-        nome: fun.nome,
-        perfil:user.perfil
-      }
-    });
-  }catch (e) {
+    return res.status(200).json({token,user:{
+      perfil:user.perfil,
+      nome:fun.nome
+    }});
+  } catch (e) {
     console.log(e);
-    return res.status(500).json({ message: "Erro ao tentar fazer o login" });
-    }
+    return res.status(500).json({ maessage: "Ao tentar fazer o login" });
+  }
 });
-
 //rota para listar todos listar Todos Usuarios
 controller.get("/listar", async (req, res) => {
   try {

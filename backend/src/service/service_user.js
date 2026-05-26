@@ -3,8 +3,8 @@ import  *as model from '../model/usuario.js';
 
 //Serviço para autenticação de usuario
 export const autenticacao = async(data)=>{
-    const {nome}=data;
-    const autenticado = await model.login({nome});
+    const {username}=data;
+    const autenticado = await model.login({username});
     return autenticado;
 }
 //Serviço para criar  usuario

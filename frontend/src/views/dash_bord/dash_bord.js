@@ -28,7 +28,7 @@ const listarReclamacao = async () => {
       funcionario.innerHTML=funcio.nome
       const sms = ["Lista de reclamação", "Lista vazia"];
 
-      //consol.log(localStorage.user)
+  //consol.log(localStorage.user)
       //Map para percorrer o lista vindo do bd
       res.forEach((e, index) => {
         //inicio de criacao dos elementos
@@ -44,9 +44,7 @@ const listarReclamacao = async () => {
         nome.innerHTML = e.nome;
         tel.innerHTML = e.tel;
         sms.innerHTML = e.descricao;
-        data.innerHTML = new Date(e.data).toLocaleString('pt-PT', {
-          timeZone: 'Africa/Luanda'
-        });
+        data.innerHTML = "20/05/2026";
         tr.append(id);
         tr.append(nome);
         tr.append(tel);

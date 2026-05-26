@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dash Bord</title>
     <!-- Fontes locais configuradas no CSS -->
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="dash_bord.css" />
-    <link rel="icon" href="../../../public/kino.svg" />
+<link rel="stylesheet" href="../../style.css" />  
+<link rel="stylesheet" href="dash_bord.css" />
+ <link rel="icon" href="../../../public/kino.svg" />
 </head>
-
 <body>
-    <!--Cabeçalho da pagina-->
+     <!--Cabeçalho da pagina-->
     <header class="header" id="header_dashboar">
         <div class="logo">
             <!-- Removidos os width="80px" e height="80px" fixos para que o CSS o expanda grandemente -->
@@ -20,11 +18,10 @@
         </div>
         <!--Menu principal da página-->
         <nav class="nav" id="nav_dashboard">
-
+           
             <ul class="menu">
                 <header class="Cabeçalho-menu">
-                    <a href="views/login/login.html"><img src="../src/icons/user.svg" alt="icon conta" width="40px"
-                            height="40px"></a>
+                    <a href="views/login/login.html"><img src="../src/icons/user.svg" alt="icon conta" width="40px" height="40px"></a>
                     <a href="#"><img src="icons/poibir.svg" alt="icon carrinho" width="40px" height="40px"></a>
                 </header>
                 <li>
@@ -40,7 +37,7 @@
                                 <a href="#">Restaurante</a>
                             </li>
                             <li>
-                                <a href="../cadastrarProduto/cadastrarProduto.html">Produto</a>
+                                <a href="#">Produto</a>
                             </li>
                             <li>
                                 <a href="#">Categoria</a>
@@ -66,17 +63,16 @@
                 </li>
             </ul>
         </nav>
-
-        <a href="../login/login.html" class="conta-icones"><img src="../../icons/user.svg" id="logar"
-                alt="icon conta"></a>
-
+            
+            <a href="views/login/login.html" class="conta-icones"><img src="../../icons/user.svg" id="logar" alt="icon conta"></a>
+            
     </header>
-
+   
     <div class="categorias">
 
         <header class="categorias-header">
             <h3>Dashboard</h3>
-            <a href="#" id="nomeFun">Nome do funcionario</a>
+            <a href="#" id="nomeFun">Nome do Funcionário</a>
         </header>
 
 <!--conteiner principakl da dashboard-->
@@ -97,30 +93,30 @@
         <section class=" card reclacao">
             <h3>Reclamações</h3>
 
-                <!--Tabela das reclamações-->
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nome</th>
-                            <th>Telefone</th>
-                            <th>Mensagem</th>
-                            <th>data</th>
-                        </tr>
+            <!--Tabela das reclamações-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th>Mensagem</th>
+                        <th>data</th>
+                    </tr>
 
+                   
+                </thead>
+                <tbody id="tbody">
+                    <!--Inserido via JS-->
+                </tbody>
+            </table> 
 
-                    </thead>
-                    <tbody id="tbody">
-                        <!--Inserido via JS-->
-                    </tbody>
-                </table>
+        </section>
 
-            </section>
-
-
-        </div>
+    
     </div>
-    <div id="dv3-cont">
+</div>
+<div id="dv3-cont">                                                                                                            
         <!--Novos Pedidos-->
         <section class="card novos-pedidos">
             <h3>Novos Pedidos</h3>
@@ -141,28 +137,24 @@
                 </tbody>
             </table>
         </section>
-    </div>
+      </div>  
 
 
-    <!--rodapé display:grid;  do sistema-->
+ <!--rodapé display:grid;  do sistema-->
     <footer>
         <div class="direitos">
             <div>
-                <p>© Kino 2026</p>
+                 <p>© Kino 2026</p>
                 <p>Todos os direitos reservados.</p>
             </div>
             <div class="sociais">
                 siga-nos
-                <a href="https://wa.me/938628116"><img src="../../icons/whatsapp-circle.svg" alt="whatsap" width="25px"
-                        height="25px"></a>
-                <a href="www.instagram.com/elano.skill/"><img src="../../icons/instagram-circle.svg" alt="instagram"
-                        width="25px" height="25px"></a>
-                <a href="www.facebook.com/elano.skill/"><img src="../../icons/facebook.svg" alt="facebook" width="25px"
-                        height="25px"></a>
+                <a href="https://wa.me/938628116"><img src="../../icons/whatsapp-circle.svg" alt="whatsap" width="25px" height="25px"></a>
+                <a href="www.instagram.com/elano.skill/"><img src="../../icons/instagram-circle.svg" alt="instagram" width="25px" height="25px"></a>
+                <a href="www.facebook.com/elano.skill/"><img src="../../icons/facebook.svg" alt="facebook" width="25px" height="25px"></a>
             </div>
         </div>
     </footer>
-    <script src="dash_bord.js"></script>
+    <script src="dash_bord.js" ></script>
 </body>
-
 </html>

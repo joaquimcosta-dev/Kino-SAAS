@@ -28,7 +28,6 @@ controller.post("/cadastrar/:id", auth, permissaoAdmin, async (req, res) => {
         //buscar categoria
         const id_cat = req.params.id;
         const cat = await servicoCategoria.buscarCatId(id_cat);
-
         //verificar se a categoria existe
         /*  if (!cat) {
             return res
@@ -36,7 +35,6 @@ controller.post("/cadastrar/:id", auth, permissaoAdmin, async (req, res) => {
                 .json({ message: "categoria não encontrado" });
             //return res.status(404).json({message:"Categoria não econtrado"});
         }*/
-       
         //pegar o id do usuario logado
         const id_user = req.user.id;
         console.log(nome, img, preco, descricao, id_cat, id_user);
@@ -91,14 +89,14 @@ controller.put("/atualizar/:id", permissaoAdmin, async (req, res) => {
         if (isNaN(id) || id <= 0) {
             return res.status(400).json({ mensagem: "Id inválido" });
         }
-        const { nome, img, preco, descricao, quantidade } = req.body;
+        const { nome, img, preco, deescricao, quantidade } = req.body;
 
         const resultado = await service.atualizarProduto(
             id,
             nome,
             img,
             preco,
-            descricao,
+            deescricao,
             quantidade
         );
 
@@ -108,7 +106,7 @@ controller.put("/atualizar/:id", permissaoAdmin, async (req, res) => {
         return res
             .status(400)
             .json({ mensagem: "erro ao atualizar o produto" });
-        }
+    }
 });
 
 //rota Eliminar produto
@@ -120,7 +118,7 @@ controller.delete("/eliminar/:id", permissaoAdmin, async (req, res) => {
 
         //verifica o id
         if (isNaN(id) || id <= 0) {
-            return res.status(400).json({ message: "id invalido" });
+            return res.status(400).json({ mensagem: "id invalido" });
         }
 
         const eliminar = await service.eliminarProduto(id);

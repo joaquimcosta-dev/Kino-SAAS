@@ -104,5 +104,5 @@ export const eliminarProduto = async id => {
     }
     // 2. tudo válido — elimina
     await ProdutoModel.eliminarProduto(id);
-    return { message: "Produto eliminado com sucesso" };
+    return { mensagem: "Produto eliminado com sucesso" };
 };
