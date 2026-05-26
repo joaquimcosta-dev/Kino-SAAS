@@ -1,4 +1,6 @@
-let nextId = 5;
+const BASE_URL = "http://localhost:3000/produto";
+
+
 
 let fCatSelected   = "";
 let editCatSelected = "";
@@ -19,8 +21,6 @@ function toast(msg, type = "success") {
   wrap.appendChild(el);
   setTimeout(() => el.remove(), 2700);
 }
-
-function genId() { return nextId++; }
 
 function fmtPrice(v) { return `${Number(v).toFixed(2)}Kz`; }
 
@@ -96,36 +96,91 @@ document.getElementById("mainImgInput").addEventListener("change", function() {
   reader.readAsDataURL(file);
 });
 
-/* ── adicionar produto ── */
-document.getElementById("btnAdd").addEventListener("click", () => {
-  const name  = document.getElementById("fNome").value.trim();
-  const desc  = document.getElementById("fDesc").value.trim();
-  const price = parseFloat(document.getElementById("fPreco").value);
-  const cat   = fCatSelected;
+// --- OPERAÇÕES DO CRUD ---
 
-  if (!name)  { toast("Informe o nome do produto.", "error"); return; }
-  if (!cat)   { toast("Selecione uma categoria.", "error"); return; }
-  if (isNaN(price) || price < 0) { toast("Informe um preço válido.", "error"); return; }
+/*adicionar produto */
+document.getElementById("btnAdd").addEventListener("click", async () => {
 
-  products.push({ id: genId(), name, category: cat, desc, price, img: mainImgData });
-  renderGrid();
-  toast("Produto adicionado!");
+    const nome = document.getElementById("fNome").value.trim();
+    const descricao = document.getElementById("fDesc").value.trim();
+    const preco = parseFloat(document.getElementById("fPreco").value);
+    const requerQtd = Number(document.getElementById("fRequerQtd").value);
+    const categoria = fCatSelected;
 
-  // reset form
-  document.getElementById("fNome").value  = "";
-  document.getElementById("fDesc").value  = "";
-  document.getElementById("fPreco").value = "";
-  fCatSelected = "";
-  fCatLbl.textContent = "selecionar categoria";
-  mainImgData = "";
-  const preview = document.getElementById("mainImgPreview");
-  preview.src = ""; preview.style.display = "none";
-  document.getElementById("mainImgPlaceholder").style.display = "flex";
-  document.getElementById("mainImgInput").value = "";
+    if (!nome) {
+        toast("Informe o nome", "error");
+        return;
+    }
+
+    if (!categoria) {
+        toast("Selecione a categoria", "error");
+        return;
+    }
+
+    if (isNaN(preco)) {
+        toast("Preço inválido", "error");
+        return;
+    }
+
+    try {
+
+        const token = localStorage.getItem("token");
+
+        const res = await fetch(`${API_URL}/cadastrar`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                nome,
+                descricao,
+                preco,
+                img: mainImgData,
+                requerQtd,
+                id_cat: categoria
+            })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            toast(data.message || "Erro ao cadastrar", "error");
+            return;
+        }
+
+        toast("Produto cadastrado!");
+
+        limparFormulario();
+
+        carregarProdutos();
+
+    } catch (e) {
+
+        console.log(e);
+
+        toast("Erro no servidor", "error");
+    }
 });
 
+function limparFormulario(){
+
+    document.getElementById("fNome").value = "";
+    document.getElementById("fDesc").value = "";
+    document.getElementById("fPreco").value = "";
+
+    fCatSelected = "";
+
+    fCatLbl.textContent = "selecionar";
+
+    mainImgData = "";
+
+    document.getElementById("mainImgPreview").style.display = "none";
+    document.getElementById("mainImgPlaceholder").style.display = "flex";
+}
+
 /* ── RENDER GRID ── */
-function renderGrid() {
+function carregarProdutos() {
   const grid = document.getElementById("prodGrid");
   grid.innerHTML = "";
 
