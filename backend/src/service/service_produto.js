@@ -17,7 +17,7 @@ export const cadastrarProduto = async ({
     img,
     preco,
     descricao,
-    quantidade,
+    requerQtd,
     id_user,
     id_cat
 }) => {
@@ -42,6 +42,14 @@ export const cadastrarProduto = async ({
         throw new Error("Preço deve ser maior que zero");
     }
 
+    if (isNaN(requerQtd)) {
+        throw new Error("Preço inválido");
+    }
+
+    if (requerQtd <= 0) {
+        throw new Error("Preço deve ser maior que zero");
+    }
+
     if (!id_user) {
         throw new Error("Utilizador é obrigatório");
     }
@@ -56,7 +64,7 @@ export const cadastrarProduto = async ({
         img,
         preco,
         descricao,
-        quantidade,
+        requerQtd,
         id_user,
         id_cat
     });
@@ -71,7 +79,7 @@ export const atualizarProduto = async (
     img,
     preco,
     descricao,
-    quantidade
+    requerQtd
 ) => {
     // verificar se o produto existe
     const [rows] = await ProdutoModel.buscarProdutoId(id);
@@ -89,9 +97,9 @@ export const atualizarProduto = async (
         throw new Error("Nome muito curto");
     }
 
-    await ProdutoModel.atualizarProduto(id, nome.trim(), img, preco, descricao,quantidade);
+    await ProdutoModel.atualizarProduto(id, nome.trim(), img, preco, descricao,requerQtd);
 
-    return { mensagem: "produto criado com sucesso" };
+    return { mensagem: "produto atualizado com sucesso" };
 };
 
 //eliminar

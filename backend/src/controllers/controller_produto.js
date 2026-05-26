@@ -18,31 +18,37 @@ controller.get("/listar", async (req, res) => {
 });
 
 //rota para cadastrar produto
-
-controller.post("/cadastrar/:id", auth, permissaoAdmin, async (req, res) => {
-    if (!req.body.nome || !req.params.id || !req.body.preco || !req.body.img) {
-        return res.status(400).json({ message: "Campo obrigatório" });
-    }
+controller.post("/cadastrar", auth, permissaoAdmin, async (req, res) => {
     try {
-        const { nome, img, preco, descricao } = req.body;
+        const { nome, img, preco, descricao, requerQtd, id_cat } = req.body;
         //buscar categoria
-        const id_cat = req.params.id;
-        const cat = await servicoCategoria.buscarCatId(id_cat);
+        //const id_cat = req.params.id;
+        //const cat = await servicoCategoria.buscarCatId(id_cat);
         //verificar se a categoria existe
         /*  if (!cat) {
             return res
-                .status(404)
-                .json({ message: "categoria não encontrado" });
+            .status(404)
+            .json({ message: "categoria não encontrado" });
             //return res.status(404).json({message:"Categoria não econtrado"});
-        }*/
+            }*/
+
+        if (!req.body.nome || !req.body.preco || !req.body.img || !req.body.descricao) {
+            console.log(message)
+            return res.status(400).json({ message: "Campo obrigatório" });
+        }
+
         //pegar o id do usuario logado
         const id_user = req.user.id;
-        console.log(nome, img, preco, descricao, id_cat, id_user);
+        if (!id_user) {
+            return res.status(401).json({ message: "Usuario não autenticado" })
+        }
+        console.log(nome, img, preco, descricao, requerQtd, id_cat, id_user);
         const resultado = await service.cadastrarProduto({
             nome,
             img,
             preco,
             descricao,
+            requerQtd,
             id_cat,
             id_user
         });
@@ -50,7 +56,7 @@ controller.post("/cadastrar/:id", auth, permissaoAdmin, async (req, res) => {
         return res.status(201).json(resultado);
     } catch (e) {
         console.log(e);
-        return res.status(400).json({ menssagem: "Erro de cadastro" });
+        return res.status(500).json({ menssagem: "Erro de cadastro" });
     }
 });
 
@@ -89,15 +95,15 @@ controller.put("/atualizar/:id", permissaoAdmin, async (req, res) => {
         if (isNaN(id) || id <= 0) {
             return res.status(400).json({ mensagem: "Id inválido" });
         }
-        const { nome, img, preco, deescricao, quantidade } = req.body;
+        const { nome, img, preco, descricao, requerQtd } = req.body;
 
         const resultado = await service.atualizarProduto(
             id,
             nome,
             img,
             preco,
-            deescricao,
-            quantidade
+            descricao,
+            requerQtd
         );
 
         return res.status(200).json(resultado);

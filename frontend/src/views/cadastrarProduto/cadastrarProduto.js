@@ -1,13 +1,3 @@
-
-
-/* ── produtos provisorios ── */
-let products = [
-  { id: 1, name: "Kino Burger", category: "Almoço",       desc: "Hambúrguer artesanal com molho especial", price: 2500, img: "" },
-  { id: 2, name: "Chef Especial", category: "Kino's do chef", desc: "Combinação exclusiva do nosso chef", price: 3200, img: "" },
-  { id: 3, name: "Jantar Real",   category: "Jantar",       desc: "Refeição completa para o jantar",         price: 4000, img: "" },
-  { id: 4, name: "Double Cheese", category: "Almoço",       desc: "Duplo queijo derretido e crocante",       price: 2800, img: "" },
-];
-let categories = ["Almoço", "Kino's do chef", "Jantar"];
 let nextId = 5;
 
 let fCatSelected   = "";
