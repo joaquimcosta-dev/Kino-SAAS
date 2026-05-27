@@ -2,13 +2,13 @@ const BASE_URL = "http://localhost:3000/produto";
 
 
 
-let fCatSelected   = "";
+let fCatSelected = "";
 let editCatSelected = "";
-let editingId      = null;
-let deletingId     = null;
+let editingId = null;
+let deletingId = null;
 
-let mainImgData  = "";
-let editImgData  = "";
+let mainImgData = "";
+let editImgData = "";
 const navBar = document.querySelector(".nav");
 const MENU_URL = "../../util/menu_admin.html";
 
@@ -70,19 +70,19 @@ function closeAllDropdowns() {
 document.addEventListener("click", closeAllDropdowns);
 
 /* ── MAIN FORM SELECT ── */
-const fCatBox  = document.getElementById("fCatBox");
+const fCatBox = document.getElementById("fCatBox");
 const fCatDrop = document.getElementById("fCatDropdown");
-const fCatLbl  = document.getElementById("fCatLabel");
+const fCatLbl = document.getElementById("fCatLabel");
 setupSelect(fCatBox, fCatDrop, fCatLbl, () => fCatSelected, v => fCatSelected = v);
 
 /* ── selecionar categoria (editar) ── */
-const editCatBox  = document.getElementById("editCatBox");
+const editCatBox = document.getElementById("editCatBox");
 const editCatDrop = document.getElementById("editCatDropdown");
-const editCatLbl  = document.getElementById("editCatLabel");
+const editCatLbl = document.getElementById("editCatLabel");
 setupSelect(editCatBox, editCatDrop, editCatLbl, () => editCatSelected, v => editCatSelected = v);
 
 /* ── inserir imagem ── */
-document.getElementById("mainImgInput").addEventListener("change", function() {
+document.getElementById("mainImgInput").addEventListener("change", function () {
   const file = this.files[0]; if (!file) return;
   const reader = new FileReader();
   reader.onload = e => {
@@ -100,84 +100,113 @@ document.getElementById("mainImgInput").addEventListener("change", function() {
 
 /*adicionar produto */
 document.getElementById("btnAdd").addEventListener("click", async () => {
+  console.log("clicou");
 
-    const nome = document.getElementById("fNome").value.trim();
-    const descricao = document.getElementById("fDesc").value.trim();
-    const preco = parseFloat(document.getElementById("fPreco").value);
-    const requerQtd = Number(document.getElementById("fRequerQtd").value);
-    const categoria = fCatSelected;
+  const nome = document.getElementById("fNome").value.trim();
+  const descricao = document.getElementById("fDesc").value.trim();
+  const preco = parseFloat(document.getElementById("fPreco").value);
+  const requerQtd = Number(document.getElementById("fRequerQtd").value);
+  const categoria = fCatSelected;
 
-    if (!nome) {
-        toast("Informe o nome", "error");
-        return;
+  if (!nome) {
+    toast("Informe o nome", "error");
+    return;
+  }
+
+  if (!categoria) {
+    toast("Selecione a categoria", "error");
+    return;
+  }
+
+  if (isNaN(preco)) {
+    toast("Preço inválido", "error");
+    return;
+  }
+
+  try {
+
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(`${API_URL}/cadastrar`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        nome,
+        descricao,
+        preco,
+        img: mainImgData,
+        requerQtd,
+        id_cat: categoria
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast(data.message || "Erro ao cadastrar", "error");
+      return;
     }
 
-    if (!categoria) {
-        toast("Selecione a categoria", "error");
-        return;
-    }
+    toast("Produto cadastrado!");
 
-    if (isNaN(preco)) {
-        toast("Preço inválido", "error");
-        return;
-    }
+    limparFormulario();
 
-    try {
+    carregarProdutos();
 
-        const token = localStorage.getItem("token");
+  } catch (e) {
 
-        const res = await fetch(`${API_URL}/cadastrar`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                nome,
-                descricao,
-                preco,
-                img: mainImgData,
-                requerQtd,
-                id_cat: categoria
-            })
-        });
+    console.log(e);
 
-        const data = await res.json();
-
-        if (!res.ok) {
-            toast(data.message || "Erro ao cadastrar", "error");
-            return;
-        }
-
-        toast("Produto cadastrado!");
-
-        limparFormulario();
-
-        carregarProdutos();
-
-    } catch (e) {
-
-        console.log(e);
-
-        toast("Erro no servidor", "error");
-    }
+    toast("Erro no servidor", "error");
+  }
 });
 
-function limparFormulario(){
+function limparFormulario() {
 
-    document.getElementById("fNome").value = "";
-    document.getElementById("fDesc").value = "";
-    document.getElementById("fPreco").value = "";
+  document.getElementById("fNome").value = "";
+  document.getElementById("fDesc").value = "";
+  document.getElementById("fPreco").value = "";
 
-    fCatSelected = "";
+  fCatSelected = "";
 
-    fCatLbl.textContent = "selecionar";
+  fCatLbl.textContent = "selecionar";
 
-    mainImgData = "";
+  mainImgData = "";
 
-    document.getElementById("mainImgPreview").style.display = "none";
-    document.getElementById("mainImgPlaceholder").style.display = "flex";
+  document.getElementById("mainImgPreview").style.display = "none";
+  document.getElementById("mainImgPlaceholder").style.display = "flex";
 }
+
+let products = [];
+
+async function carregarProdutos() {
+
+  try {
+
+    const res = await fetch(`${API_URL}/listar`);
+
+    const data = await res.json();
+
+    products = data;
+
+    renderGrid();
+
+  } catch (e) {
+
+    console.log(e);
+
+    toast("Erro ao carregar produtos", "error");
+  }
+}
+
+
+
+
+
+
 
 /* ── RENDER GRID ── */
 function carregarProdutos() {
@@ -197,17 +226,17 @@ function carregarProdutos() {
     card.className = "prod-card";
     card.dataset.id = p.id;
 
-    const imgSrc = p
+    const imgSrc = p.img;
 
     card.innerHTML = `
-      <img class="prod-img" src="${imgSrc}" alt="${p.name}" onerror="this.src='https://placehold.co/72x72/FDE8D4/F47B20?text=🍔'"/>
+      <img class="prod-img" src="${imgSrc}" alt="${p.nome}" onerror="this.src='https://placehold.co/72x72/FDE8D4/F47B20?text=🍔'"/>
       <div class="prod-info">
-        <div class="prod-name">${p.name}</div>
-        <div class="prod-desc">${p.desc || "—"}</div>
-        <div class="prod-price">${fmtPrice(p.price)}</div>
+        <div class="prod-name">${p.nome}</div>
+        <div class="prod-desc">${p.descricao || "—"}</div>
+        <div class="prod-price">${fmtPrice(p.preco)}</div>
         <div style="margin-top:6px;position:relative;">
           <div class="cat-badge" data-pid="${p.id}">
-            <span class="cat-badge-label">${p.category || "sem categoria"}</span>
+            <span class="cat-badge-label">${p.categoria || "sem categoria"}</span>
             <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
             <ul class="dropdown cat-inline-drop" id="catDrop_${p.id}"></ul>
           </div>
@@ -264,7 +293,7 @@ function carregarProdutos() {
     });
 
     card.querySelector(".edit-btn").addEventListener("click", e => { e.stopPropagation(); openEditModal(p.id); });
-    card.querySelector(".del-btn").addEventListener("click",  e => { e.stopPropagation(); openDelModal(p.id);  });
+    card.querySelector(".del-btn").addEventListener("click", e => { e.stopPropagation(); openDelModal(p.id); });
   });
 }
 
@@ -275,15 +304,15 @@ function openEditModal(id) {
   editingId = id;
   editImgData = p.img || "";
 
-  document.getElementById("editNome").value  = p.name;
-  document.getElementById("editDesc").value  = p.desc;
-  document.getElementById("editPreco").value = p.price;
-  editCatSelected = p.category;
-  editCatLbl.textContent = p.category || "selecionar categoria";
+  document.getElementById("editNome").value = p.nome;
+  document.getElementById("editDesc").value = p.descricao;
+  document.getElementById("editPreco").value = p.preco;
+  editCatSelected = p.categoria;
+  editCatLbl.textContent = p.categoria || "selecionar categoria";
 
   const prev = document.getElementById("editImgPreview");
   if (p.img) { prev.src = p.img; prev.style.display = "block"; }
-  else        { prev.style.display = "none"; }
+  else { prev.style.display = "none"; }
 
   document.getElementById("editImgUploadPreview").style.display = "none";
   document.getElementById("editImgPlaceholder").style.display = "flex";
@@ -296,13 +325,13 @@ document.getElementById("editCancel").addEventListener("click", () => {
   document.getElementById("editImgInput").value = "";
 });
 document.getElementById("editSave").addEventListener("click", () => {
-  const name  = document.getElementById("editNome").value.trim();
-  const desc  = document.getElementById("editDesc").value.trim();
+  const name = document.getElementById("editNome").value.trim();
+  const desc = document.getElementById("editDesc").value.trim();
   const price = parseFloat(document.getElementById("editPreco").value);
-  const cat   = editCatSelected;
+  const cat = editCatSelected;
 
-  if (!name)  { toast("Informe o nome.", "error"); return; }
-  if (!cat)   { toast("Selecione a categoria.", "error"); return; }
+  if (!name) { toast("Informe o nome.", "error"); return; }
+  if (!cat) { toast("Selecione a categoria.", "error"); return; }
   if (isNaN(price) || price < 0) { toast("Preço inválido.", "error"); return; }
 
   const prod = products.find(x => x.id === editingId);
@@ -315,7 +344,7 @@ document.getElementById("editSave").addEventListener("click", () => {
 });
 
 // editar produto modal - imagem upload
-document.getElementById("editImgInput").addEventListener("change", function() {
+document.getElementById("editImgInput").addEventListener("change", function () {
   const file = this.files[0]; if (!file) return;
   const reader = new FileReader();
   reader.onload = e => {
@@ -363,28 +392,28 @@ document.getElementById("catSave").addEventListener("click", () => {
 });
 
 /* ── fechar overlays ao clicar no fundo ── */
-["editOverlay","delOverlay","catOverlay"].forEach(id => {
-  document.getElementById(id).addEventListener("click", function(e) {
+["editOverlay", "delOverlay", "catOverlay"].forEach(id => {
+  document.getElementById(id).addEventListener("click", function (e) {
     if (e.target === this) this.classList.remove("visible");
   });
 });
 
 //funcao que import o menu admin na pasta uitl
 const getMenuAdmin = async () => {
-    try {
-        const res = await fetch(MENU_URL);
-        if (res.ok) {
-            const re = await res.text();
-           // menu.innerHTML = re;
-           console.log(re)
-            return;
-        }
-        console.log("nao carregado");
-        return;
-    } catch (e) {
-        console.log("erro ao tentar pegar o menu");
-        return;
+  try {
+    const res = await fetch(MENU_URL);
+    if (res.ok) {
+      const re = await res.text();
+      // menu.innerHTML = re;
+      console.log(re)
+      return;
     }
+    console.log("nao carregado");
+    return;
+  } catch (e) {
+    console.log("erro ao tentar pegar o menu");
+    return;
+  }
 };
 
 /* ── INIT ── */
