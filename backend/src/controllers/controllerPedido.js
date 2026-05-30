@@ -1,5 +1,7 @@
 import express from 'express';
 import *as servico from "../service/service_pedido.js"
+
+//criar pedido
 const controller = express.Router();
 controller.post("/criar",async (req,res)=>{
 if (!req.body.item.length){
@@ -19,7 +21,8 @@ return res.status(201).json(novo);
 }
 
 
-})
+
+//lista os pedidos
 controller.get("/listar",async(req,res)=>{
   try{
     const lista = await servico.listarPedido();
