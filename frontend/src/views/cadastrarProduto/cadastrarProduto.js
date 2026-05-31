@@ -1,7 +1,11 @@
 const BASE_URL = "http://localhost:3000/produto";
 
-
-
+let categorias = [
+  "Almoço",
+  "Hambuerguer",
+  "fastfood"
+]
+let produtos = [];
 let fCatSelected = "";
 let editCatSelected = "";
 let editingId = null;
@@ -27,7 +31,7 @@ function fmtPrice(v) { return `${Number(v).toFixed(2)}Kz`; }
 /* ── RENDER DROPDOWN ── */
 function buildCatOptions(ulEl, boxEl, labelEl, selectedRef, onSelect) {
   ulEl.innerHTML = "";
-  categories.forEach(cat => {
+  categorias.forEach(cat => {
     const li = document.createElement("li");
     li.textContent = cat;
     li.addEventListener("click", () => {
@@ -105,7 +109,7 @@ document.getElementById("btnAdd").addEventListener("click", async () => {
   const nome = document.getElementById("fNome").value.trim();
   const descricao = document.getElementById("fDesc").value.trim();
   const preco = parseFloat(document.getElementById("fPreco").value);
-  const requerQtd = Number(document.getElementById("fRequerQtd").value);
+  const requerQtd = Number(document.getElementById("frequerQtd").value);
   const categoria = fCatSelected;
 
   if (!nome) {
@@ -127,7 +131,7 @@ document.getElementById("btnAdd").addEventListener("click", async () => {
 
     const token = localStorage.getItem("token");
 
-    const res = await fetch(`${API_URL}/cadastrar`, {
+    const res = await fetch(`${BASE_URL}/cadastrar`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -138,7 +142,7 @@ document.getElementById("btnAdd").addEventListener("click", async () => {
         descricao,
         preco,
         img: mainImgData,
-        requerQtd,
+        requer_qtd: requerQtd,
         id_cat: categoria
       })
     });
@@ -164,11 +168,14 @@ document.getElementById("btnAdd").addEventListener("click", async () => {
   }
 });
 
+//limpar inputs depois de add o produto
+
 function limparFormulario() {
 
   document.getElementById("fNome").value = "";
   document.getElementById("fDesc").value = "";
   document.getElementById("fPreco").value = "";
+  document.getElementById("frequerQtd").value = "";
 
   fCatSelected = "";
 
@@ -180,7 +187,46 @@ function limparFormulario() {
   document.getElementById("mainImgPlaceholder").style.display = "flex";
 }
 
-let products = [];
+//funcção ativar o css dos produtos
+
+function cssProds(){
+
+    const grid = document.getElementById("prodGrid");
+
+    grid.innerHTML = "";
+
+    products.forEach(p => {
+
+        grid.innerHTML += `
+            <div class="prod-card">
+
+                <img
+                    class="prod-img"
+                    src="${p.img}"
+                >
+
+                <div class="prod-info">
+
+                    <div class="prod-name">
+                        ${p.nome}
+                    </div>
+
+                    <div class="prod-desc">
+                        ${p.descricao}
+                    </div>
+
+                    <div class="prod-price">
+                        ${p.preco} Kz
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+    });
+}
+
+//função carregar/listar produtos
 
 async function carregarProdutos() {
 
@@ -192,7 +238,7 @@ async function carregarProdutos() {
 
     products = data;
 
-    renderGrid();
+    cssProds();
 
   } catch (e) {
 
@@ -209,11 +255,11 @@ async function carregarProdutos() {
 
 
 /* ── RENDER GRID ── */
-function carregarProdutos() {
+function renderGrid() {
   const grid = document.getElementById("prodGrid");
   grid.innerHTML = "";
 
-  if (products.length === 0) {
+  if (produtos.length === 0) {
     grid.innerHTML = `<div class="empty">
       <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
       <p>Nenhum produto cadastrado ainda.</p>
@@ -261,7 +307,7 @@ function carregarProdutos() {
       closeAllDropdowns();
       if (!isOpen) {
         badgeDrop.innerHTML = "";
-        categories.forEach(cat => {
+        categorias.forEach(cat => {
           const li = document.createElement("li");
           li.textContent = cat;
           li.addEventListener("click", () => {
@@ -385,8 +431,8 @@ document.getElementById("catCancel").addEventListener("click", () => {
 document.getElementById("catSave").addEventListener("click", () => {
   const name = document.getElementById("newCatName").value.trim();
   if (!name) { toast("Informe o nome da categoria.", "error"); return; }
-  if (categories.includes(name)) { toast("Categoria já existe.", "error"); return; }
-  categories.push(name);
+  if (categorias.includes(name)) { toast("Categoria já existe.", "error"); return; }
+  categorias.push(name);
   toast(`Categoria "${name}" adicionada!`);
   document.getElementById("catOverlay").classList.remove("visible");
 });
