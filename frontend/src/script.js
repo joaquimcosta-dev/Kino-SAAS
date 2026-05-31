@@ -152,12 +152,12 @@ console.log(itensPedido);
 adicionarPedidoNaLista()
 }
 //para procurar comida
-form_pesquisar.addEventListener('submit', (e)=>{
+form_pesquisar.addEventListener('submit', async(e)=>{
 e.preventDefault()
-const buscar = inputProcurar.value
-
-const pe = [{id_prod:1,nome: "arroz", preco: 45, img: "img/cat_pequeno_almoco.jpg"}, {id_prod:2,nome: "massa", preco: 45, img: "img/cat_pequeno_almoco.jpg"}]
-const res = pe.filter(p=>p.nome == buscar);
+const buscar = inputProcurar.value.trim()
+const produtos =  await getProduto()
+//return console.log(produtos)
+const res = produtos.filter(p=>p.nome == buscar);
 if(res.length===0) return result_pesquisa.innerHTML="<p>Produto não encontrado</p>"
 res.forEach((e)=>{
   //limpando a tela
