@@ -4,7 +4,6 @@ export const auth=(req,res,next)=>{
     const SECRET=process.env.SECRET_KEY;
    const token=req.headers.authorization;
         if(!token){
-           window.location.href = "/login/login.html";
            return res.status(400).json({message:"Faça login para continuar"});
         }
    

@@ -16,7 +16,7 @@ let editImgData = "";
 const navBar = document.querySelector(".nav");
 const MENU_URL = "../../util/menu_admin.html";
 
-/* ── HELPERS ── */
+/*  notificações  */
 function toast(msg, type = "success") {
   const wrap = document.getElementById("toastWrap");
   const el = document.createElement("div");
@@ -102,7 +102,20 @@ document.getElementById("mainImgInput").addEventListener("change", function () {
 
 // --- OPERAÇÕES DO CRUD ---
 
-/*adicionar produto */
+//verificar se foi feito o login para cadastrar
+
+async function verifLogin() {
+  const token = localStorage.getItem("token");
+
+  //se não foi feito fito fogin reencaminha para tela de login 
+  if(!token){
+    window.location.href = "../login/login.html"
+    return;
+  }
+  await carregarProdutos();
+}
+
+//adicionar produto
 document.getElementById("btnAdd").addEventListener("click", async () => {
   console.log("clicou");
 
@@ -187,58 +200,23 @@ function limparFormulario() {
   document.getElementById("mainImgPlaceholder").style.display = "flex";
 }
 
-//funcção ativar o css dos produtos
-
-function cssProds(){
-
-    const grid = document.getElementById("prodGrid");
-
-    grid.innerHTML = "";
-
-    products.forEach(p => {
-
-        grid.innerHTML += `
-            <div class="prod-card">
-
-                <img
-                    class="prod-img"
-                    src="${p.img}"
-                >
-
-                <div class="prod-info">
-
-                    <div class="prod-name">
-                        ${p.nome}
-                    </div>
-
-                    <div class="prod-desc">
-                        ${p.descricao}
-                    </div>
-
-                    <div class="prod-price">
-                        ${p.preco} Kz
-                    </div>
-
-                </div>
-
-            </div>
-        `;
-    });
-}
-
 //função carregar/listar produtos
 
 async function carregarProdutos() {
 
   try {
 
-    const res = await fetch(`${API_URL}/listar`);
-
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${BASE_URL}/listar`,{
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
     const data = await res.json();
 
-    products = data;
+    produtos = data;
 
-    cssProds();
+    cssProd();
 
   } catch (e) {
 
@@ -249,13 +227,8 @@ async function carregarProdutos() {
 }
 
 
-
-
-
-
-
 /* ── RENDER GRID ── */
-function renderGrid() {
+function cssProd() {
   const grid = document.getElementById("prodGrid");
   grid.innerHTML = "";
 
@@ -267,7 +240,7 @@ function renderGrid() {
     return;
   }
 
-  products.forEach(p => {
+  produtos.forEach(p => {
     const card = document.createElement("div");
     card.className = "prod-card";
     card.dataset.id = p.id;
@@ -311,7 +284,7 @@ function renderGrid() {
           const li = document.createElement("li");
           li.textContent = cat;
           li.addEventListener("click", () => {
-            const prod = products.find(x => x.id == p.id);
+            const prod = produtos.find(x => x.id == p.id);
             if (prod) prod.category = cat;
             badge.querySelector(".cat-badge-label").textContent = cat;
             badgeDrop.classList.remove("visible");
@@ -345,7 +318,7 @@ function renderGrid() {
 
 /* ── editar produto modal ── */
 function openEditModal(id) {
-  const p = products.find(x => x.id === id);
+  const p = produtos.find(x => x.id === id);
   if (!p) return;
   editingId = id;
   editImgData = p.img || "";
@@ -380,9 +353,9 @@ document.getElementById("editSave").addEventListener("click", () => {
   if (!cat) { toast("Selecione a categoria.", "error"); return; }
   if (isNaN(price) || price < 0) { toast("Preço inválido.", "error"); return; }
 
-  const prod = products.find(x => x.id === editingId);
+  const prod = produtos.find(x => x.id === editingId);
   if (prod) { prod.name = name; prod.desc = desc; prod.price = price; prod.category = cat; if (editImgData) prod.img = editImgData; }
-  renderGrid();
+  cssProd();
   toast("Produto atualizado!");
   document.getElementById("editOverlay").classList.remove("visible");
   editingId = null; editImgData = "";
@@ -413,8 +386,8 @@ document.getElementById("delCancel").addEventListener("click", () => {
   deletingId = null;
 });
 document.getElementById("delConfirm").addEventListener("click", () => {
-  products = products.filter(x => x.id !== deletingId);
-  renderGrid();
+  produtos = produtos.filter(x => x.id !== deletingId);
+  cssProd();
   toast("Produto excluído.", "error");
   document.getElementById("delOverlay").classList.remove("visible");
   deletingId = null;
@@ -463,4 +436,4 @@ const getMenuAdmin = async () => {
 };
 
 /* ── INIT ── */
-renderGrid();
+verifLogin();

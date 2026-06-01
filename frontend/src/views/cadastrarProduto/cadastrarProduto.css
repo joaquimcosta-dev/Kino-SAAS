@@ -240,7 +240,9 @@
 
     .obrigatorio{
       color: #b82222;
-      margin-left: 2px;
+      margin-left: 2px
+      
+      ;
     }
 
     /* custom select */
