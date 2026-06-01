@@ -109,7 +109,7 @@ async function verifLogin() {
 
   //se não foi feito fito fogin reencaminha para tela de login 
   if(!token){
-    window.location.href = "../login/login.html"
+    window.location.href = "/Agendamento-kino/frontend/src/views/login/login.html"
     return;
   }
   await carregarProdutos();
@@ -213,6 +213,8 @@ async function carregarProdutos() {
       }
     });
     const data = await res.json();
+
+    console.log(data); 
 
     produtos = data;
 
