@@ -152,10 +152,10 @@ document.getElementById("btnAdd").addEventListener("click", async () => {
       },
       body: JSON.stringify({
         nome,
-        descricao,
+        descricao: descricao || "",
         preco,
         img: mainImgData,
-        requer_qtd: requerQtd,
+        requerQtd,
         id_cat: categoria
       })
     });

@@ -46,7 +46,7 @@ export const cadastrarProduto = async ({
         throw new Error("Preço inválido");
     }
 
-    if (requerQtd <= 0) {
+    if (requerQtd < 0) {
         throw new Error("Preço deve ser maior que zero");
     }
 
