@@ -1,36 +1,89 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="pesquisar_pedido.css" />
-    <link rel="icon" href="../../../public/kino.svg" />
-    <title>Pedidos</title>
-  </head>
-  <body>
-    <div class="menu">
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kino - Rastrear Pedido</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <<link rel="stylesheet" href="pesquisar_pedido.css">
+  <link rel="stylesheet" href="../../style.css">
+ 
+</head>
+<body>
+
+  <div class="menu">
       <!--Aqui esta sendo importada menu-->
     </div>
-    <main>
-      <header>
-        <h3>Rastrear Pedido</h3>
-      </header>
-      <div class="form-pedido">
-        <form id="form-pedido">
-          <input type="search" name="pesquisar" id="pesqPeido" />
-        </form>
-        <div class="progresso">progresso</div>
-      </div>
-      <div class="resultado">
-        <div class="intem-pesquisado">arroz</div>
-      </div>
-    </main>
 
-    <div class="rodape">
-      <!--Aqui esta sendo imporada o footer-->
+  <!-- ── Conteúdo principal ── -->
+  <main>
+    <h1>Rastrear Pedido</h1>
+
+    <!-- Campo de busca pelo código do pedido -->
+    <div class="busca">
+      <input type="text" value="KAO3799376INO" readonly />
+      <button title="Buscar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="11" cy="11" r="7"/>
+          <line x1="16.5" y1="16.5" x2="22" y2="22"/>
+        </svg>
+      </button>
     </div>
 
-    <script src="pesquisar_pedido.js"></script>
-  </body>
+    <!-- Barra de progresso — 4 etapas -->
+    <div class="progresso">
+      <div class="passo ativo">Kino's aprovado</div>
+      <div class="passo ativo">Preparando</div>
+      <div class="passo inativo">Feito</div>
+      <div class="passo inativo">Entregue</div>
+    </div>
+
+    <!-- Lista de itens do pedido -->
+    <div class="lista-itens">
+
+      <!-- Item 1: já pronto, aguarda confirmação -->
+      <div class="item-pedido">
+        <div class="img-placeholder">🍔</div>
+        <div class="info-item">
+          <div class="nome">Nome</div>
+          <div class="descricao">Descrição... —— ——— ————— — ————</div>
+        </div>
+        <button class="btn-status feito">feito</button>
+        <button class="btn-acao">confirmar entrega</button>
+      </div>
+
+      <!-- Item 2: ainda a ser preparado -->
+      <div class="item-pedido">
+        <div class="img-placeholder">🍔</div>
+        <div class="info-item">
+          <div class="nome">Nome</div>
+          <div class="descricao">Descrição... —— ——— — — ——</div>
+        </div>
+        <button class="btn-status preparando">preparando</button>
+        <button class="btn-acao desabilitado" disabled>cancelar pedido</button>
+      </div>
+
+      <!-- Item 3: ainda a ser preparado -->
+      <div class="item-pedido">
+        <div class="img-placeholder">🍔</div>
+        <div class="info-item">
+          <div class="nome">Nome</div>
+          <div class="descricao">Descrição... —— ——— — — ——</div>
+        </div>
+        <button class="btn-status preparando">preparando</button>
+        <button class="btn-acao desabilitado" disabled>cancelar pedido</button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ── Rodapé ── -->
+   <div class="rodape">
+      <!--Aqui esta sendo imporada o footer-->
+    </div>
+    
+      <script src="pesquisar_pedido.js"></script>
+
+</body>
 </html>
+
