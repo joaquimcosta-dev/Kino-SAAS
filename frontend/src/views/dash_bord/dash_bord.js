@@ -23,10 +23,9 @@ const listarReclamacao = async () => {
     .then((res) => res.json())
     .then((res) => {
       //vericando o staus do token
-      ifr(res.status===400|| res.status===403 || res.status===500){
-        console.log(res.status)
+      if(!res.ok ){
         //remivendo o token do localStorage
-        localStorage.romove();
+        localStorage.clear();
         window.location.href="../login/login.html";
         return;
       }
@@ -116,6 +115,9 @@ const listarPedido = async () => {
       console.log("Erro ao tentar listar reclamação", e);
     });
 };
-
+//funcao para deslogar o usuario
+const logout=()=>{
+  localStorage.clear();
+}
 listarPedido();
 listarReclamacao();
