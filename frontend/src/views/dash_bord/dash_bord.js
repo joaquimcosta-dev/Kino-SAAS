@@ -10,7 +10,10 @@ const entrega = document.querySelector("#entrega").innerHTML=0;
 
 
 //função para listar as reclamacões
-const listarReclamacao = async () => {
+const listarReclamacao =  async() => {
+  try {
+    
+  
   
   const response = await fetch(URL_BASE+"/listar/listar-reclamacao",{
     method:"GET",
@@ -20,15 +23,19 @@ const listarReclamacao = async () => {
     }
   }
   )
-    .then((res) => res.json())
-    .then((res) => {
-      //vericando o staus do token
-      if(!res.ok ){
-        //remivendo o token do localStorage
-        localStorage.clear();
-        window.location.href="../login/login.html";
-        return;
-      }
+  console.log(response.status)
+return
+if (response.status === 401 || response.status === 500) {
+  //remivendo o token do localStorage
+  localStorage.clear();
+  window.location.href = "../login/login.html";
+  return;
+}
+  
+    if(response.ok){
+       //vericando o staus do token
+ 
+      const res=await response.json()
       
       const fun=localStorage.getItem("user");
       const funcio= JSON.parse(fun)
@@ -60,11 +67,16 @@ const listarReclamacao = async () => {
         body.append(tr);
       });
       res.length > 0 ? body.append(sms[0]) : body.append(sms[1]);
-    })
-    .catch((e) => {
-      console.log("Erro ao tentar listar reclamação", e);
-    });
-};
+    
+    
+    
+    }else{
+   console.log("Não foi possível carregar")
+ }
+  } catch (e) {
+    console.log("erro",e)
+  }
+}
 
 
 const listarPedido = async () => {

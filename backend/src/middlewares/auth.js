@@ -4,14 +4,11 @@ export const auth=(req,res,next)=>{
     const SECRET=process.env.SECRET_KEY;
    const token=req.headers.authorization;
         if(!token){
-           return res.status(400).json({message:"Faça login para continuar"});
+           return res.status(401).json({message:"Faça login para continuar"});
         }
    
     try {
         const decode = jwt.verify(token.replace('Bearer ',''), SECRET);
-        if(!decode){
-          return res.status(403).json({message:"token invalido"});
-        }
         req.user=decode;
        
         next();
