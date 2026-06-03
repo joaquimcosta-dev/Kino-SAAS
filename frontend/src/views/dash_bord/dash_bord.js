@@ -22,6 +22,14 @@ const listarReclamacao = async () => {
   )
     .then((res) => res.json())
     .then((res) => {
+      //vericando o staus do token
+      ifr(res.status===400|| res.status===403 || res.status===500){
+        console.log(res.status)
+        //remivendo o token do localStorage
+        localStorage.romove();
+        window.location.href="../login/login.html";
+        return;
+      }
       
       const fun=localStorage.getItem("user");
       const funcio= JSON.parse(fun)

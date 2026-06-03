@@ -9,6 +9,9 @@ export const auth=(req,res,next)=>{
    
     try {
         const decode = jwt.verify(token.replace('Bearer ',''), SECRET);
+        if(!decode){
+          return res.status(403).json({message:"token invalido"});
+        }
         req.user=decode;
        
         next();
