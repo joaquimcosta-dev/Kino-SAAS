@@ -1,10 +1,7 @@
 const BASE_URL = "http://localhost:3000/produto";
+const BASER_URL_CAT = ""
 
-let categorias = [
-  "Almoço",
-  "Hambuerguer",
-  "fastfood"
-]
+let categorias = [];
 let produtos = [];
 let fCatSelected = "";
 let editCatSelected = "";
@@ -33,9 +30,9 @@ function buildCatOptions(ulEl, boxEl, labelEl, selectedRef, onSelect) {
   ulEl.innerHTML = "";
   categorias.forEach(cat => {
     const li = document.createElement("li");
-    li.textContent = cat;
+    li.textContent = cat.nome;
     li.addEventListener("click", () => {
-      onSelect(cat);
+      onSelect(cat.id_cat);
       labelEl.textContent = cat;
       boxEl.classList.remove("open");
       ulEl.classList.remove("visible");
@@ -100,6 +97,21 @@ document.getElementById("mainImgInput").addEventListener("change", function () {
   reader.readAsDataURL(file);
 });
 
+
+// buscar cat
+
+async function carregarCategorias() {
+  const token = localStorage.getItem("token");
+  const res = await fetch(`${BASE_URL_CAT}/buscar`, {
+    headers: { "Authorization": `Bearer ${token}` }
+  });
+  console.log("status:", res.status); 
+  const data = await res.json();
+  console.log("categorias recebidas:", data);
+  categorias = data;
+}
+
+
 // --- OPERAÇÕES DO CRUD ---
 
 //verificar se foi feito o login para cadastrar
@@ -112,6 +124,7 @@ async function verifLogin() {
     window.location.href = "/Agendamento-kino/frontend/src/views/login/login.html"
     return;
   }
+  await carregarCategorias();
   await carregarProdutos();
 }
 

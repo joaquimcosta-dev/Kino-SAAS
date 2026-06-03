@@ -8,7 +8,7 @@ import { auth } from '../middlewares/auth.js';
 controller.get("/buscar", auth, async(req, res)=>{
   try{
 
-    const cat = service.buscarCat()
+    const cat = await service.buscarCat()
     return res.status(200).json(cat)
 
   }catch(e){
