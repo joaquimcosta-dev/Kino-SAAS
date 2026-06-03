@@ -7,10 +7,14 @@ const pendente = document.querySelector("#pendente").innerHTML=0;
 const preparando = document.querySelector("#preparando").innerHTML=0;
 const feito = document.querySelector("#feito").innerHTML=0;
 const entrega = document.querySelector("#entrega").innerHTML=0;
+const btnLogout = document.querySelector('#logout')
 
 
 //função para listar as reclamacões
-const listarReclamacao = async () => {
+const listarReclamacao =  async() => {
+  try {
+    
+  
   
   const response = await fetch(URL_BASE+"/listar/listar-reclamacao",{
     method:"GET",
@@ -20,8 +24,18 @@ const listarReclamacao = async () => {
     }
   }
   )
-    .then((res) => res.json())
-    .then((res) => {
+  //verificando o status vindo da requisição 
+if (response.status === 401 || response.status === 500) {
+  //remivendo o token do localStorage
+  localStorage.clear();
+  window.location.href = "../login/login.html";
+  return;
+}
+  
+    if(response.ok){
+       //vericando o staus do token
+ 
+      const res=await response.json()
       
       const fun=localStorage.getItem("user");
       const funcio= JSON.parse(fun)
@@ -53,11 +67,16 @@ const listarReclamacao = async () => {
         body.append(tr);
       });
       res.length > 0 ? body.append(sms[0]) : body.append(sms[1]);
-    })
-    .catch((e) => {
-      console.log("Erro ao tentar listar reclamação", e);
-    });
-};
+    
+    
+    
+    }else{
+   console.log("Não foi possível carregar")
+ }
+  } catch (e) {
+    console.log("erro",e)
+  }
+}
 
 
 const listarPedido = async () => {
@@ -108,6 +127,16 @@ const listarPedido = async () => {
       console.log("Erro ao tentar listar reclamação", e);
     });
 };
-
+//btn para terminar sessão 
+btnLogout.addEventListener('click',()=>{
+  logout();
+})
+//funcao para deslogar o usuario
+const logout=()=>{
+  const confirmar=confirm("Queres terminar sessão?")
+  if(confirmar){
+  localStorage.clear();
+   window.location.href = "../login/login.html";}
+}
 listarPedido();
 listarReclamacao();

@@ -17,9 +17,9 @@ const URL_BASE = "http://localhost:3000"
 const fecharPagamento = document.querySelector("#fecharPagamento")
 const modalPagamento = document.querySelector(".modalPagamento")
 const codigoPedido = document.querySelector("#codPedido")
-const copiarCod =document.querySelector("#copiarCod");
-const expressInput =document.querySelector('#expressInput');
-const copiarEpress =document.querySelector("#copiarExpress");
+const copiarCod = document.querySelector("#copiarCod");
+const expressInput = document.querySelector('#expressInput');
+const copiarEpress = document.querySelector("#copiarExpress");
 const removerItem = [];
 const itensPedido = [];
 //conexao com o back, usando o fetch
@@ -152,15 +152,18 @@ console.log(itensPedido);
 adicionarPedidoNaLista()
 }
 //para procurar comida
-form_pesquisar.addEventListener('submit', (e)=>{
+form_pesquisar.addEventListener('submit', async(e)=>{
 e.preventDefault()
-const buscar = inputProcurar.value
-
-
-const res = listaProduto.filter(p=>p.nome == buscar);
-
+const buscar = inputProcurar.value.trim()
+const produtos =  await getProduto()
+//return console.log(produtos)
+const res = produtos.filter(p=>p.nome == buscar);
+if(res.length===0) return result_pesquisa.innerHTML="<p>Produto não encontrado</p>"
 res.forEach((e)=>{
+  //limpando a tela
+  result_pesquisa.innerHTML=''
 //criação dos elementos html
+
 const div = document.createElement('div')
 const preco = document.createElement('span')
 const nome = document.createElement('h5')
@@ -184,7 +187,7 @@ btnAdd.append(imgAdd)
 divInf.append(btnAdd)
 div.append(preco)
 div.append(divInf)
-result_pesquisa.style.display = "flex"
+//result_pesquisa.style.display = "flex"
 result_pesquisa.append(div)
 } )
 })
@@ -220,7 +223,7 @@ console.log(e);
 }
 //fechar modal mostarPagamento
 fecharPagamento.addEventListener("click", (e)=>{
-  
+
 modalPagamento.classList.toggle("mostrarPagamento")
 
 })
@@ -234,17 +237,17 @@ endereco: cliente_endereco.value,
 item: itensPedido
 }
 //copiar o codigo no input pedido
-copiarCod.addEventListener("click",()=>{
-  navigator.clipboard.writeText(codigoPedido.value)
-  console.log(codigoPedido.value)
-  alert("copiado com sucesso")
+copiarCod.addEventListener("click", ()=>{
+navigator.clipboard.writeText(codigoPedido.value)
+console.log(codigoPedido.value)
+alert("copiado com sucesso")
 })
 
 //copiar o referencia expresss no input
-copiarEpress.addEventListener("click",()=>{
-  navigator.clipboard.writeText(expressInput.value)
-  console.log(expressInput.value)
-  alert("copiado com sucesso")
+copiarEpress.addEventListener("click", ()=>{
+navigator.clipboard.writeText(expressInput.value)
+console.log(expressInput.value)
+alert("copiado com sucesso")
 })
 
 postPedido(data);

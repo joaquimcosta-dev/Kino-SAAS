@@ -4,7 +4,7 @@ export const auth=(req,res,next)=>{
     const SECRET=process.env.SECRET_KEY;
    const token=req.headers.authorization;
         if(!token){
-           return res.status(400).json({message:"Faça login para continuar"});
+           return res.status(401).json({message:"Faça login para continuar"});
         }
    
     try {
