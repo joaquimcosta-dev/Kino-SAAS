@@ -7,6 +7,7 @@ const pendente = document.querySelector("#pendente").innerHTML=0;
 const preparando = document.querySelector("#preparando").innerHTML=0;
 const feito = document.querySelector("#feito").innerHTML=0;
 const entrega = document.querySelector("#entrega").innerHTML=0;
+const btnLogout = document.querySelector('#logout')
 
 
 //função para listar as reclamacões
@@ -23,8 +24,7 @@ const listarReclamacao =  async() => {
     }
   }
   )
-  console.log(response.status)
-return
+  //verificando o status vindo da requisição 
 if (response.status === 401 || response.status === 500) {
   //remivendo o token do localStorage
   localStorage.clear();
@@ -127,9 +127,16 @@ const listarPedido = async () => {
       console.log("Erro ao tentar listar reclamação", e);
     });
 };
+//btn para terminar sessão 
+btnLogout.addEventListener('click',()=>{
+  logout();
+})
 //funcao para deslogar o usuario
 const logout=()=>{
+  const confirmar=confirm("Queres terminar sessão?")
+  if(confirmar){
   localStorage.clear();
+   window.location.href = "../login/login.html";}
 }
 listarPedido();
 listarReclamacao();
