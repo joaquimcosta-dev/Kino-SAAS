@@ -1,7 +1,11 @@
 const BASE_URL = "http://localhost:3000/produto";
 
-
-
+let categorias = [
+  "Almoço",
+  "Hambuerguer",
+  "fastfood"
+]
+let produtos = [];
 let fCatSelected = "";
 let editCatSelected = "";
 let editingId = null;
@@ -12,7 +16,7 @@ let editImgData = "";
 const navBar = document.querySelector(".nav");
 const MENU_URL = "../../util/menu_admin.html";
 
-/* ── HELPERS ── */
+/*  notificações  */
 function toast(msg, type = "success") {
   const wrap = document.getElementById("toastWrap");
   const el = document.createElement("div");
@@ -27,7 +31,7 @@ function fmtPrice(v) { return `${Number(v).toFixed(2)}Kz`; }
 /* ── RENDER DROPDOWN ── */
 function buildCatOptions(ulEl, boxEl, labelEl, selectedRef, onSelect) {
   ulEl.innerHTML = "";
-  categories.forEach(cat => {
+  categorias.forEach(cat => {
     const li = document.createElement("li");
     li.textContent = cat;
     li.addEventListener("click", () => {
@@ -98,14 +102,27 @@ document.getElementById("mainImgInput").addEventListener("change", function () {
 
 // --- OPERAÇÕES DO CRUD ---
 
-/*adicionar produto */
+//verificar se foi feito o login para cadastrar
+
+async function verifLogin() {
+  const token = localStorage.getItem("token");
+
+  //se não foi feito fito fogin reencaminha para tela de login 
+  if(!token){
+    window.location.href = "/Agendamento-kino/frontend/src/views/login/login.html"
+    return;
+  }
+  await carregarProdutos();
+}
+
+//adicionar produto
 document.getElementById("btnAdd").addEventListener("click", async () => {
   console.log("clicou");
 
   const nome = document.getElementById("fNome").value.trim();
   const descricao = document.getElementById("fDesc").value.trim();
   const preco = parseFloat(document.getElementById("fPreco").value);
-  const requerQtd = Number(document.getElementById("fRequerQtd").value);
+  const requerQtd = Number(document.getElementById("frequerQtd").value);
   const categoria = fCatSelected;
 
   if (!nome) {
@@ -127,7 +144,7 @@ document.getElementById("btnAdd").addEventListener("click", async () => {
 
     const token = localStorage.getItem("token");
 
-    const res = await fetch(`${API_URL}/cadastrar`, {
+    const res = await fetch(`${BASE_URL}/cadastrar`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -135,7 +152,7 @@ document.getElementById("btnAdd").addEventListener("click", async () => {
       },
       body: JSON.stringify({
         nome,
-        descricao,
+        descricao: descricao || "",
         preco,
         img: mainImgData,
         requerQtd,
@@ -164,11 +181,14 @@ document.getElementById("btnAdd").addEventListener("click", async () => {
   }
 });
 
+//limpar inputs depois de add o produto
+
 function limparFormulario() {
 
   document.getElementById("fNome").value = "";
   document.getElementById("fDesc").value = "";
   document.getElementById("fPreco").value = "";
+  document.getElementById("frequerQtd").value = "";
 
   fCatSelected = "";
 
@@ -180,19 +200,25 @@ function limparFormulario() {
   document.getElementById("mainImgPlaceholder").style.display = "flex";
 }
 
-let products = [];
+//função carregar/listar produtos
 
 async function carregarProdutos() {
 
   try {
 
-    const res = await fetch(`${API_URL}/listar`);
-
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${BASE_URL}/listar`,{
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
     const data = await res.json();
 
-    products = data;
+    console.log(data); 
 
-    renderGrid();
+    produtos = data;
+
+    cssProd();
 
   } catch (e) {
 
@@ -203,17 +229,12 @@ async function carregarProdutos() {
 }
 
 
-
-
-
-
-
 /* ── RENDER GRID ── */
-function carregarProdutos() {
+function cssProd() {
   const grid = document.getElementById("prodGrid");
   grid.innerHTML = "";
 
-  if (products.length === 0) {
+  if (produtos.length === 0) {
     grid.innerHTML = `<div class="empty">
       <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
       <p>Nenhum produto cadastrado ainda.</p>
@@ -221,7 +242,7 @@ function carregarProdutos() {
     return;
   }
 
-  products.forEach(p => {
+  produtos.forEach(p => {
     const card = document.createElement("div");
     card.className = "prod-card";
     card.dataset.id = p.id;
@@ -261,11 +282,11 @@ function carregarProdutos() {
       closeAllDropdowns();
       if (!isOpen) {
         badgeDrop.innerHTML = "";
-        categories.forEach(cat => {
+        categorias.forEach(cat => {
           const li = document.createElement("li");
           li.textContent = cat;
           li.addEventListener("click", () => {
-            const prod = products.find(x => x.id == p.id);
+            const prod = produtos.find(x => x.id == p.id);
             if (prod) prod.category = cat;
             badge.querySelector(".cat-badge-label").textContent = cat;
             badgeDrop.classList.remove("visible");
@@ -299,7 +320,7 @@ function carregarProdutos() {
 
 /* ── editar produto modal ── */
 function openEditModal(id) {
-  const p = products.find(x => x.id === id);
+  const p = produtos.find(x => x.id === id);
   if (!p) return;
   editingId = id;
   editImgData = p.img || "";
@@ -334,9 +355,9 @@ document.getElementById("editSave").addEventListener("click", () => {
   if (!cat) { toast("Selecione a categoria.", "error"); return; }
   if (isNaN(price) || price < 0) { toast("Preço inválido.", "error"); return; }
 
-  const prod = products.find(x => x.id === editingId);
+  const prod = produtos.find(x => x.id === editingId);
   if (prod) { prod.name = name; prod.desc = desc; prod.price = price; prod.category = cat; if (editImgData) prod.img = editImgData; }
-  renderGrid();
+  cssProd();
   toast("Produto atualizado!");
   document.getElementById("editOverlay").classList.remove("visible");
   editingId = null; editImgData = "";
@@ -367,8 +388,8 @@ document.getElementById("delCancel").addEventListener("click", () => {
   deletingId = null;
 });
 document.getElementById("delConfirm").addEventListener("click", () => {
-  products = products.filter(x => x.id !== deletingId);
-  renderGrid();
+  produtos = produtos.filter(x => x.id !== deletingId);
+  cssProd();
   toast("Produto excluído.", "error");
   document.getElementById("delOverlay").classList.remove("visible");
   deletingId = null;
@@ -385,8 +406,8 @@ document.getElementById("catCancel").addEventListener("click", () => {
 document.getElementById("catSave").addEventListener("click", () => {
   const name = document.getElementById("newCatName").value.trim();
   if (!name) { toast("Informe o nome da categoria.", "error"); return; }
-  if (categories.includes(name)) { toast("Categoria já existe.", "error"); return; }
-  categories.push(name);
+  if (categorias.includes(name)) { toast("Categoria já existe.", "error"); return; }
+  categorias.push(name);
   toast(`Categoria "${name}" adicionada!`);
   document.getElementById("catOverlay").classList.remove("visible");
 });
@@ -417,4 +438,4 @@ const getMenuAdmin = async () => {
 };
 
 /* ── INIT ── */
-renderGrid();
+verifLogin();
