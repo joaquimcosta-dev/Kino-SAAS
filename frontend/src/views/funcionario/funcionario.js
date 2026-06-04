@@ -23,6 +23,27 @@ renderizar(funcionarios);
 console.log('erro no servidor, tentando listar funcionario', e)
 }
 }
+
+//funcao que criar novo dados do bsnco
+const postFuncionario = async(data)=>{
+try{
+const response = await fetch(URL_BASE+"/funcionario/cadastrar",{
+  method:"POST",
+  headers:{
+    "Content-type":"application/json"
+  },
+body:JSON.stringify(data)
+  });
+if (response.ok){
+  //chamando a funcao get para atualizar a tela
+  getFuncionario();
+  return;
+}
+
+}catch(e){
+console.log('erro no servidor, tentando listar funcionario', e)
+}
+}
 function renderizar(lista) {
 const corpo = document.getElementById('corpo');
 const vazio = document.getElementById('estadoVazio');
@@ -111,7 +132,7 @@ document.getElementById('overlayForm').classList.add('aberto');
 /* ── Guardar (criar ou actualizar) ── */
 function guardar() {
 /* Valida que todos os campos estão preenchidos */
-const campos = ['fId', 'fNome', 'fBi', 'fNasc', 'fTel'];
+const campos = [ 'fNome', 'fBi', 'fNasc', 'fTel'];
 let valido = true;
 campos.forEach(id => {
 const el = document.getElementById(id);
@@ -120,7 +141,6 @@ if (!el.value.trim()) { el.classList.add('invalido'); valido = false; } else el.
 if (!valido) return;
 
 const novo = {
-id_fun: document.getElementById('fId').value.trim(),
 nome: document.getElementById('fNome').value.trim(),
 bi: document.getElementById('fBi').value.trim(),
 data_nasc: document.getElementById('fNasc').value,
@@ -134,7 +154,7 @@ document.getElementById('fId').classList.add('invalido');
 mostrarToast('ID já existe.', 'erro');
 return;
 }
-funcionarios.push(novo);
+postFuncionario(novo);
 mostrarToast('Funcionário criado com sucesso!', 'sucesso');
 } else {
 /* Actualizar */

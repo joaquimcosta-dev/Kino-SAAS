@@ -6,7 +6,8 @@ try {
         user: process.env.USER,
         password: process.env.PASSWORD,
         database: process.env.DB,
-        waitForConnections: true
+        waitForConnections: true,
+        dateStrings:true
     });
     console.log("conectado com sucesso");
 } catch (e) {
