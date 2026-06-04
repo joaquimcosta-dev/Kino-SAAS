@@ -1,5 +1,5 @@
 const BASE_URL = "http://localhost:3000/produto";
-const BASER_URL_CAT = "http://localhost:3000/categoria";
+const BASE_URL_CAT = "http://localhost:3000/index/categoria";
 
 let categorias = [];
 let produtos = [];
