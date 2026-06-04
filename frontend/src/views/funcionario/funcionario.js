@@ -1,11 +1,6 @@
-
-
+const URL_BASE="http://localhost:3000"
     /* ── Dados iniciais de exemplo ── */
-    let funcionarios = [
-      { id_fun: 'FUN001', nome: 'Ana Luísa Ferreira', bi: '003456789LA041', data_nasc: '1995-03-12', tel: '923 456 789' },
-      { id_fun: 'FUN002', nome: 'Carlos Mendes',      bi: '006712345LA031', data_nasc: '1988-07-24', tel: '912 345 678' },
-      { id_fun: 'FUN003', nome: 'Sofia Neto',         bi: '009012345LA021', data_nasc: '2000-11-05', tel: '934 567 890' },
-    ];
+    let funcionarios = [];
 
     /* Índice do funcionário que está a ser editado/eliminado */
     let indiceEditando  = null;
@@ -59,6 +54,21 @@
           </td>
         </tr>
       `).join('');
+    }
+    //funcao que pega dados do bsnco
+    const getFuncionario=async()=>{
+      try{
+        const response=await fetch(URL_BASE+"/funcionario/listar")
+        if(response.ok){
+          const res = await response.json()
+         // passando p array completo no funcionarios
+          funcionarios=res;
+          console.log(funcionarios)
+        }
+        
+      }catch(e){
+        console.log('erro no servidor, tentando listar funcionario',e)
+      }
     }
 
     /* ── Filtrar por texto ── */
@@ -202,4 +212,5 @@
     /* ── Render inicial ── */
     renderizar(funcionarios);
 
-  
+ // chamando a funcao getFuncionario
+ getFuncionario();

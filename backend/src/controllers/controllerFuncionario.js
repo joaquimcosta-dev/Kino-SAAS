@@ -32,6 +32,7 @@ controller.get("/listar", async (req, res) => {
     const lista = await servico.listarFuncionarios();
     return res.status(200).json(lista);
   } catch (e) {
+    console.log(e)
     return res
       .status(500)
       .json({ message: "Erro ao tentar listar funcionario" });
@@ -58,6 +59,8 @@ controller.delete("/deletar/:id", async (req, res) => {
   } catch (e) {
     return res
       .status(500)
+      
       .json({ message: "Erro ao tentar eliminar funcionario" });
   }
 });
+export default controller;
