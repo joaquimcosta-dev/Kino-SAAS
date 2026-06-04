@@ -10,7 +10,7 @@ export const criarCategoria = async date => {
 
 //listar todas as categirias
 export const listar = async () => {
-    const listar = await db.query("select nome from categoria");
+    const listar = await db.query("select id_cat, nome from categoria");
     return listar;
 };
 

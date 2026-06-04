@@ -33,7 +33,7 @@ function buildCatOptions(ulEl, boxEl, labelEl, selectedRef, onSelect) {
     li.textContent = cat.nome;
     li.addEventListener("click", () => {
       onSelect(cat.id_cat);
-      labelEl.textContent = cat;
+      labelEl.textContent = cat.nome;
       boxEl.classList.remove("open");
       ulEl.classList.remove("visible");
     });
