@@ -3,7 +3,7 @@ import db from "../config/db.js";
 export const criar_funcionario = async data => {
     const { nome, bilhete, telefone, datas } = data;
     const novo = await db.query(
-        "insert into funcionario(nome,bilhete,tel,data) values (?,?,?,?)",
+        "insert into funcionario(nome,bilhete,tel,data_nasc) values (?,?,?,?)",
         [nome, bilhete, telefone, datas]
     );
     return novo;
@@ -29,7 +29,7 @@ export const deletarUsuario = async id => {
 // funcao com sql para buscar todos funcionarios
 export const listarTodosFuncionarios = async () => {
     const [lista] = await db.query(
-        "select id_fun, nome,bilhete, tel from funcionario"
+        "select id_fun, nome,bilhete, tel ,data_nasc from funcionario"
     );
     return lista;
 };

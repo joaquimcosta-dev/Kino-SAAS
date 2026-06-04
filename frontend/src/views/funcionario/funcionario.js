@@ -15,7 +15,8 @@ const response = await fetch(URL_BASE+"/funcionario/listar")
 if (response.ok){
 const res = await response.json()
 // passando p array completo no funcionarios
-renderizar(res);
+funcionarios = res;
+renderizar(funcionarios);
 }
 
 }catch(e){
@@ -78,9 +79,7 @@ const termo = document.getElementById('campoBusca').value.toLowerCase();
 if (!termo) { renderizar(funcionarios); return; }
 const filtrados = funcionarios.filter(f =>
 f.nome.toLowerCase().includes(termo) ||
-f.bi.toLowerCase().includes(termo) ||
-f.tel.toLowerCase().includes(termo) ||
-f.id_fun.toLowerCase().includes(termo)
+f.bilhete.toLowerCase().includes(termo)
 );
 renderizar(filtrados);
 }
@@ -102,7 +101,7 @@ document.getElementById('modalTitulo').textContent = 'Editar Funcionário';
 document.getElementById('fId').value = f.id_fun;
 document.getElementById('fId').setAttribute('readonly', true); /* ID não editável */
 document.getElementById('fNome').value = f.nome;
-document.getElementById('fBi').value = f.bi;
+document.getElementById('fBi').value = f.bilhete;
 document.getElementById('fNasc').value = f.data_nasc;
 document.getElementById('fTel').value = f.tel;
 limparErros();
