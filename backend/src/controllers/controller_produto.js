@@ -25,7 +25,7 @@ controller.post("/cadastrar", auth, permissaoAdmin, async (req, res) => {
         const { nome, img, preco, descricao, requerQtd, id_cat } = req.body;
         
         if (!req.body.nome || !req.body.preco || !req.body.img || !req.body.descricao || !req.body.id_cat) {
-            
+            console.log(message)
             return res.status(400).json({ message: "Campo obrigatório" });
         }
 
@@ -46,7 +46,7 @@ controller.post("/cadastrar", auth, permissaoAdmin, async (req, res) => {
             id_user
         });
 
-        return res.status(201).json(nome, preco, descricao, requerQtd, id_cat, id_user);
+        return res.status(201).json(resultado);
 
     } catch (e) {
         console.log(e);
