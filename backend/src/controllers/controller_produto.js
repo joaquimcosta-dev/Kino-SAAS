@@ -16,7 +16,7 @@ controller.get("/listar", async (req, res) => {
         return res.status(400).json({ menssagem: "Erro ao listar produtos" });
     }
 });
-
+            
 //rota para cadastrar produto
 controller.post("/cadastrar", auth, permissaoAdmin, async (req, res) => {
     try {

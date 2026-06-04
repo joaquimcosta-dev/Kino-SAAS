@@ -1,11 +1,11 @@
 import express from 'express';
 const controller= express.Router();
-import *as service from '../service_categoria.js';
+import *as service from "../service/service_categoria.js";
 import { auth } from '../middlewares/auth.js';
 
 
 //buscar cat
-controller.get("/buscar", auth, async(req, res)=>{
+controller.get("/buscar", async(req, res)=>{
   try{
 
     const cat = await service.buscarCat()
@@ -19,11 +19,11 @@ controller.get("/buscar", auth, async(req, res)=>{
 
 
 //buscar cat por id
-controller.get("buscar/:id", auth, async(req,res)=>{
-  if (!req.body.id) {
+controller.get("/buscar/:id", async(req,res)=>{
+  if (!req.params.id) {
     return res.status(400).json({message:"id invalido"});
   }
-  const id=req.body.id;
+  const id = req.body.id;
 try {
     const encontrado= await service.buscarCatId(id);
     if (!encontrado) {
@@ -38,3 +38,4 @@ try {
 }
 })
 
+export default controller;
