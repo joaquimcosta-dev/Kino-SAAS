@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Funcionários</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="funcionario.css">
+</head>
+<body>
+
+  <!-- ━━━ CABEÇALHO ━━━ -->
+  <header>
+    <a href="#" class="logo-circle">K</a>
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#" class="ativo">Funcionários</a>
+      <a href="#">Pedidos</a>
+    </nav>
+
+    <div class="icone-usuario" title="Minha conta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- ━━━ CONTEÚDO PRINCIPAL ━━━ -->
+  <main>
+
+    <!-- Título + botão novo -->
+    <div class="topo-pagina">
+      <h1>Funcionários</h1>
+      <button class="btn-novo" onclick="abrirModalNovo()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        Novo Funcionário
+      </button>
+    </div>
+
+    <!-- Barra de busca + contador -->
+    <div class="barra-ferramentas">
+      <div class="campo-busca">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/>
+        </svg>
+        <input type="text" id="campoBusca" placeholder="Buscar por nome, BI ou telefone…" oninput="filtrar()"/>
+      </div>
+      <span class="contador">Total: <strong id="totalContador">0</strong> funcionário(s)</span>
+    </div>
+
+    <!-- Tabela -->
+    <div class="tabela-wrapper">
+      <table id="tabela">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>BI</th>
+            <th>Data Nasc.</th>
+            <th>Telefone</th>
+            <th>Acções</th>
+          </tr>
+        </thead>
+        <tbody id="corpo"></tbody>
+      </table>
+      <!-- Estado vazio -->
+      <div class="vazio" id="estadoVazio" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        <p>Nenhum funcionário encontrado.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ━━━ RODAPÉ ━━━ -->
+  <footer>
+    <div>
+      <p>© Kino 2026</p>
+      <p>Todos os direitos reservados.</p>
+    </div>
+    <div class="redes-sociais">
+      <span>siga-nos</span>
+      <div class="icone-social">W</div>
+      <div class="icone-social">f</div>
+      <div class="icone-social">&#9400;</div>
+    </div>
+  </footer>
+
+  <!-- ━━━ MODAL: CRIAR / EDITAR ━━━ -->
+  <div class="overlay" id="overlayForm" onclick="fecharSeOverlay(event,'overlayForm')">
+    <div class="modal">
+      <div class="modal-topo">
+        <h2 id="modalTitulo">Novo Funcionário</h2>
+        <button class="btn-fechar" onclick="fecharModal('overlayForm')">✕</button>
+      </div>
+
+      <!-- Campos -->
+      <div class="form-grade">
+        <div class="form-grupo">
+          <label for="fId">ID Funcionário</label>
+          <input type="text" id="fId" placeholder="ex: FUN001" maxlength="20" disabled/>
+          <span class="msg-erro">Campo obrigatório</span>
+        </div>
+        <div class="form-grupo">
+          <label for="fBi">Nº BI</label>
+          <input type="text" id="fBi" placeholder="ex: 123456789LA000" maxlength="20"/>
+          <span class="msg-erro">Campo obrigatório</span>
+        </div>
+      </div>
+
+      <div class="form-grupo">
+        <label for="fNome">Nome Completo</label>
+        <input type="text" id="fNome" placeholder="ex: Maria Silva" maxlength="80"/>
+        <span class="msg-erro">Campo obrigatório</span>
+      </div>
+
+      <div class="form-grade">
+        <div class="form-grupo">
+          <label for="fNasc">Data de Nascimento</label>
+          <input type="date" id="fNasc"/>
+          <span class="msg-erro">Campo obrigatório</span>
+        </div>
+        <div class="form-grupo">
+          <label for="fTel">Telefone</label>
+          <input type="tel" id="fTel" placeholder="ex: 912 345 678" maxlength="20"/>
+          <span class="msg-erro">Campo obrigatório</span>
+        </div>
+      </div>
+
+      <div class="modal-acoes">
+        <button class="btn-cancelar" onclick="fecharModal('overlayForm')">Cancelar</button>
+        <button class="btn-guardar" onclick="guardar()">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━━ MODAL: CONFIRMAR ELIMINAÇÃO ━━━ -->
+  <div class="overlay" id="overlayEliminar" onclick="fecharSeOverlay(event,'overlayEliminar')">
+    <div class="modal modal-confirmar">
+      <div class="icone-aviso">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="3 6 5 6 21 6"/>
+          <path d="M19 6l-1 14H6L5 6"/>
+          <path d="M10 11v6M14 11v6"/>
+          <path d="M9 6V4h6v2"/>
+        </svg>
+      </div>
+      <h2>Eliminar funcionário?</h2>
+      <p id="textoConfirmar">Esta acção não pode ser revertida.</p>
+      <div class="modal-acoes" style="justify-content:center">
+        <button class="btn-cancelar" onclick="fecharModal('overlayEliminar')">Cancelar</button>
+        <button class="btn-eliminar-conf" onclick="confirmarEliminar()">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━━ TOAST ━━━ -->
+  <div class="toast" id="toast"></div>
+
+  <script type="text/javascript" charset="utf-8" src="funcionario.js">
+    
+  </script>
+</body>
+</html>

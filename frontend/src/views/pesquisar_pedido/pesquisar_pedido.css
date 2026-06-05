@@ -59,3 +59,364 @@ header h3{
   left: 0;
   bottom: 0;
 }
+
+
+
+
+
+
+
+
+ 
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       VARIÁVEIS GLOBAIS
+       Todas as cores e tamanhos num só lugar.
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    :root {
+      --laranja:        #d2620a;
+      --laranja-suave:  #f5c49a;
+      --fundo-input:    #fdecd8;
+      --cinza-claro:    #e8e0d8;
+      --texto-apagado:  #c9b8a8;
+      --branco:         #ffffff;
+
+      /* Tipografia fluida:
+         clamp(mínimo, valor-fluido, máximo)
+         O texto cresce sozinho entre 320px e 1200px de ecrã */
+      --texto-titulo:   clamp(1.4rem, 4vw, 2.2rem);
+      --texto-nav:      clamp(0.85rem, 2vw, 1.05rem);
+      --texto-passo:    clamp(0.65rem, 1.6vw, 0.875rem);
+      --texto-item:     clamp(0.75rem, 1.8vw, 0.9rem);
+      --texto-desc:     clamp(0.65rem, 1.5vw, 0.8rem);
+      --texto-btn:      clamp(0.7rem, 1.6vw, 0.85rem);
+
+      /* Espaçamento fluido */
+      --espaco-h:       clamp(1rem, 4vw, 3.5rem);   /* padding lateral */
+      --espaco-secao:   clamp(1rem, 3vw, 2rem);      /* gap entre secções */
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       RESET & BASE
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--branco);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       CABEÇALHO
+       Usa padding fluido; logo e ícone
+       escalam com clamp nas dimensões.
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: clamp(0.6rem, 2vw, 1rem) var(--espaco-h);
+      border-bottom: 1.5px solid var(--cinza-claro);
+    }
+
+    /* Logo — tamanho fluido entre 44px e 64px */
+    .logo-circle {
+      width:  clamp(44px, 6vw, 64px);
+      height: clamp(44px, 6vw, 64px);
+      background: var(--laranja);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--branco);
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    nav a {
+      color: var(--laranja);
+      font-weight: 700;
+      text-decoration: none;
+      font-size: var(--texto-nav);
+    }
+
+    /* Ícone de utilizador — escala com o logo */
+    .icone-usuario {
+      width:  clamp(32px, 4.5vw, 46px);
+      height: clamp(32px, 4.5vw, 46px);
+      border-radius: 50%;
+      border: 2.5px solid var(--laranja);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--laranja);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .icone-usuario svg {
+      /* SVG escala junto com o contentor */
+      width:  60%;
+      height: 60%;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       CONTEÚDO PRINCIPAL
+       max-width para não esticar demais em
+       ecrãs muito largos; padding fluido.
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: var(--espaco-secao) var(--espaco-h);
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--laranja);
+      font-size: var(--texto-titulo);
+      font-weight: 800;
+      margin-bottom: var(--espaco-secao);
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       CAMPO DE BUSCA
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .busca {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--fundo-input);
+      border: 2px solid var(--laranja-suave);
+      border-radius: 999px;                /* sempre pill */
+      padding: clamp(0.5rem, 1.5vw, 0.9rem) clamp(1rem, 3vw, 1.5rem);
+      margin-bottom: var(--espaco-secao);
+    }
+
+    .busca input {
+      flex: 1;
+      min-width: 0;                        /* impede overflow em ecrãs pequenos */
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(0.8rem, 2vw, 1rem);
+      font-weight: 700;
+      color: var(--laranja);
+    }
+
+    .busca button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--laranja);
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .busca button svg {
+      width:  clamp(18px, 2.5vw, 24px);
+      height: clamp(18px, 2.5vw, 24px);
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       BARRA DE PROGRESSO
+       Numa linha em ecrãs grandes; em dois
+       pares numa linha em ecrãs pequenos.
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .progresso {
+      display: flex;
+      flex-wrap: wrap;                     /* permite quebra se necessário */
+      background: var(--fundo-input);
+      border-radius: 999px;
+      padding: 4px;
+      gap: 4px;
+      margin-bottom: var(--espaco-secao);
+    }
+
+    .passo {
+      flex: 1 1 auto;                      /* cresce e encolhe livremente */
+      min-width: clamp(60px, 20%, 160px);  /* garante que não some */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: var(--texto-passo);
+      padding: clamp(6px, 1.2vw, 10px) 4px;
+      text-align: center;
+      white-space: nowrap;
+      border-radius: 999px;
+    }
+
+    .passo.ativo  { background: var(--laranja); color: var(--branco); }
+    .passo.inativo { color: var(--texto-apagado); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       LISTA DE ITENS DO PEDIDO
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .lista-itens {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(10px, 2vw, 16px);
+    }
+
+    /* Cada card usa CSS Grid para alinhar
+       as 4 colunas: imagem | info | status | ação
+       Em ecrãs pequenos colapsa para 2 linhas. */
+    .item-pedido {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      align-items: center;
+      gap: clamp(8px, 2vw, 16px);
+      background: var(--branco);
+      border: 1.5px solid var(--cinza-claro);
+      border-radius: clamp(10px, 2vw, 16px);
+      padding: clamp(8px, 1.5vw, 12px) clamp(10px, 2vw, 16px);
+    }
+
+    /* Imagem placeholder fluida */
+    .img-placeholder {
+      width:  clamp(52px, 8vw, 76px);
+      height: clamp(52px, 8vw, 76px);
+      border-radius: clamp(6px, 1.5vw, 12px);
+      background: linear-gradient(135deg, #e8a060, #c05010);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      flex-shrink: 0;
+    }
+
+    .info-item { min-width: 0; }            /* impede overflow do texto */
+
+    .info-item .nome {
+      font-weight: 700;
+      font-size: var(--texto-item);
+      color: #333;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .info-item .descricao {
+      font-size: var(--texto-desc);
+      color: var(--texto-apagado);
+      margin-top: 3px;
+      line-height: 1.4;
+    }
+
+    /* Botão de status (feito / preparando) */
+    .btn-status {
+      border: 2px solid var(--laranja);
+      border-radius: 999px;
+      padding: clamp(5px, 1vw, 9px) clamp(10px, 2vw, 20px);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: var(--texto-btn);
+      cursor: default;
+      background: transparent;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .btn-status.feito      { background: var(--laranja); color: var(--branco); border-color: var(--laranja); }
+    .btn-status.preparando { color: var(--laranja); }
+
+    /* Botão de ação (confirmar / cancelar) */
+    .btn-acao {
+      border: 2px solid var(--laranja);
+      border-radius: 999px;
+      padding: clamp(5px, 1vw, 10px) clamp(10px, 2vw, 18px);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: var(--texto-btn);
+      cursor: pointer;
+      background: transparent;
+      color: var(--laranja);
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-acao:hover          { background: var(--laranja); color: var(--branco); }
+    .btn-acao.desabilitado   { border-color: var(--cinza-claro); color: var(--texto-apagado); cursor: not-allowed; }
+    .btn-acao.desabilitado:hover { background: transparent; color: var(--texto-apagado); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       RODAPÉ
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    footer {
+      background: var(--laranja);
+      color: var(--branco);
+      padding: clamp(0.8rem, 2vw, 1.4rem) var(--espaco-h);
+      display: flex;
+      flex-wrap: wrap;                     /* empilha em ecrãs pequenos */
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: clamp(0.7rem, 1.6vw, 0.85rem);
+    }
+
+    .redes-sociais {
+      display: flex;
+      align-items: center;
+      gap: clamp(6px, 1.5vw, 12px);
+    }
+
+    .redes-sociais span { font-weight: 600; }
+
+    .icone-social {
+      width:  clamp(26px, 3.5vw, 34px);
+      height: clamp(26px, 3.5vw, 34px);
+      border-radius: 50%;
+      border: 2px solid var(--branco);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(0.65rem, 1.4vw, 0.9rem);
+      cursor: pointer;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       ECRÃ PEQUENO — abaixo de 520px
+       O único ajuste necessário: o grid do card
+       passa de 4 colunas para 2 linhas.
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    @media (max-width: 520px) {
+
+      /* Linha 1: imagem + info (ocupam toda a largura)
+         Linha 2: status + ação lado a lado */
+      .item-pedido {
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto auto;
+      }
+
+      /* Botão de status vai para linha 2, coluna 1 */
+      .btn-status {
+        grid-row: 2;
+        grid-column: 1;
+      }
+
+      /* Botão de ação vai para linha 2, coluna 2 */
+      .btn-acao {
+        grid-row: 2;
+        grid-column: 2;
+        justify-self: end;
+      }
+
+      /* Rodapé centraliza quando empilha */
+      footer { justify-content: center; text-align: center; }
+    }
+
+  

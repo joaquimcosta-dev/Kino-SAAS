@@ -225,6 +225,14 @@ async function carregarProdutos() {
         "Authorization": `Bearer ${token}`
       }
     });
+
+//verificando o status vindo da requisição
+if (res.status === 401 || res.status === 500) {
+//remivendo o token do localStorage
+localStorage.clear();
+window.location.href = "../login/login.html";
+return;
+}
     const data = await res.json();
 
     console.log(data); 
