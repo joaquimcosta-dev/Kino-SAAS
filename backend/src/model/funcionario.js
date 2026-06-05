@@ -37,8 +37,8 @@ return lista;
 export const atualizar_funcionario = async data => {
 const { id, nome, bilhete, telefone, datas } = data;
 const atualizado = await db.query(
-"update funcionario set (nome,bilhe,telefone,data) values (?,?,?,?) where id=?",
-[nome, bilhete, telefone, datas, id]
+"update funcionario set (nome,bilhete,tel,data_nasc) values (?,?,?,?) where id=?",
+[nome, bilhete, tel, data_nasc, id]
 );
 return atualizado;
 };

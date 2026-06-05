@@ -53,11 +53,22 @@ controller.get("/listar/:id", async (req, res) => {
 });
 // controler para deletar funcionario
 controller.delete("/deletar/:id", async (req, res) => {
-  const id = req.body.id;
+  console.log("id",req.params.id)
+  
+  const id = req.params.id;
+  
   try {
-    const eliminado = await servico.deletar_funcionario(id);
+    //verificando se o funcionario exsite
+    const fun = await servico.buscarFuncionarioId(id);
+    if(!fun){
+  return res
+      .status(400)
+      
+      .json({ message: "funcionário não encontrado" });}
+    const eliminado = await servico.deletar_funcionario(fun.id_fun);
     return res.status(200).json({ message: "Eliminado com sucesso" });
   } catch (e) {
+    console.log(e)
     return res
       .status(500)
       
