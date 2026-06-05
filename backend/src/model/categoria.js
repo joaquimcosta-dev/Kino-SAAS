@@ -10,8 +10,8 @@ export const criarCategoria = async date => {
 
 //listar todas as categirias
 export const listar = async () => {
-    const [lista] = await db.query("select nome from categoria");
-    return lista;
+    const listar = await db.query("select id_cat, nome from categoria");
+    return listar;
 };
 
 //funcao para buscar por id

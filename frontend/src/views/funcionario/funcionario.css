@@ -1,0 +1,580 @@
+/*
+       VARIÁVEIS — mesma identidade do projecto */
+    :root {
+      --laranja:       #d2620a;
+      --laranja-claro: #f5c49a;
+      --laranja-fundo: #fdecd8;
+      --cinza-borda:   #e8e0d8;
+      --cinza-texto:   #c9b8a8;
+      --branco:        #ffffff;
+      --texto:         #333333;
+      --erro:          #e03e3e;
+      --sucesso:       #2e9e6b;
+
+      --espaco-h: clamp(1rem, 4vw, 3rem);
+      --raio:     14px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #faf7f4;
+      color: var(--texto);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       CABEÇALHO — igual à página de rastreio
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    header {
+      background: var(--branco);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: clamp(0.6rem, 2vw, 1rem) var(--espaco-h);
+      border-bottom: 1.5px solid var(--cinza-borda);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      flex-wrap: wrap;                     /* 🆕 permite quebra em ecrãs muito pequenos */
+      gap: 10px;
+    }
+
+    .logo-circle {
+      width:  clamp(40px, 6vw, 60px);     /* ligeira redução do mínimo */
+      height: clamp(40px, 6vw, 60px);
+      background: var(--laranja);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--branco);
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-weight: 800;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    nav { display: flex; gap: clamp(8px, 3vw, 28px); flex-wrap: wrap; } /* 🆕 wrap nos links */
+
+    nav a {
+      color: var(--cinza-texto);
+      font-weight: 700;
+      text-decoration: none;
+      font-size: clamp(0.75rem, 2vw, 1rem);  /* mínimo um pouco menor */
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+
+    nav a.ativo, nav a:hover { color: var(--laranja); }
+
+    .icone-usuario {
+      width:  clamp(32px, 4.5vw, 44px);
+      height: clamp(32px, 4.5vw, 44px);
+      border-radius: 50%;
+      border: 2.5px solid var(--laranja);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--laranja);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .icone-usuario svg { width: 55%; height: 55%; }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       MAIN
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: clamp(1.2rem, 3vw, 2.5rem) var(--espaco-h);
+    }
+
+    /* ── Topo da página: título + botão ── */
+    .topo-pagina {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: clamp(1rem, 3vw, 2rem);
+    }
+
+    .topo-pagina h1 {
+      color: var(--laranja);
+      font-size: clamp(1.3rem, 4vw, 2rem);
+      font-weight: 800;
+    }
+
+    /* Botão "Novo Funcionário" */
+    .btn-novo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--laranja);
+      color: var(--branco);
+      border: none;
+      border-radius: 999px;
+      padding: clamp(8px, 1.5vw, 11px) clamp(16px, 3vw, 24px);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: clamp(0.75rem, 1.8vw, 0.92rem);
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+
+    .btn-novo:hover  { opacity: 0.88; }
+    .btn-novo:active { transform: scale(0.97); }
+
+    /* ── Barra de busca + contador ── */
+    .barra-ferramentas {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+    }
+
+    .campo-busca {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--branco);
+      border: 1.5px solid var(--cinza-borda);
+      border-radius: 999px;
+      padding: clamp(7px, 1.2vw, 10px) clamp(12px, 2vw, 18px);
+    }
+
+    .campo-busca input {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      outline: none;
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(0.8rem, 1.8vw, 0.92rem);
+      color: var(--texto);
+      background: transparent;
+    }
+
+    .campo-busca svg { color: var(--cinza-texto); flex-shrink: 0; width: 18px; height: 18px; }
+
+    .contador {
+      font-size: clamp(0.75rem, 1.6vw, 0.85rem);
+      color: var(--cinza-texto);
+      white-space: nowrap;
+    }
+
+    .contador strong { color: var(--laranja); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       TABELA DE FUNCIONÁRIOS
+       Em ecrãs pequenos vira cards empilhados.
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .tabela-wrapper {
+      background: var(--branco);
+      border-radius: var(--raio);
+      border: 1.5px solid var(--cinza-borda);
+      overflow-x: auto;                    /* 🆕 scroll horizontal quando necessário */
+      -webkit-overflow-scrolling: touch;  /* suaviza scroll em iOS */
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: clamp(0.75rem, 1.7vw, 0.875rem);
+      min-width: 600px;                    /* 🆕 garante que a tabela não encolhe demasiado */
+    }
+
+    /* Cabeçalho da tabela */
+    thead tr {
+      background: var(--laranja-fundo);
+      border-bottom: 2px solid var(--laranja-claro);
+    }
+
+    th {
+      padding: clamp(10px, 1.5vw, 14px) clamp(10px, 2vw, 18px);
+      text-align: left;
+      font-weight: 800;
+      color: var(--laranja);
+      white-space: nowrap;
+    }
+
+    /* Linhas do corpo */
+    tbody tr {
+      border-bottom: 1px solid var(--cinza-borda);
+      transition: background 0.15s;
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #fdf6ef; }
+
+    td {
+      padding: clamp(10px, 1.5vw, 14px) clamp(10px, 2vw, 18px);
+      color: var(--texto);
+      vertical-align: middle;
+    }
+
+    /* Coluna ID — badge laranja suave */
+    .badge-id {
+      display: inline-block;
+      background: var(--laranja-fundo);
+      color: var(--laranja);
+      font-weight: 700;
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 0.78em;
+    }
+
+    /* Avatar com inicial do nome */
+    .celula-nome {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      width:  clamp(30px, 4vw, 38px);
+      height: clamp(30px, 4vw, 38px);
+      border-radius: 50%;
+      background: var(--laranja);
+      color: var(--branco);
+      font-weight: 800;
+      font-size: clamp(0.7rem, 1.8vw, 0.9rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Botões editar / eliminar */
+    .acoes { display: flex; gap: 8px; flex-wrap: wrap; } /* 🆕 quebra se não couber */
+
+    .btn-editar, .btn-eliminar {
+      border: none;
+      border-radius: 8px;
+      padding: clamp(5px, 1vw, 7px) clamp(10px, 2vw, 14px);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+ .btn-editar  { background: var(--laranja-fundo); color: var(--laranja); }
+    .btn-eliminar { background: #fdeaea; color: var(--erro); }
+
+    .btn-editar:hover, .btn-eliminar:hover { opacity: 0.75; }
+    .btn-editar:active, .btn-eliminar:active { transform: scale(0.95); }
+
+    /* Estado vazio (sem resultados) */
+    .vazio {
+      text-align: center;
+      padding: clamp(2rem, 5vw, 3.5rem) 1rem;
+      color: var(--cinza-texto);
+    }
+
+    .vazio svg { width: 48px; height: 48px; margin-bottom: 12px; opacity: 0.4; }
+    .vazio p   { font-size: clamp(0.85rem, 2vw, 1rem); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       MODAL (criar / editar funcionário)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+
+    .overlay.aberto { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: var(--branco);
+      border-radius: var(--raio);
+      width: 100%;
+      max-width: 520px;
+      padding: clamp(1.2rem, 4vw, 2rem);
+      transform: translateY(24px) scale(0.97);
+      transition: transform 0.25s;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .overlay.aberto .modal { transform: translateY(0) scale(1); }
+
+    .modal-topo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+    }
+
+    .modal-topo h2 {
+      color: var(--laranja);
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      font-weight: 800;
+    }
+
+    .btn-fechar {
+      background: var(--laranja-fundo);
+      border: none;
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      cursor: pointer;
+      color: var(--laranja);
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .btn-fechar:hover { background: var(--laranja-claro); }
+
+    /* Campos do formulário */
+    .form-grupo {
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-grupo label {
+      font-weight: 700;
+      font-size: clamp(0.78rem, 1.8vw, 0.875rem);
+      color: var(--texto);
+    }
+
+    .form-grupo input {
+      border: 1.5px solid var(--cinza-borda);
+      border-radius: 10px;
+      padding: clamp(8px, 1.5vw, 11px) clamp(10px, 2vw, 14px);
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(0.82rem, 1.8vw, 0.92rem);
+      color: var(--texto);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-grupo input:focus { border-color: var(--laranja); }
+
+    /* Marcação de campo inválido */
+    .form-grupo input.invalido { border-color: var(--erro); }
+    .form-grupo .msg-erro {
+      font-size: 0.75rem;
+      color: var(--erro);
+      display: none;
+    }
+    .form-grupo input.invalido ~ .msg-erro { display: block; }
+
+    /* Grade 2 colunas para campos curtos */
+    .form-grade {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 14px;
+    }
+
+    @media (max-width: 400px) { .form-grade { grid-template-columns: 1fr; } }
+
+    /* Botões do modal */
+    .modal-acoes {
+      display: flex;
+      gap: 10px;
+      margin-top: 1.4rem;
+      justify-content: flex-end;
+      flex-wrap: wrap;                     /* 🆕 botões quebram em ecrã muito estreito */
+    }
+
+    .btn-cancelar {
+      border: 1.5px solid var(--cinza-borda);
+      background: transparent;
+      color: var(--cinza-texto);
+      border-radius: 999px;
+      padding: 9px 20px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .btn-cancelar:hover { border-color: var(--laranja); color: var(--laranja); }
+
+    .btn-guardar {
+      background: var(--laranja);
+      color: var(--branco);
+      border: none;
+      border-radius: 999px;
+      padding: 9px 24px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-guardar:hover { opacity: 0.85; }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       MODAL DE CONFIRMAÇÃO DE ELIMINAÇÃO
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .modal-confirmar {
+      max-width: 380px;
+      text-align: center;
+    }
+
+    .modal-confirmar .icone-aviso {
+      width: 52px;
+      height: 52px;
+      background: #fdeaea;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+      color: var(--erro);
+    }
+
+    .modal-confirmar h2 { font-size: 1.15rem; color: var(--texto); margin-bottom: 8px; }
+    .modal-confirmar p  { font-size: 0.875rem; color: var(--cinza-texto); margin-bottom: 1.4rem; }
+
+    .btn-eliminar-conf {
+      background: var(--erro);
+      color: var(--branco);
+      border: none;
+      border-radius: 999px;
+      padding: 9px 24px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-eliminar-conf:hover { opacity: 0.82; }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       TOAST de feedback
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--texto);
+      color: var(--branco);
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      z-index: 300;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      max-width: 280px;
+    }
+
+    .toast.visivel { opacity: 1; transform: translateY(0); }
+    .toast.sucesso { background: var(--sucesso); }
+    .toast.erro    { background: var(--erro); }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       TABELA → CARDS em ecrãs pequenos
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    @media (max-width: 640px) {
+
+      /* Força a largura total e remove o scroll horizontal */
+      .tabela-wrapper {
+        overflow-x: visible;
+        border: none;
+        background: transparent;
+      }
+
+      table { min-width: 0; }
+
+      /* Esconde cabeçalho e converte cada linha num card */
+      table thead { display: none; }
+
+      table, tbody, tr, td { display: block; width: 100%; }
+
+      tbody tr {
+        border: 1.5px solid var(--cinza-borda);
+        border-radius: var(--raio);
+        margin: 10px 0;                     /* margem vertical, sem margem lateral */
+        width: 100%;
+        padding: 12px 14px;
+        background: var(--branco);
+      }
+
+      tbody tr:hover { background: #fdf6ef; }
+
+      /* Cada célula mostra o rótulo antes do valor */
+      td { padding: 5px 0; border: none; font-size: 0.875rem; }
+
+      td::before {
+        content: attr(data-label) ": ";
+        font-weight: 700;
+        color: var(--cinza-texto);
+        font-size: 0.75rem;
+        display: block;
+      }
+
+      /* Célula de nome: não precisa de prefixo, tem avatar */
+      td[data-label="Nome"]::before { display: none; }
+
+      td[data-label="Acções"]::before { display: none; }
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       RODAPÉ
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    footer {
+      background: var(--laranja);
+      color: var(--branco);
+      padding: clamp(0.8rem, 2vw, 1.4rem) var(--espaco-h);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: clamp(0.7rem, 1.6vw, 0.85rem);
+    }
+
+    .redes-sociais { display: flex; align-items: center; gap: clamp(6px, 1.5vw, 12px); }
+  .redes-sociais span { font-weight: 600; }
+
+    .icone-social {
+      width:  clamp(26px, 3.5vw, 34px);
+      height: clamp(26px, 3.5vw, 34px);
+      border-radius: 50%;
+      border: 2px solid var(--branco);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(0.65rem, 1.4vw, 0.9rem);
+      cursor: pointer;
+    }
+
+    @media (max-width: 480px) { footer { justify-content: center; text-align: center; } }
+

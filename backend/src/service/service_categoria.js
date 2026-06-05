@@ -1,6 +1,7 @@
 import * as model from "../model/categoria.js";
+
 //buscar categoria por id
-export const buscarCatId =async (id)=>{
+export const buscarCatId = async (id)=>{
   //verificar se os dados sao nulos
   if (!id) {
     throw new Error({message:'campo id nao pode estar vazio'});
@@ -12,4 +13,11 @@ export const buscarCatId =async (id)=>{
     
   }
   
+}
+
+
+//buscar cat
+export const buscarCat = async () =>{
+  const [rows] = await model.listar();
+  return rows;
 }
