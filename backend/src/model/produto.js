@@ -4,10 +4,12 @@ import db from "../config/db.js";
 export const listarProdutos = async() => {
     return await db.query("SELECT * FROM produto");
 };
+
 //função procurar produto pela db
 export const buscarProdutoId = async id => {
     return await db.query("SELECT * FROM produto WHERE id_prod = ?", [id]);
 };
+
 //função criar produto pela db
 export const cadastrarProduto = async data => {
     const { nome, img, preco, descricao, requerQtd,id_user, id_cat } = data;
@@ -17,6 +19,7 @@ export const cadastrarProduto = async data => {
         [nome, img, preco, descricao, requerQtd,id_user, id_cat]
     );
 };
+
 //função atualizar produto pela db
 export const atualizarProduto = async(id, nome, img, preco, descricao, requerQtd) => {
     return await db.query(
