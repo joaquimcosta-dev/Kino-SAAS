@@ -38,6 +38,27 @@ console.log('erro no servidor, tentando eliminar funcionario', e)
 }
 }
 
+
+const updateFuncionario = async(id,data)=>{
+
+try{
+const response = await fetch(`${URL_BASE}/funcionario/editar/${id}`, {
+method: "PUT",
+headers: {
+"Content-type": "application/json"
+},
+body: JSON.stringify(data)
+});
+if (response.ok){
+getFuncionario();
+return response
+}
+return
+}catch(e){
+return console.log('erro no servidor, tentando editar funcionario', e)
+}
+}
+
 //funcao que cria novos dados do banco
 const postFuncionario = async(data)=>{
 try{
@@ -134,7 +155,7 @@ function abrirModalEditar(i) {
 indiceEditando = i;
 const f = funcionarios[i];
 document.getElementById('modalTitulo').textContent = 'Editar Funcionário';
-document.getElementById('fId').value = f.id_fun;
+const id = document.getElementById('fId').value = f.id_fun;
 document.getElementById('fId').setAttribute('readonly', true); /* ID não editável */
 document.getElementById('fNome').value = f.nome;
 document.getElementById('fBi').value = f.bilhete; // 'bilhete' do objeto
@@ -173,11 +194,10 @@ return;
 }
 novo.id_fun = id_fun || null; // se backend gera ID, pode ser null
 postFuncionario(novo);
-// Adiciona imediatamente na lista local para a UI não depender do backend
-funcionarios.push(novo);
 mostrarToast('Funcionário criado com sucesso!', 'sucesso');
 } else {
 /* Actualizar */
+const editado = updateFuncionario(id_fun, novo);
 novo.id_fun = funcionarios[indiceEditando].id_fun; // preserva o ID original
 funcionarios[indiceEditando] = novo;
 mostrarToast('Funcionário actualizado!', 'sucesso');
@@ -188,12 +208,12 @@ document.getElementById('campoBusca').value = '';
 }
 /* ── Pedir confirmação de eliminação ── */
 function pedirEliminar(i,id) {
-  //chamando a funcao para deletar daos no bacnco
-  const deletado = deleteFuncionario(id);
-  if(!deletado.ok) {
-    console.log("Não foi possivel elminar este funcionário")
-    return
-  }
+//chamando a funcao para deletar daos no bacnco
+const deletado = deleteFuncionario(id);
+if (!deletado.ok) {
+console.log("Não foi possivel elminar este funcionário")
+return
+}
 // Agora 'i' é o índice real
 indiceEliminar = i;
 document.getElementById('textoConfirmar').textContent =

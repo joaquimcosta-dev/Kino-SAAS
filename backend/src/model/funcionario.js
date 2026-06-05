@@ -35,9 +35,9 @@ return lista;
 };
 // funcao com sql para atualizar funcionarios
 export const atualizar_funcionario = async data => {
-const { id, nome, bilhete, telefone, datas } = data;
+const { id, nome, bilhete, tel, data_nasc } = data;
 const atualizado = await db.query(
-"update funcionario set (nome,bilhete,tel,data_nasc) values (?,?,?,?) where id=?",
+"update funcionario set nome=?,bilhete=?,tel=?,data_nasc=? where id_fun=?",
 [nome, bilhete, tel, data_nasc, id]
 );
 return atualizado;
