@@ -5,19 +5,19 @@ const controller = express.Router();
 //controler para fazer o cadastro do funcionario
 controller.post("/cadastrar", async (req, res) => {
 //verificar os campos a serem enviados pelo corpo
-if (!req.body.nome || !req.body.bi || !req.body.data_nasc) {
+if (!req.body.nome || !req.body.bilhete || !req.body.data_nasc) {
 return res
 .status(400)
 .json({ message: "Campos obrigatorio deve sem preenchido" });
 }
-const { nome, bi, data_nasc, tel } = req.body;
+const { nome, bilhete, data_nasc, tel } = req.body;
 try {
 //procurando bilhete no banco
-const fun = await servico.procurarBilhete(bi);
+const fun = await servico.procurarBilhete(bilhete);
 if (fun) {
 return res.status(200).json({ message: "Este BI já existe no banco" });
 }
-const novo = await servico.criarFuncionario({ nome, bi, data_nasc, tel });
+const novo = await servico.criarFuncionario({ nome, bilhete, data_nasc, tel });
 return res.status(201).json(novo);
 } catch (e) {
 console.log(e)

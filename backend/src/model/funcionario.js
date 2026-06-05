@@ -1,10 +1,10 @@
 import db from "../config/db.js";
 // funcao com sql para criar funcionarios
 export const criar_funcionario = async data => {
-const { nome, bi, data_nasc, tel } = data;
+const { nome, bilhete, data_nasc, tel } = data;
 const novo = await db.query(
 "insert into funcionario(nome,bilhete,tel,data_nasc) values (?,?,?,?)",
-[nome, bi,tel, data_nasc]
+[nome, bilhete,tel, data_nasc]
 );
 return novo;
 };

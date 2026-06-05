@@ -61,6 +61,7 @@ return console.log('erro no servidor, tentando editar funcionario', e)
 
 //funcao que cria novos dados do banco
 const postFuncionario = async(data)=>{
+  
 try{
 const response = await fetch(URL_BASE+"/funcionario/cadastrar", {
 method: "POST",
@@ -69,11 +70,13 @@ headers: {
 },
 body: JSON.stringify(data)
 });
+console.log(response.status)
 if (response.ok){
 //chamando a funcao get para atualizar a tela
 getFuncionario();
 return;
 }
+return
 }catch(e){
 console.log('erro no servidor, tentando cadastrar funcionario', e)
 }
