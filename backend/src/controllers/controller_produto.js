@@ -61,7 +61,7 @@ controller.post("/cadastrar", auth, permissaoAdmin, async (req, res) => {
 });
 
 //rota para buscar produto
-controller.get("/listar/:id", async (req, res) => {
+controller.get("/listar/:id", auth, async (req, res) => {
     try {
         const id = parseInt(req.params.id);
 
