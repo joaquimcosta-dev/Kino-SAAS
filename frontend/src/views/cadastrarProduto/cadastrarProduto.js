@@ -471,23 +471,52 @@ document.getElementById("editImgInput").addEventListener("change", function () {
 });
 
 // excluir produto modal
-function openDelModal(id) {
-  deletingId = id;
+function openDelModal(id_prod) {
+  deletingId = id_prod;
   document.getElementById("delOverlay").classList.add("visible");
 }
 document.getElementById("delCancel").addEventListener("click", () => {
   document.getElementById("delOverlay").classList.remove("visible");
   deletingId = null;
 });
+
+
+//excluir produto
 document.getElementById("delConfirm").addEventListener("click", async () => {
-  produtos = produtos.filter(x => x.id !== deletingId);
-  cssProd();
-  toast("Produto excluído.", "error");
-  document.getElementById("delOverlay").classList.remove("visible");
-  deletingId = null;
+  try {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(`${BASE_URL}/eliminar/${deletingId}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast(data.message || "Erro ao eliminar produto", "error");
+      return;
+    }
+
+    toast("Produto eliminado!", "error");
+
+    // recarrega lista do servidor
+    await carregarProdutos();
+
+    document.getElementById("delOverlay").classList.remove("visible");
+    deletingId = null;
+
+  } catch (e) {
+    console.log(e);
+    toast("Erro no servidor", "error");
+  }
 });
 
-// ── nova categoria modal 
+
+
+//nova categoria modal 
 function openCatModal() {
   document.getElementById("newCatName").value = "";
   document.getElementById("catOverlay").classList.add("visible");
