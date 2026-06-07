@@ -295,7 +295,8 @@ function cssProd() {
       this.src = "https://placehold.co/72x72/FDE8D4/F47B20?text=img";
     };
 
-    img.src = p.img || "";
+    const imgValida = p.img && p.img.startsWith("data:image");
+    img.src = imgValida ? p.img : "";
 
     grid.appendChild(card);
 
@@ -325,10 +326,6 @@ function cssProd() {
                 requerQtd: prod.requerQtd ?? 0,
                 id_cat: cat.id_cat
               };
-
-              console.log("body enviado:", body);
-              console.log("id_cat enviado:", cat.id_cat);
-              console.log("tipo do id_cat:", typeof cat.id_cat);
 
               const res = await fetch(`${BASE_URL}/atualizar/${p.id_prod}`, {
                 method: "PUT",
