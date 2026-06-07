@@ -9,21 +9,31 @@
 </head>
 <body>
 
-<!-- ━━━ HEADER ━━━ -->
-<header>
-
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Pedidos</a>
-    <a href="funcionarios.html">Funcionários</a>
-    <a href="#" class="ativo">Usuários</a>
-  </nav>
-  <div class="avatar-header">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="12" cy="8" r="4"/>
-      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-    </svg>
+<!--Cabeçalho da pagina-->
+<header class="header" id="header_dashboar">
+  <div class="logo">
+    <img src="../../../public/kino.svg" alt="logotipo do kino">
   </div>
+  <!--Menu principal da página-->
+  <nav class="nav" id="nav_dashboard">
+    <ul class="menu">
+      <li><a href="../dash_bord/das_bord.html">DashBord</a></li>
+      <li>
+        <a href="#">Cadastrar</a>
+        <div id="submenu-categoria">
+          <a href="../funcionario/funcionario.html">Funcionário</a>
+          <a href="../gestao_usuario/gestao_usuario.html">Usuário</a>
+          
+          <a href="../cadastrarProduto/cadastrarProduto.html">Produto</a>
+          <a href="#">Categoria</a>
+        </div>
+      </li>
+      <li>
+        <a href="../pedidos/pedidos.html">Gestão de Pedidos</a>
+      </li>
+    </ul>
+  </nav>
+  
 </header>
 
 <!-- ━━━ MAIN ━━━ -->
