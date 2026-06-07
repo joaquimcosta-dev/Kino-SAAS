@@ -1,5 +1,22 @@
 import * as model from "../model/categoria.js";
 
+
+//cadastrar categoria
+export const criarCat = async ({nome})=>{
+  if(!nome || nome == ""){
+    throw new Error("nome de categoria invalido")
+  }
+
+  const nomeLimpo = nome.trim();
+
+  const [resultado] = await model.criarCategoria({
+    nome: nomeLimpo
+  });
+
+  return {id_cat: resultado.insertId, mensagem: "categoria criada com sucesso"}
+
+}
+
 //buscar categoria por id
 export const buscarCatId = async (id)=>{
   //verificar se os dados sao nulos
@@ -14,7 +31,6 @@ export const buscarCatId = async (id)=>{
   }
   
 }
-
 
 //buscar cat
 export const buscarCat = async () =>{

@@ -273,7 +273,7 @@ function cssProd() {
         <div class="prod-price">${fmtPrice(p.preco)}</div>
         <div style="margin-top:6px;position:relative;">
           <div class="cat-badge" data-pid="${p.id_prod}">
-            <span class="cat-badge-label">${p.categoria || "sem categoria"}</span>
+            <span class="cat-badge-label">${p.categoria || "Mudar categoria"}</span>
             <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
             <ul class="dropdown cat-inline-drop" id="catDrop_${p.id_prod}"></ul>
           </div>

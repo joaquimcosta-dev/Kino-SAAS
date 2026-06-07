@@ -4,6 +4,8 @@ import *as service from "../service/service_categoria.js";
 import { auth } from '../middlewares/auth.js';
 
 
+
+
 //buscar cat
 controller.get("/buscar", async(req, res)=>{
   try{

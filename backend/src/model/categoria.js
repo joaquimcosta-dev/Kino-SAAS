@@ -1,4 +1,6 @@
 import db from "../config/db.js";
+
+
 //funcao para casdastrar categoria
 export const criarCategoria = async date => {
     const { nome } = data;
@@ -31,7 +33,7 @@ export const deletar = async id => {
     );
     return deletado[0];
 };
-//funcao para atualizar categirias
+//funcao para atualizar categorias
 export const atualizar = async ({ id, nome }) => {
     const [atualizado] = await db.query(
         "update categoria set nome =? where id =?",
