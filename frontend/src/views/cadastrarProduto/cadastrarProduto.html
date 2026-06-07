@@ -1,178 +1,247 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cadastrar Produto</title>
   <script type="module" src="cadastrarProduto.js" defer></script>
-  <link rel="stylesheet" href="cadastrarProduto.css"/>
+  <link rel="stylesheet" href="cadastrarProduto.css" />
+  <link rel="stylesheet" href="../../style.css">
 </head>
+
 <body>
 
-<!-- NAV -->
- <nav>
-  <div class="logo"><img src="/Agendamento-kino/public/kino.svg" alt="logo do kino" title="Logo kino"></div>
-  <div class="spacer"></div>
-  <a href="../dash_bord/das_bord.html">Dashboard</a>
-  <a href="../../cadastrarProduto/cadastrarProduto.html" class="active">Cadastrar ▾</a>
-  <a href="../../pedidos/pedidos.html">Pedidos</a>
-  <a href="#">Finanças</a>
-  <div class="nav-icon">
-    <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v2h20v-2c0-3.3-6.7-5-10-5z"/></svg>
-  </div>
-</nav>
+  <!-- NAV -->
+    <!--Cabeçalho da pagina-->
+    <header class="header" id="header_dashboar">
+        <div class="logo">
+            <!-- Removidos os width="80px" e height="80px" fixos para que o CSS o expanda grandemente -->
+            <img src="../../../public/kino.svg" alt="logotipo do kino">
+        </div>
+        <!--Menu principal da página-->
+        <nav class="nav" id="nav_dashboard">
 
-<main>
-  <h1>Cadastrar Produto</h1>
+            <ul class="menu">
+                <header class="Cabeçalho-menu">
+                    <a href="../login/login.html"><img src="../src/icons/user.svg" alt="icon conta" width="40px"
+                            height="40px"></a>
+                    <a href="#"><img src="icons/poibir.svg" alt="icon carrinho" width="40px" height="40px"></a>
+                </header>
+                <li>
+                    <a href="../../Index.html">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#" id="menu-categoria">Cadastrar
+                        <ul id="submenu-categoria">
+                            <li>
+                                <a href="../funcionario/funcionario.html">Funcionário</a>
+                            </li>
+                            <li>
+                                <a href="#">Usuários</a>
+                            </li>
+                            <li>
+                                <a href="../cadastrarProduto/cadastrarProduto.html">Produto</a>
+                            </li>
+                            <li>
+                                <a href="#">Categoria</a>
+                            </li>
+                        </ul>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="menus">Pedido
+                        <ul class="submenus">
+                            <li>
+                                <a href="#">Meus pedidos</a>
+                            </li>
+                            <li>
+                                <a href="#">Comidas prontas</a>
+                            </li>
+                            <li>
+                        </ul>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">Finanças</a>
+                </li>
+            </ul>
+        </nav>
 
-  <!-- formulario -->
-  <div class="form-card">
-    <!-- input de imagem -->
-    <div class="img-upload" id="mainImgUpload" title="Clique para escolher imagem">
-      <input type="file" accept="image/*" id="mainImgInput"/>
-      <img id="mainImgPreview" alt="preview"/>
-      <div class="placeholder" id="mainImgPlaceholder">
-        <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-        <!--<span>imagem<span class="obrigatorio">*</span></span>-->
-      </div>
-    </div>
+        <a href="#" class="conta-icones"><img src="../../icons/terminar-sessao.svg" id="logout"
+                alt="terminar sessão"></a>
 
-    <div class="form-fields">
-      <div class="field field-nome">
-        <label>Nome<span class="obrigatorio">*</span></label>
-        <input type="text" id="fNome" placeholder="nome do produto"/>
-      </div>
+    </header>
 
-      <div class="field field-cat">
-        <label>Categoria<span class="obrigatorio">*</span></label>
-        <div class="sel-wrapper">
-          <div class="sel-box" id="fCatBox" tabindex="0">
-            <span id="fCatLabel">selecionar</span>
-            <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-          </div>
-          <ul class="dropdown" id="fCatDropdown"></ul>
+  <main>
+    <h1>Cadastrar Produto</h1>
+
+    <!-- formulario -->
+    <div class="form-card">
+      <!-- input de imagem -->
+      <div class="img-upload" id="mainImgUpload" title="Clique para escolher imagem">
+        <input type="file" accept="image/*" id="mainImgInput" />
+        <img id="mainImgPreview" alt="preview" />
+        <div class="placeholder" id="mainImgPlaceholder">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
+          </svg>
+          <!--<span>imagem<span class="obrigatorio">*</span></span>-->
         </div>
       </div>
 
-      <div class="field field-desc">
-        <label>Descrição</label>
-        <input type="text" id="fDesc" placeholder="descrição"/>
-      </div>
+      <div class="form-fields">
+        <div class="field field-nome">
+          <label>Nome<span class="obrigatorio">*</span></label>
+          <input type="text" id="fNome" placeholder="nome do produto" />
+        </div>
 
-      <div class="field field-quant">
-        <label>quantidade</label>
-        <input type="number" id="frequerQtd" placeholder="0" step="1" min="0">
-      </div>
-
-      <div class="field field-preco">
-        <label>Preço <span class="obrigatorio">*</span></label>
-        <input type="number" id="fPreco" placeholder="0.00" step="0.10" min="0"/>
-      </div>
-      
-      <button type="button" class="btn-add" id="btnAdd">adicionar</button>
-
-    </div>
-  </div>
-
-  <!-- GRID -->
-  <div class="grid" id="prodGrid"></div>
-</main>
-
-<!-- FOOTER -->
-<footer>
-  <div>
-    <div>© Kino 2026</div>
-    <div>Todos os direitos reservados.</div>
-  </div>
-  <span>siga-nos</span>
-  <div class="social">
-    <a href="#"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg></a>
-    <a href="#"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
-  </div>
-</footer>
-
-<!-- EDIT MODAL -->
-<div class="overlay" id="editOverlay">
-  <div class="modal">
-    <h2>Editar Produto</h2>
-    <div class="fields">
-      <div>
-        <label>Imagem</label>
-        <img class="modal-img-preview" id="editImgPreview" alt=""/>
-        <div class="img-upload" id="editImgUpload" style="width:100%;height:80px;border-radius:12px;">
-          <input type="file" accept="image/*" id="editImgInput"/>
-          <div class="placeholder" id="editImgPlaceholder">
-            <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-            <span>trocar imagem</span>
+        <div class="field field-cat">
+          <label>Categoria<span class="obrigatorio">*</span></label>
+          <div class="sel-wrapper">
+            <div class="sel-box" id="fCatBox" tabindex="0">
+              <span id="fCatLabel">selecionar</span>
+              <svg viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z" />
+              </svg>
+            </div>
+            <ul class="dropdown" id="fCatDropdown"></ul>
           </div>
-          <img id="editImgUploadPreview" alt="" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:10px;"/>
+        </div>
+
+        <div class="field field-desc">
+          <label>Descrição</label>
+          <input type="text" id="fDesc" placeholder="descrição" />
+        </div>
+
+        <div class="field field-quant">
+          <label>quantidade</label>
+          <input type="number" id="frequerQtd" placeholder="0" step="1" min="0">
+        </div>
+
+        <div class="field field-preco">
+          <label>Preço <span class="obrigatorio">*</span></label>
+          <input type="number" id="fPreco" placeholder="0.00" step="0.10" min="0" />
+        </div>
+
+        <button type="button" class="btn-add" id="btnAdd">adicionar</button>
+
+      </div>
+    </div>
+
+    <!-- GRID -->
+    <div class="grid" id="prodGrid"></div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div>© Kino 2026</div>
+      <div>Todos os direitos reservados.</div>
+    </div>
+    <span>siga-nos</span>
+    <div class="social">
+      <a href="#"><svg viewBox="0 0 24 24">
+          <path
+            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" />
+        </svg></a>
+      <a href="#"><svg viewBox="0 0 24 24">
+          <path
+            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+        </svg></a>
+    </div>
+  </footer>
+
+  <!-- EDIT MODAL -->
+  <div class="overlay" id="editOverlay">
+    <div class="modal">
+      <h2>Editar Produto</h2>
+      <div class="fields">
+        <div>
+          <label>Imagem</label>
+          <img class="modal-img-preview" id="editImgPreview" alt="" />
+          <div class="img-upload" id="editImgUpload" style="width:100%;height:80px;border-radius:12px;">
+            <input type="file" accept="image/*" id="editImgInput" />
+            <div class="placeholder" id="editImgPlaceholder">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
+              </svg>
+              <span>trocar imagem</span>
+            </div>
+            <img id="editImgUploadPreview" alt=""
+              style="display:none;width:100%;height:100%;object-fit:cover;border-radius:10px;" />
+          </div>
+        </div>
+        <div>
+          <label>Nome</label>
+          <input type="text" id="editNome" />
+        </div>
+        <div>
+          <label>Categoria</label>
+          <div class="sel-wrapper">
+            <div class="sel-box" id="editCatBox" tabindex="0">
+              <span id="editCatLabel">selecionar categoria</span>
+              <svg viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z" />
+              </svg>
+            </div>
+            <ul class="dropdown" id="editCatDropdown"></ul>
+          </div>
+        </div>
+        <div>
+          <label>Descrição</label>
+          <input type="text" id="editDesc" />
+        </div>
+        <div>
+          <label>Quantidade</label>
+          <input type="number" id="editRequerQtd">
+        </div>
+        <div>
+          <label>Preço (Kz)</label>
+          <input type="number" id="editPreco" step="0.01" min="0" />
         </div>
       </div>
-      <div>
-        <label>Nome</label>
-        <input type="text" id="editNome"/>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="editCancel">Cancelar</button>
+        <button class="btn-add" id="editSave">Salvar</button>
       </div>
-      <div>
-        <label>Categoria</label>
-        <div class="sel-wrapper">
-          <div class="sel-box" id="editCatBox" tabindex="0">
-            <span id="editCatLabel">selecionar categoria</span>
-            <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-          </div>
-          <ul class="dropdown" id="editCatDropdown"></ul>
+    </div>
+  </div>
+
+  <!-- excluir produto modal -->
+  <div class="overlay" id="delOverlay">
+    <div class="modal confirm-modal">
+      <h2>Excluir Produto</h2>
+      <p>Tem certeza que deseja excluir este produto? Esta ação não pode ser desfeita.</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="delCancel">Cancelar</button>
+        <button class="btn-danger" id="delConfirm">Excluir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- nova categoria modal -->
+  <div class="overlay" id="catOverlay">
+    <div class="modal">
+      <h2>Nova Categoria</h2>
+      <div id="catModalFields">
+        <div>
+          <label>Nome da categoria</label>
+          <input type="text" id="newCatName" placeholder="ex: Bebidas" />
         </div>
       </div>
-      <div>
-        <label>Descrição</label>
-        <input type="text" id="editDesc"/>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="catCancel">Cancelar</button>
+        <button class="btn-add" id="catSave">Adicionar</button>
       </div>
-      <div>
-        <label>Quantidade</label>
-        <input type="number" id="editRequerQtd">
-      </div>
-      <div>
-        <label>Preço (Kz)</label>
-        <input type="number" id="editPreco" step="0.01" min="0"/>
-      </div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn-cancel" id="editCancel">Cancelar</button>
-      <button class="btn-add" id="editSave">Salvar</button>
     </div>
   </div>
-</div>
 
-<!-- excluir produto modal -->
-<div class="overlay" id="delOverlay">
-  <div class="modal confirm-modal">
-    <h2>Excluir Produto</h2>
-    <p>Tem certeza que deseja excluir este produto? Esta ação não pode ser desfeita.</p>
-    <div class="modal-actions">
-      <button class="btn-cancel" id="delCancel">Cancelar</button>
-      <button class="btn-danger" id="delConfirm">Excluir</button>
-    </div>
-  </div>
-</div>
-
-<!-- nova categoria modal -->
-<div class="overlay" id="catOverlay">
-  <div class="modal">
-    <h2>Nova Categoria</h2>
-    <div id="catModalFields">
-      <div>
-        <label>Nome da categoria</label>
-        <input type="text" id="newCatName" placeholder="ex: Bebidas"/>
-      </div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn-cancel" id="catCancel">Cancelar</button>
-      <button class="btn-add" id="catSave">Adicionar</button>
-    </div>
-  </div>
-</div>
-
-<!-- TOAST -->
-<div class="toast-wrap" id="toastWrap"></div>
+  <!-- TOAST -->
+  <div class="toast-wrap" id="toastWrap"></div>
 
 </body>
+
 </html>
