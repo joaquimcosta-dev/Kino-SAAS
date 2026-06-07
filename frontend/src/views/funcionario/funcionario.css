@@ -10,6 +10,20 @@
       --texto:         #333333;
       --erro:          #e03e3e;
       --sucesso:       #2e9e6b;
+         --primary-color: #f26f21;
+    --primary-hover: #e05e10;
+    --text-dark: #333333;
+    --text-muted: #666666;
+    --text-light: #ffffff;
+    --bg-light: #fefefe;
+    --bg-white: #ffffff;
+    --input-bg: #fff1e8;
+    --border-radius: 16px;
+    --font-main: "Inter", sans-serif;
+    --font-heading: "Lobster", cursive;
+    --transition: all 0.3s ease;
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.1);
 
       --espaco-h: clamp(1rem, 4vw, 3rem);
       --raio:     14px;
@@ -26,65 +40,158 @@
       flex-direction: column;
     }
 
-    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-       CABEÇALHO — igual à página de rastreio
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-    header {
-      background: var(--branco);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: clamp(0.6rem, 2vw, 1rem) var(--espaco-h);
-      border-bottom: 1.5px solid var(--cinza-borda);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      flex-wrap: wrap;                     /* 🆕 permite quebra em ecrãs muito pequenos */
-      gap: 10px;
-    }
 
-    .logo-circle {
-      width:  clamp(40px, 6vw, 60px);     /* ligeira redução do mínimo */
-      height: clamp(40px, 6vw, 60px);
-      background: var(--laranja);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--branco);
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
-      font-weight: 800;
-      flex-shrink: 0;
-      text-decoration: none;
-    }
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4%;
+    background-color: var(--bg-white);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
-    nav { display: flex; gap: clamp(8px, 3vw, 28px); flex-wrap: wrap; } /* 🆕 wrap nos links */
+.logo {
+    display: flex;
+    align-items: center;
+}
 
-    nav a {
-      color: var(--cinza-texto);
-      font-weight: 700;
-      text-decoration: none;
-      font-size: clamp(0.75rem, 2vw, 1rem);  /* mínimo um pouco menor */
-      transition: color 0.2s;
-      white-space: nowrap;
-    }
+.logo img {
+    height: 115px;
+    width: auto;
+    object-fit: contain;
+    margin: -15px 0;
+}
 
-    nav a.ativo, nav a:hover { color: var(--laranja); }
+.nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
 
-    .icone-usuario {
-      width:  clamp(32px, 4.5vw, 44px);
-      height: clamp(32px, 4.5vw, 44px);
-      border-radius: 50%;
-      border: 2.5px solid var(--laranja);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--laranja);
-      cursor: pointer;
-      flex-shrink: 0;
-    }
+.Cabeçalho-menu {
+    display: none;
+}
 
-    .icone-usuario svg { width: 55%; height: 55%; }
+.menu {
+    display: flex;
+    gap: 35px;
+    font-weight: 600;
+    color: var(--primary-color);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu > li > a {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    position: relative;
+    text-decoration: none;
+}
+
+.menu > li > a:hover::after,
+.menu > li:first-child > a::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+#submenu-categoria,
+.submenus {
+    display: none;
+    position: absolute;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+}
+
+.menu > li:hover #submenu-categoria,
+.menu > li:hover .submenus {
+    display: flex;
+}
+
+#submenu-categoria a,
+.submenus a {
+    font-weight: normal;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    color: var(--text-dark);
+    text-decoration: none;
+}
+
+/* BOTÕES DE CONTA E CARRINHO */
+.conta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.conta-icones {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1.5px solid var(--primary-color);
+    transition: var(--transition);
+}
+
+.conta-icones img {
+    width: 22px;
+    height: 22px;
+    transition: var(--transition);
+    filter: invert(53%) sepia(87%) saturate(1478%) hue-rotate(345deg)
+        brightness(98%) contrast(92%);
+}
+
+.conta-icones:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+.conta-icones:hover img {
+    filter: brightness(0) invert(1);
+}
+
+.cart-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background-color: #e63946;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 2px solid var(--bg-white);
+    pointer-events: none;
+    z-index: 5;
+}
+    
 
     /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
        MAIN
