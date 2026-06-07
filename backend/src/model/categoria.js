@@ -1,11 +1,13 @@
 import db from "../config/db.js";
+
+
 //funcao para casdastrar categoria
-export const criarCategoria = async date => {
+export const criarCategoria = async data => {
     const { nome } = data;
-    const [novaCat] = await db.query("insert into categoria(nome) values (?)", [
+    const [resultado] = await db.query("insert into categoria(nome) values (?)", [
         nome
     ]);
-    return novaCat[0];
+    return resultado[0];
 };
 
 //listar todas as categirias
@@ -31,7 +33,7 @@ export const deletar = async id => {
     );
     return deletado[0];
 };
-//funcao para atualizar categirias
+//funcao para atualizar categorias
 export const atualizar = async ({ id, nome }) => {
     const [atualizado] = await db.query(
         "update categoria set nome =? where id =?",

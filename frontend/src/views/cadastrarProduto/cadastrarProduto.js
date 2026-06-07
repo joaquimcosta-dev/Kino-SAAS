@@ -105,9 +105,7 @@ async function carregarCategorias() {
   const res = await fetch(`${BASE_URL_CAT}/buscar`, {
     headers: { "Authorization": `Bearer ${token}` }
   });
-  console.log("status:", res.status); 
   const data = await res.json();
-  console.log("categorias recebidas:", data);
   categorias = data;
 }
 
@@ -120,7 +118,7 @@ async function verifLogin() {
   const token = localStorage.getItem("token");
 
   //se não foi feito fito fogin reencaminha para tela de login 
-  if(!token){
+  if (!token) {
     window.location.href = "/Agendamento-kino/frontend/src/views/login/login.html"
     return;
   }
@@ -130,7 +128,7 @@ async function verifLogin() {
 
 //adicionar produto
 document.getElementById("btnAdd").addEventListener("click", async () => {
-  console.log("clicou");
+
 
   const nome = document.getElementById("fNome").value.trim();
   const descricao = document.getElementById("fDesc").value.trim();
@@ -220,23 +218,20 @@ async function carregarProdutos() {
   try {
 
     const token = localStorage.getItem("token");
-    const res = await fetch(`${BASE_URL}/listar`,{
+    const res = await fetch(`${BASE_URL}/listar`, {
       headers: {
         "Authorization": `Bearer ${token}`
       }
     });
 
-//verificando o status vindo da requisição
-if (res.status === 401 || res.status === 500) {
-//remivendo o token do localStorage
-localStorage.clear();
-window.location.href = "../login/login.html";
-return;
-}
+    //verificando o status vindo da requisição
+    if (res.status === 401 || res.status === 500) {
+      //remivendo o token do localStorage
+      localStorage.clear();
+      window.location.href = "../login/login.html";
+      return;
+    }
     const data = await res.json();
-
-    console.log(data); 
-
     produtos = data;
 
     cssProd();
@@ -250,7 +245,7 @@ return;
 }
 
 
-/* ── RENDER GRID ── */
+//cssProd
 function cssProd() {
   const grid = document.getElementById("prodGrid");
   grid.innerHTML = "";
@@ -266,37 +261,48 @@ function cssProd() {
   produtos.forEach(p => {
     const card = document.createElement("div");
     card.className = "prod-card";
-    card.dataset.id = p.id;
+    card.dataset.id = p.id_prod;
 
     const imgSrc = p.img;
 
     card.innerHTML = `
-      <img class="prod-img" src="${imgSrc}" alt="${p.nome}" onerror="this.src='https://placehold.co/72x72/FDE8D4/F47B20?text=🍔'"/>
+      <img class="prod-img" alt="${p.nome}"/>
       <div class="prod-info">
         <div class="prod-name">${p.nome}</div>
         <div class="prod-desc">${p.descricao || "—"}</div>
         <div class="prod-price">${fmtPrice(p.preco)}</div>
         <div style="margin-top:6px;position:relative;">
-          <div class="cat-badge" data-pid="${p.id}">
-            <span class="cat-badge-label">${p.categoria || "sem categoria"}</span>
+          <div class="cat-badge" data-pid="${p.id_prod}">
+            <span class="cat-badge-label">${p.categoria || "Mudar categoria"}</span>
             <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-            <ul class="dropdown cat-inline-drop" id="catDrop_${p.id}"></ul>
+            <ul class="dropdown cat-inline-drop" id="catDrop_${p.id_prod}"></ul>
           </div>
         </div>
       </div>
       <div style="position:relative;align-self:flex-start;">
-        <button class="menu-btn" data-pid="${p.id}">•••</button>
-        <div class="ctx-menu" id="ctx_${p.id}">
-          <button class="edit-btn" data-pid="${p.id}">Editar</button>
-          <button class="danger del-btn" data-pid="${p.id}">Excluir</button>
+        <button class="menu-btn" data-pid="${p.id_prod}">•••</button>
+        <div class="ctx-menu" id="ctx_${p.id_prod}">
+          <button class="edit-btn" data-pid="${p.id_prod}">Editar</button>
+          <button class="danger del-btn" data-pid="${p.id_prod}">Excluir</button>
         </div>
       </div>
     `;
+
+    //src depois do innerHTML
+    const img = card.querySelector(".prod-img");
+    img.onerror = function () {
+      this.onerror = null;
+      this.src = "https://placehold.co/72x72/FDE8D4/F47B20?text=img";
+    };
+
+    const imgValida = p.img && p.img.startsWith("data:image");
+    img.src = imgValida ? p.img : "";
+
     grid.appendChild(card);
 
-    // card category inline dropdown
+    // select cssProd
     const badge = card.querySelector(".cat-badge");
-    const badgeDrop = card.querySelector(`#catDrop_${p.id}`);
+    const badgeDrop = card.querySelector(`#catDrop_${p.id_prod}`);
     badge.addEventListener("click", e => {
       e.stopPropagation();
       const isOpen = badgeDrop.classList.contains("visible");
@@ -305,16 +311,55 @@ function cssProd() {
         badgeDrop.innerHTML = "";
         categorias.forEach(cat => {
           const li = document.createElement("li");
-          li.textContent = cat;
-          li.addEventListener("click", () => {
-            const prod = produtos.find(x => x.id == p.id);
-            if (prod) prod.category = cat;
-            badge.querySelector(".cat-badge-label").textContent = cat;
+          li.textContent = cat.nome;
+          li.addEventListener("click", async () => {
             badgeDrop.classList.remove("visible");
-            toast("Categoria atualizada!");
+
+            try {
+              const token = localStorage.getItem("token");
+              const prod = produtos.find(x => x.id_prod == p.id_prod);
+
+              const body = {
+                nome: prod.nome,
+                descricao: prod.descricao || "",
+                preco: prod.preco,
+                requerQtd: prod.requerQtd ?? 0,
+                id_cat: cat.id_cat
+              };
+
+              const res = await fetch(`${BASE_URL}/atualizar/${p.id_prod}`, {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(body)
+              });
+
+              const data = await res.json();
+
+              if (!res.ok) {
+                toast(data.message || "Erro ao atualizar categoria", "error");
+                return;
+              }
+
+              //atualiza localmente com nomes corretos
+              prod.id_cat = cat.id_cat;
+              prod.categoria = cat.nome;
+
+              //atualiza o badge visualmente
+              badge.querySelector(".cat-badge-label").textContent = cat.nome;
+
+              toast("Categoria atualizada!");
+
+            } catch (e) {
+              console.log(e);
+              toast("Erro no servidor", "error");
+            }
           });
           badgeDrop.appendChild(li);
         });
+
         const addLi = document.createElement("li");
         addLi.textContent = "+ add categoria";
         addLi.className = "add-cat";
@@ -324,9 +369,9 @@ function cssProd() {
       }
     });
 
-    // ⋯ menu
+    // menu
     const menuBtn = card.querySelector(".menu-btn");
-    const ctxMenu = card.querySelector(`#ctx_${p.id}`);
+    const ctxMenu = card.querySelector(`#ctx_${p.id_prod}`);
     menuBtn.addEventListener("click", e => {
       e.stopPropagation();
       const isOpen = ctxMenu.classList.contains("visible");
@@ -334,14 +379,14 @@ function cssProd() {
       if (!isOpen) ctxMenu.classList.add("visible");
     });
 
-    card.querySelector(".edit-btn").addEventListener("click", e => { e.stopPropagation(); openEditModal(p.id); });
-    card.querySelector(".del-btn").addEventListener("click", e => { e.stopPropagation(); openDelModal(p.id); });
+    card.querySelector(".edit-btn").addEventListener("click", e => { e.stopPropagation(); openEditModal(p.id_prod); });
+    card.querySelector(".del-btn").addEventListener("click", e => { e.stopPropagation(); openDelModal(p.id_prod); });
   });
 }
 
-/* ── editar produto modal ── */
+// editar produto modal
 function openEditModal(id) {
-  const p = produtos.find(x => x.id === id);
+  const p = produtos.find(x => x.id_prod === id);
   if (!p) return;
   editingId = id;
   editImgData = p.img || "";
@@ -349,7 +394,8 @@ function openEditModal(id) {
   document.getElementById("editNome").value = p.nome;
   document.getElementById("editDesc").value = p.descricao;
   document.getElementById("editPreco").value = p.preco;
-  editCatSelected = p.categoria;
+  document.getElementById("editRequerQtd").value = p.requerQtd ?? 0;
+  editCatSelected = p.id_cat;
   editCatLbl.textContent = p.categoria || "selecionar categoria";
 
   const prev = document.getElementById("editImgPreview");
@@ -366,23 +412,59 @@ document.getElementById("editCancel").addEventListener("click", () => {
   editingId = null; editImgData = "";
   document.getElementById("editImgInput").value = "";
 });
-document.getElementById("editSave").addEventListener("click", () => {
-  const name = document.getElementById("editNome").value.trim();
-  const desc = document.getElementById("editDesc").value.trim();
-  const price = parseFloat(document.getElementById("editPreco").value);
-  const cat = editCatSelected;
 
-  if (!name) { toast("Informe o nome.", "error"); return; }
-  if (!cat) { toast("Selecione a categoria.", "error"); return; }
-  if (isNaN(price) || price < 0) { toast("Preço inválido.", "error"); return; }
 
-  const prod = produtos.find(x => x.id === editingId);
-  if (prod) { prod.name = name; prod.desc = desc; prod.price = price; prod.category = cat; if (editImgData) prod.img = editImgData; }
-  cssProd();
-  toast("Produto atualizado!");
-  document.getElementById("editOverlay").classList.remove("visible");
-  editingId = null; editImgData = "";
-  document.getElementById("editImgInput").value = "";
+
+//atualizar 
+
+
+document.getElementById("editSave").addEventListener("click", async () => {
+  const nome = document.getElementById("editNome").value.trim();
+  const descricao = document.getElementById("editDesc").value.trim();
+  const preco = parseFloat(document.getElementById("editPreco").value);
+  const requerQtd = Number(document.getElementById("editRequerQtd").value);
+  const id_cat = editCatSelected;
+
+  if (!nome) { toast("Informe o nome.", "error"); return; }
+  if (!id_cat) { toast("Selecione a categoria.", "error"); return; }
+  if (isNaN(preco) || preco < 0) { toast("Preço inválido.", "error"); return; }
+  if (isNaN(requerQtd) || requerQtd < 0) { toast("Quantidade inválida", "error"); return; }
+
+  try {
+    const token = localStorage.getItem("token");
+
+    const body = { nome, descricao: descricao || "", preco, requerQtd, id_cat };
+    if (editImgData) body.img = editImgData;
+
+    const res = await fetch(`${BASE_URL}/atualizar/${editingId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(body)
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast(data.message || "Erro ao atualizar produto", "error");
+      return;
+    }
+
+    toast("Produto atualizado!");
+    await carregarProdutos();
+
+    document.getElementById("editOverlay").classList.remove("visible");
+    editingId = null;
+    editImgData = "";
+    document.getElementById("editImgInput").value = "";
+
+  } catch (e) {
+    console.log(e);
+    toast("Erro no servidor", "error");
+  }
+
 });
 
 // editar produto modal - imagem upload
@@ -399,24 +481,53 @@ document.getElementById("editImgInput").addEventListener("change", function () {
   reader.readAsDataURL(file);
 });
 
-/* ── excluir produto modal ── */
-function openDelModal(id) {
-  deletingId = id;
+// excluir produto modal
+function openDelModal(id_prod) {
+  deletingId = id_prod;
   document.getElementById("delOverlay").classList.add("visible");
 }
 document.getElementById("delCancel").addEventListener("click", () => {
   document.getElementById("delOverlay").classList.remove("visible");
   deletingId = null;
 });
-document.getElementById("delConfirm").addEventListener("click", () => {
-  produtos = produtos.filter(x => x.id !== deletingId);
-  cssProd();
-  toast("Produto excluído.", "error");
-  document.getElementById("delOverlay").classList.remove("visible");
-  deletingId = null;
+
+
+//excluir produto
+document.getElementById("delConfirm").addEventListener("click", async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(`${BASE_URL}/eliminar/${deletingId}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast(data.message || "Erro ao eliminar produto", "error");
+      return;
+    }
+
+    toast("Produto eliminado!", "error");
+
+    // recarrega lista do servidor
+    await carregarProdutos();
+
+    document.getElementById("delOverlay").classList.remove("visible");
+    deletingId = null;
+
+  } catch (e) {
+    console.log(e);
+    toast("Erro no servidor", "error");
+  }
 });
 
-/* ── nova categoria modal ── */
+
+
+//nova categoria modal 
 function openCatModal() {
   document.getElementById("newCatName").value = "";
   document.getElementById("catOverlay").classList.add("visible");
@@ -424,13 +535,55 @@ function openCatModal() {
 document.getElementById("catCancel").addEventListener("click", () => {
   document.getElementById("catOverlay").classList.remove("visible");
 });
-document.getElementById("catSave").addEventListener("click", () => {
+
+document.getElementById("catSave").addEventListener("click",async () => {
   const name = document.getElementById("newCatName").value.trim();
-  if (!name) { toast("Informe o nome da categoria.", "error"); return; }
-  if (categorias.includes(name)) { toast("Categoria já existe.", "error"); return; }
-  categorias.push(name);
-  toast(`Categoria "${name}" adicionada!`);
-  document.getElementById("catOverlay").classList.remove("visible");
+
+  if(!name){ 
+    toast("Informe o nome da categoria.", "error");
+    return;
+  }
+  
+  //verificar categoria já existe
+  if (categorias.some(c => c.nome.toLowerCase() === name.toLowerCase())) { 
+    toast("Categoria já existe.", "error"); 
+    return; 
+  }
+
+  try{
+
+    const token = localStorage.getItem("token");
+    
+    const res = await fetch(`${BASE_URL_CAT}/criar`,{
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+
+      body: JSON.stringify({ nome: name })
+
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast(data.message || "Erro ao adicionar categoria", "error");
+      return;
+    }
+
+    // recarregar categorias
+    await carregarCategorias();
+
+    toast(`Categoria "${name}" adicionada!`);
+    document.getElementById("catOverlay").classList.remove("visible");
+
+  }catch(e){
+    console.log(e)
+    toast("Erro no servidor", "error")
+  }
+
 });
 
 /* ── fechar overlays ao clicar no fundo ── */
