@@ -6,7 +6,7 @@ import listarReclamacao from "../controllers/controllerReclamacao.js";
 import pedido from "../controllers/controllerPedido.js";
 import funcionario from "../controllers/controllerFuncionario.js";
 const router = express.Router();
-router.use("/usuario",auth,controllerPrivado);
+router.use("/usuario",controllerPrivado);
 router.use("/produto", auth, controllerProduto);
 router.use("/listar",auth,listarReclamacao);
 router.use("/pedido",auth,pedido);

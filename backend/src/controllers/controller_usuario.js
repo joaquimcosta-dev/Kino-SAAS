@@ -112,7 +112,7 @@ controller.get("/listar/:id", async (req, res) => {
     return res.status(400).json({ message: "Erro ao tentar listar usuários" });
   }
 });
-controller.delete("/deletar/:id", permissaoAdmin, async (req, res) => {
+controller.delete("/deletar/:id", async (req, res) => {
   const id = req.params.id;
   try {
     //buscando usuario
@@ -121,11 +121,13 @@ controller.delete("/deletar/:id", permissaoAdmin, async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "Este usuário nao existe" });
     }
+    
     //eliminando usuario
-    const eliminado = await service.deletar_usuario(id);
-    return res.status(202).json(user);
+    const eliminado = await service.deletar_usuario(user.id_user);
+    return res.status(200).json(user);
   } catch (e) {
-    return res.status(400).json({ message: "Erro ao tentar eiminar usuário" });
+    
+    return res.status(500).json({ message: "Erro ao tentar eiminar usuário" });
   }
 });
 export default controller;

@@ -12,7 +12,7 @@ export const login=async({username})=>{
 }
 // funcao com sql para buscar usuario id
 export const buscarUsuarioId=async(id)=>{
-    const [encontrado]= await db.query("select *from usuario where id_user=?",[id]);
+    const [encontrado]= await db.query("select *from usuario where id_fun=?",[id]);
     return encontrado[0] || null;
 }
 // funcao com sql para eliminar usuario
