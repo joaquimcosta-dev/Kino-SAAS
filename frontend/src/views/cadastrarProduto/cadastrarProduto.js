@@ -535,13 +535,55 @@ function openCatModal() {
 document.getElementById("catCancel").addEventListener("click", () => {
   document.getElementById("catOverlay").classList.remove("visible");
 });
-document.getElementById("catSave").addEventListener("click", () => {
+
+document.getElementById("catSave").addEventListener("click",async () => {
   const name = document.getElementById("newCatName").value.trim();
-  if (!name) { toast("Informe o nome da categoria.", "error"); return; }
-  if (categorias.includes(name)) { toast("Categoria já existe.", "error"); return; }
-  categorias.push(name);
-  toast(`Categoria "${name}" adicionada!`);
-  document.getElementById("catOverlay").classList.remove("visible");
+
+  if(!name){ 
+    toast("Informe o nome da categoria.", "error");
+    return;
+  }
+  
+  //verificar categoria já existe
+  if (categorias.some(c => c.nome.toLowerCase() === name.toLowerCase())) { 
+    toast("Categoria já existe.", "error"); 
+    return; 
+  }
+
+  try{
+
+    const token = localStorage.getItem("token");
+    
+    const res = await fetch(`${BASE_URL_CAT}/criar`,{
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+
+      body: JSON.stringify({ nome: name })
+
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast(data.message || "Erro ao adicionar categoria", "error");
+      return;
+    }
+
+    // recarregar categorias
+    await carregarCategorias();
+
+    toast(`Categoria "${name}" adicionada!`);
+    document.getElementById("catOverlay").classList.remove("visible");
+
+  }catch(e){
+    console.log(e)
+    toast("Erro no servidor", "error")
+  }
+
 });
 
 /* ── fechar overlays ao clicar no fundo ── */
