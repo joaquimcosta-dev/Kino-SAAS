@@ -38,6 +38,7 @@ try{
 const response = await fetch(`${URL_BASE}/funcionario/deletar/${id}`, {
 method: "DELETE",
 headers: {
+  "Authorization": "Bearer "+localStorage.token,
 "Content-type": "application/json"
 }});
 console.log(response.status)
@@ -56,6 +57,7 @@ try{
 const response = await fetch(`${URL_BASE}/funcionario/editar/${id}`, {
 method: "PUT",
 headers: {
+  "Authorization": "Bearer "+localStorage.token,
 "Content-type": "application/json"
 },
 body: JSON.stringify(data)
@@ -77,6 +79,7 @@ try{
 const response = await fetch(URL_BASE+"/funcionario/cadastrar", {
 method: "POST",
 headers: {
+  "Authorization": "Bearer "+localStorage.token,
 "Content-type": "application/json"
 },
 body: JSON.stringify(data)
