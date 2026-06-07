@@ -1,10 +1,29 @@
 import express from 'express';
 const controller= express.Router();
 import *as service from "../service/service_categoria.js";
-import { auth } from '../middlewares/auth.js';
+import { auth, permissaoAdmin } from '../middlewares/auth.js';
 
 
+//criar cat
+controller.post("/criar", auth, permissaoAdmin, async (req, res) =>{
+  try{
+    const {nome} = req.body;
 
+    if(!req.body.nome){
+      console.log(massage)
+      return res.status(400).json({massage: "Campo obrigatorio"})
+    }
+
+    console.log(nome);
+    const resultado = await service.criarCat({nome});
+
+    return res.status(201).json({resultado});
+
+  }catch(e){
+    console.log(e)
+    return res.status(500).json({menssagem: "Erro ao criar categoria"})
+  }
+})
 
 //buscar cat
 controller.get("/buscar", async(req, res)=>{
