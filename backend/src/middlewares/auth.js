@@ -14,6 +14,7 @@ export const auth=(req,res,next)=>{
         next();
         
     } catch (e) {
+      console.log(e)
        return res.status(500).json({message:"Acesso negado"})
     }
 

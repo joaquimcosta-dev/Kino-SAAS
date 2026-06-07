@@ -24,6 +24,6 @@ export const deletarUsuario = async (id)=>{
 
 // funcao com sql para buscar todos usuarios 
 export const listarTodosUsuarios=async()=>{
-    const lista= await db.query("select id_user, username,perfil,estado,id_fun from usuario");
+    const lista= await db.query("select id_user, username,perfil,estado,id_fun from usuario where estado=1");
     return lista[0];
 }
