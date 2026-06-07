@@ -9,7 +9,7 @@ export const criarCat = async ({nome})=>{
 
   const nomeLimpo = nome.trim();
 
-  const [resultado] = await model.criarCategoria({
+  const resultado = await model.criarCategoria({
     nome: nomeLimpo
   });
 

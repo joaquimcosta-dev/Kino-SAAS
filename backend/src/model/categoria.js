@@ -4,10 +4,10 @@ import db from "../config/db.js";
 //funcao para casdastrar categoria
 export const criarCategoria = async data => {
     const { nome } = data;
-    const [novaCat] = await db.query("insert into categoria(nome) values (?)", [
+    const [resultado] = await db.query("insert into categoria(nome) values (?)", [
         nome
     ]);
-    return novaCat[0];
+    return resultado[0];
 };
 
 //listar todas as categirias
