@@ -89,6 +89,10 @@ export const atualizarProduto = async (
         throw new Error("Produto não encontrado");
     }
 
+
+    //manter dados anteriores no caso de atualizar só um campo
+    const produtoAtual = rows[0];
+
     // validações
     if (!nome || !preco) {
         throw new Error("Campos obrigatorios em falta");
@@ -102,7 +106,15 @@ export const atualizarProduto = async (
         throw new Error("categoria não encontrada");
     }
 
-    await ProdutoModel.atualizarProduto(id, nome.trim(), img, preco, descricao, requerQtd, id_cat);
+    const nomeAtual= nome ?? produtoAtual.nome;
+    const imgAtual = img || produtoAtual.img;
+    const precoAtual = preco ?? produtoAtual.preco;
+    const descricaoAtual = descricao ?? produtoAtual.descricao;
+    const requerQtdAtual = requerQtd ?? produtoAtual.requerQtd;
+    const id_catAtual = id_cat ?? produtoAtual.id_cat;
+
+    await ProdutoModel.atualizarProduto(id, nomeAtual.trim(), imgAtual, precoAtual,
+    descricaoAtual, requerQtdAtual, id_catAtual);
 
     return { mensagem: "produto atualizado com sucesso" };
 };
