@@ -13,7 +13,7 @@ export const criarCat = async ({nome})=>{
     nome: nomeLimpo
   });
 
-  return {id_cat: resultado.insertId, mensagem: "categoria criada com sucesso"}
+  return {id_cat: resultado, mensagem: "categoria criada com sucesso"}
 
 }
 

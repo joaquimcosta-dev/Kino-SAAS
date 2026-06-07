@@ -102,8 +102,8 @@
     /* ── FORM CARD ── */
 
     ::placeholder{
-      font-weight: 300;
-      color: var(--cor-principal);
+      font-weight: 500;
+      color: #757575;
     }
 
     .form-card {
@@ -191,8 +191,8 @@
     }
     .field label { 
       font-size: .8rem; 
-      font-weight: 800; 
-      color: var(--cor-principal); 
+      font-weight: 640; 
+      color: #000000; 
     }
 
     input[type=text], input[type=number], .sel-box {
@@ -219,6 +219,13 @@
       min-width: 160px; 
       position: relative; 
     }
+
+    .field-cat #fCatLabel{
+      font-weight: 500;
+      color: #757575;
+    }
+
+
     .field-desc { 
       flex: 3; 
       width: 30px;
@@ -288,6 +295,7 @@
       font-size: .9rem; 
       cursor: pointer; 
       transition: background .15s; 
+      font-weight: 500;
     }
     .dropdown li:hover { 
       background: var(--cor-sobreposicao); 
@@ -372,7 +380,7 @@
       text-overflow: ellipsis; 
     }
     .prod-desc  { 
-      font-size: .78rem; color: var(--cor-principal); 
+      font-size: .78rem; color: #a4a4a4;; 
       margin: 1px 0 6px;
       white-space: nowrap;
       overflow: hidden;
@@ -493,6 +501,8 @@
       color: var(--cor-principal); 
       margin-bottom: 20px; 
       font-size: 1.4rem; 
+      font-weight: 400; 
+
     }
     .modal .fields { 
       display: flex; 
@@ -501,8 +511,8 @@
     }
     .modal label { 
       font-size: .8rem; 
-      font-weight: 800; 
-      color: var(--cor-principal); 
+      font-weight: 640; 
+      color: #000000; 
       display: block; 
       margin-bottom: 5px; 
     }
@@ -541,9 +551,9 @@
 
     /* ── CONFIRM MODAL ── */
     .confirm-modal p { 
-      color: var(--cor-principal); 
+      color: #000000; 
       margin-bottom: 20px; 
-      font-weight: 600; 
+      font-weight: 500; 
     }
     .btn-danger {
       background: #E03030; 
