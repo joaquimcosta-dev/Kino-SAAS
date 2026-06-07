@@ -79,7 +79,8 @@ export const atualizarProduto = async (
     img,
     preco,
     descricao,
-    requerQtd
+    requerQtd,
+    id_cat
 ) => {
     // verificar se o produto existe
     const [rows] = await ProdutoModel.buscarProdutoId(id);
@@ -97,7 +98,11 @@ export const atualizarProduto = async (
         throw new Error("Nome muito curto");
     }
 
-    await ProdutoModel.atualizarProduto(id, nome.trim(), img, preco, descricao,requerQtd);
+    if(isNaN(id_cat) || id_cat <= 0){
+        throw new Error("categoria não encontrada");
+    }
+
+    await ProdutoModel.atualizarProduto(id, nome.trim(), img, preco, descricao, requerQtd, id_cat);
 
     return { mensagem: "produto atualizado com sucesso" };
 };

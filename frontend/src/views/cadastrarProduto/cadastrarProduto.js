@@ -118,7 +118,7 @@ async function verifLogin() {
   const token = localStorage.getItem("token");
 
   //se não foi feito fito fogin reencaminha para tela de login 
-  if(!token){
+  if (!token) {
     window.location.href = "/Agendamento-kino/frontend/src/views/login/login.html"
     return;
   }
@@ -129,8 +129,6 @@ async function verifLogin() {
 //adicionar produto
 document.getElementById("btnAdd").addEventListener("click", async () => {
 
-  
-  console.log("clicou");
 
   const nome = document.getElementById("fNome").value.trim();
   const descricao = document.getElementById("fDesc").value.trim();
@@ -220,19 +218,19 @@ async function carregarProdutos() {
   try {
 
     const token = localStorage.getItem("token");
-    const res = await fetch(`${BASE_URL}/listar`,{
+    const res = await fetch(`${BASE_URL}/listar`, {
       headers: {
         "Authorization": `Bearer ${token}`
       }
     });
 
-//verificando o status vindo da requisição
-if (res.status === 401 || res.status === 500) {
-//remivendo o token do localStorage
-localStorage.clear();
-window.location.href = "../login/login.html";
-return;
-}
+    //verificando o status vindo da requisição
+    if (res.status === 401 || res.status === 500) {
+      //remivendo o token do localStorage
+      localStorage.clear();
+      window.location.href = "../login/login.html";
+      return;
+    }
     const data = await res.json();
     produtos = data;
 
@@ -247,13 +245,10 @@ return;
 }
 
 
-/* ── RENDER GRID ── */
+//cssProd
 function cssProd() {
   const grid = document.getElementById("prodGrid");
   grid.innerHTML = "";
-
-  
-
 
   if (produtos.length === 0) {
     grid.innerHTML = `<div class="empty">
@@ -271,7 +266,7 @@ function cssProd() {
     const imgSrc = p.img;
 
     card.innerHTML = `
-      <img class="prod-img" src="${imgSrc}" alt="${p.nome}" onerror="this.src='https://placehold.co/72x72/FDE8D4/F47B20?text=🍔'"/>
+      <img class="prod-img" alt="${p.nome}"/>
       <div class="prod-info">
         <div class="prod-name">${p.nome}</div>
         <div class="prod-desc">${p.descricao || "—"}</div>
@@ -292,9 +287,19 @@ function cssProd() {
         </div>
       </div>
     `;
+
+    //src depois do innerHTML
+    const img = card.querySelector(".prod-img");
+    img.onerror = function () {
+      this.onerror = null;
+      this.src = "https://placehold.co/72x72/FDE8D4/F47B20?text=img";
+    };
+
+    img.src = p.img || "";
+
     grid.appendChild(card);
 
-    // card category inline dropdown
+    // select cssProd
     const badge = card.querySelector(".cat-badge");
     const badgeDrop = card.querySelector(`#catDrop_${p.id_prod}`);
     badge.addEventListener("click", e => {
@@ -309,51 +314,54 @@ function cssProd() {
           li.addEventListener("click", async () => {
             badgeDrop.classList.remove("visible");
 
-        try {
-          const token = localStorage.getItem("token");
+            try {
+              const token = localStorage.getItem("token");
+              const prod = produtos.find(x => x.id_prod == p.id_prod);
 
-          const prod = produtos.find(x => x.id_prod == id);
+              const body = {
+                nome: prod.nome,
+                descricao: prod.descricao || "",
+                preco: prod.preco,
+                requerQtd: prod.requerQtd ?? 0,
+                id_cat: cat.id_cat
+              };
 
-          const body = {
-            nome:      prod.nome,
-            descricao: prod.descricao || "",
-            preco:     prod.preco,
-            requerQtd: prod.requerQtd ?? 0,
-            id_cat:    cat.id_cat
-          };
+              console.log("body enviado:", body);
+              console.log("id_cat enviado:", cat.id_cat);
+              console.log("tipo do id_cat:", typeof cat.id_cat);
 
-          const res = await fetch(`${BASE_URL}/atualizar/${p.id_prod}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type":  "application/json",
-              "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(body)
+              const res = await fetch(`${BASE_URL}/atualizar/${p.id_prod}`, {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(body)
+              });
+
+              const data = await res.json();
+
+              if (!res.ok) {
+                toast(data.message || "Erro ao atualizar categoria", "error");
+                return;
+              }
+
+              //atualiza localmente com nomes corretos
+              prod.id_cat = cat.id_cat;
+              prod.categoria = cat.nome;
+
+              //atualiza o badge visualmente
+              badge.querySelector(".cat-badge-label").textContent = cat.nome;
+
+              toast("Categoria atualizada!");
+
+            } catch (e) {
+              console.log(e);
+              toast("Erro no servidor", "error");
+            }
           });
-
-          const data = await res.json();
-
-          if (!res.ok) {
-            toast(data.message || "Erro ao atualizar categoria", "error");
-            return;
-          }
-
-          //atualiza localmente com nomes corretos
-          prod.id_cat    = cat.id_cat;
-          prod.categoria = cat.nome;
-
-          //atualiza o badge visualmente
-          badge.querySelector(".cat-badge-label").textContent = cat.nome;
-
-          toast("Categoria atualizada!");
-
-        } catch (e) {
-          console.log(e);
-          toast("Erro no servidor", "error");
-        }
-      });
-      badgeDrop.appendChild(li);
-    });
+          badgeDrop.appendChild(li);
+        });
 
         const addLi = document.createElement("li");
         addLi.textContent = "+ add categoria";
@@ -402,11 +410,17 @@ function openEditModal(id) {
 
   document.getElementById("editOverlay").classList.add("visible");
 }
-document.getElementById("editCancel").addEventListener("click",  () => {
+document.getElementById("editCancel").addEventListener("click", () => {
   document.getElementById("editOverlay").classList.remove("visible");
   editingId = null; editImgData = "";
   document.getElementById("editImgInput").value = "";
 });
+
+
+
+//atualizar 
+
+
 document.getElementById("editSave").addEventListener("click", async () => {
   const nome = document.getElementById("editNome").value.trim();
   const descricao = document.getElementById("editDesc").value.trim();
@@ -417,7 +431,7 @@ document.getElementById("editSave").addEventListener("click", async () => {
   if (!nome) { toast("Informe o nome.", "error"); return; }
   if (!id_cat) { toast("Selecione a categoria.", "error"); return; }
   if (isNaN(preco) || preco < 0) { toast("Preço inválido.", "error"); return; }
-  if (isNaN(requerQtd) || requerQtd < 0){toast("Quantidade inválida", "error"); return;}
+  if (isNaN(requerQtd) || requerQtd < 0) { toast("Quantidade inválida", "error"); return; }
 
   try {
     const token = localStorage.getItem("token");
@@ -428,7 +442,7 @@ document.getElementById("editSave").addEventListener("click", async () => {
     const res = await fetch(`${BASE_URL}/atualizar/${editingId}`, {
       method: "PUT",
       headers: {
-        "Content-Type":  "application/json",
+        "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(body)
@@ -445,7 +459,7 @@ document.getElementById("editSave").addEventListener("click", async () => {
     await carregarProdutos();
 
     document.getElementById("editOverlay").classList.remove("visible");
-    editingId   = null;
+    editingId = null;
     editImgData = "";
     document.getElementById("editImgInput").value = "";
 
