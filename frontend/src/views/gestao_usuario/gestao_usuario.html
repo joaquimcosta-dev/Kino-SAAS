@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestão de Usuários</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+   <link rel="stylesheet" href="gestao_ususrio.css" />
+</head>
+<body>
+
+<!-- ━━━ HEADER ━━━ -->
+<header>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Pedidos</a>
+    <a href="funcionarios.html">Funcionários</a>
+    <a href="#" class="ativo">Usuários</a>
+  </nav>
+  <div class="avatar-header">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ━━━ MAIN ━━━ -->
+<main>
+  <div class="topo">
+    <h1>Gestão de Usuários</h1>
+  </div>
+
+  <!-- Busca + filtro -->
+  <div class="ferramentas">
+    <div class="campo-busca">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/>
+      </svg>
+      <input type="text" id="busca" placeholder="Buscar por nome, username ou BI…" oninput="filtrarTabela()"/>
+    </div>
+
+    <select class="select-filtro" id="filtroPerfil" onchange="filtrarTabela()">
+      <option value="">Todos os perfis</option>
+      <option value="admin">Admin</option>
+      <option value="funcionario">Funcionário (usuário)</option>
+      <option value="sem-conta">Sem conta</option>
+    </select>
+
+    <span class="contador">Total: <strong id="totalCount">0</strong></span>
+  </div>
+
+  <!-- Tabela -->
+  <div class="tabela-wrap">
+    <table id="tabela">
+      <thead>
+        <tr>
+          <th>Funcionário</th>
+          <th>BI</th>
+          <th>Telefone</th>
+          <th>Username</th>
+          <th>Perfil</th>
+          <th>Acções</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="vazio" id="vazio">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+      <p>Nenhum resultado encontrado.</p>
+    </div>
+  </div>
+</main>
+
+<!-- ━━━ RODAPÉ ━━━ -->
+<footer>
+  <div><p>© Kino 2026</p><p>Todos os direitos reservados.</p></div>
+  <div class="redes">
+    <span>siga-nos</span>
+    <div class="ic-social">W</div>
+    <div class="ic-social">f</div>
+    <div class="ic-social">&#9400;</div>
+  </div>
+</footer>
+
+<!-- ━━━ MODAL: CRIAR/EDITAR USUÁRIO ━━━ -->
+<div class="overlay" id="ovForm" onclick="fecharSeFundo(event,'ovForm')">
+  <div class="modal">
+    <div class="modal-topo">
+      <h2 id="modalTitulo">Criar Usuário</h2>
+      <button class="btn-x" onclick="fechar('ovForm')">✕</button>
+    </div>
+
+    <!-- Info do funcionário (somente leitura) -->
+    <div class="info-fun" id="infoFun"></div>
+
+    <div class="fg">
+      <label>Username</label>
+      <input type="text" id="fUser" placeholder="ex: maria.silva" maxlength="30"/>
+      <span class="err">Campo obrigatório</span>
+    </div>
+    <div class="fg">
+      <label id="labelSenha">Senha</label>
+      <input type="password" id="fSenha" placeholder="Mínimo 6 caracteres" maxlength="40"/>
+      <span class="err">Mínimo 6 caracteres</span>
+    </div>
+    <div class="fg">
+      <label>Perfil</label>
+      <select id="fPerfil">
+        <option value="funcionario">Funcionário</option>
+        <option value="admin">Admin</option>
+      </select>
+    </div>
+
+    <div class="modal-acoes">
+      <button class="btn btn-neutro" onclick="fechar('ovForm')">Cancelar</button>
+      <button class="btn btn-primario" onclick="guardarUsuario()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ━━━ MODAL: CONFIRMAR ELIMINAÇÃO ━━━ -->
+<div class="overlay" id="ovDel" onclick="fecharSeFundo(event,'ovDel')">
+  <div class="modal modal-confirmar">
+    <div class="icone-aviso">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="3 6 5 6 21 6"/>
+        <path d="M19 6l-1 14H6L5 6"/>
+        <path d="M10 11v6M14 11v6M9 6V4h6v2"/>
+      </svg>
+    </div>
+    <h2>Eliminar usuário?</h2>
+    <p id="txtDel">Esta acção não pode ser revertida.</p>
+    <div class="modal-acoes" style="justify-content:center">
+      <button class="btn btn-neutro" onclick="fechar('ovDel')">Cancelar</button>
+      <button class="btn btn-perigo" onclick="confirmarDel()">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="gestao_usuario.js"></script>
+</body>
+</html>

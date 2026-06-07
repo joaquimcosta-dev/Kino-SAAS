@@ -1,9 +1,10 @@
 import express from "express";
 import * as servico from "../service/serviceFuncionario.js";
+import {permissaoAdmin} from '../middlewares/auth.js'
 const controller = express.Router();
 
 //controler para fazer o cadastro do funcionario
-controller.post("/cadastrar", async (req, res) => {
+controller.post("/cadastrar",permissaoAdmin, async (req, res) => {
 //verificar os campos a serem enviados pelo corpo
 if (!req.body.nome || !req.body.bilhete || !req.body.data_nasc) {
 return res
@@ -28,7 +29,7 @@ return res
 });
 
 //controler para listar  funcionario
-controller.get("/listar", async (req, res) => {
+controller.get("/listar",permissaoAdmin, async (req, res) => {
 try {
 const lista = await servico.listarFuncionarios();
 return res.status(200).json(lista);
@@ -52,7 +53,7 @@ return res
 }
 });
 // controler para deletar funcionario
-controller.delete("/deletar/:id", async (req, res) => {
+controller.delete("/deletar/:id",permissaoAdmin, async (req, res) => {
 console.log("id", req.params.id)
 
 const id = req.params.id;
@@ -75,7 +76,7 @@ return res
 .json({ message: "Erro ao tentar eliminar funcionario" });
 }
 });
- controller.put("/editar/:id", async(req,res)=>{
+ controller.put("/editar/:id",permissaoAdmin, async(req,res)=>{
 const {id} = req.params;
 const {nome, bilhete, tel, data_nasc} = req.body
 try{

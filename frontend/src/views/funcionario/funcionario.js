@@ -9,7 +9,18 @@ let indiceEliminar = null;
 //funcao que pega dados do banco
 const getFuncionario = async()=>{
 try{
-const response = await fetch(URL_BASE+"/funcionario/listar")
+const response = await fetch(URL_BASE+"/funcionario/listar",{
+  headers: {
+"Authorization": "Bearer "+localStorage.token
+}
+}
+  )
+if (response.status === 401 || response.status === 500) {
+//remivendo o token do localStorage
+localStorage.clear();
+window.location.href = "../login/login.html";
+return;
+}
 if (response.ok){
 const res = await response.json()
 // passando p array completo no funcionarios
@@ -27,6 +38,7 @@ try{
 const response = await fetch(`${URL_BASE}/funcionario/deletar/${id}`, {
 method: "DELETE",
 headers: {
+  "Authorization": "Bearer "+localStorage.token,
 "Content-type": "application/json"
 }});
 console.log(response.status)
@@ -45,6 +57,7 @@ try{
 const response = await fetch(`${URL_BASE}/funcionario/editar/${id}`, {
 method: "PUT",
 headers: {
+  "Authorization": "Bearer "+localStorage.token,
 "Content-type": "application/json"
 },
 body: JSON.stringify(data)
@@ -66,6 +79,7 @@ try{
 const response = await fetch(URL_BASE+"/funcionario/cadastrar", {
 method: "POST",
 headers: {
+  "Authorization": "Bearer "+localStorage.token,
 "Content-type": "application/json"
 },
 body: JSON.stringify(data)

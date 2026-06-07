@@ -8,7 +8,7 @@ import { buscarFuncionarioId } from "../service/serviceFuncionario.js";
 const controller = express.Router();
 
 //rota para criar usuario
-controller.post("/cadastrar/:id", async (req, res) => {
+controller.post("/cadastrar/:id",permissaoAdmin, async (req, res) => {
   // verificando se os campos enviados estao vazios
   if (!req.body.username || !req.body.senha || !req.body.perfil) {
     return res
@@ -87,7 +87,7 @@ controller.post("/login", async (req, res) => {
   }
 });
 //rota para listar todos listar Todos Usuarios
-controller.get("/listar", async (req, res) => {
+controller.get("/listar",permissaoAdmin, async (req, res) => {
   try {
     const lista = await service.buscar_todos_usuarios();
     return res.status(200).json(lista);
@@ -112,7 +112,7 @@ controller.get("/listar/:id", async (req, res) => {
     return res.status(400).json({ message: "Erro ao tentar listar usuários" });
   }
 });
-controller.delete("/deletar/:id", permissaoAdmin, async (req, res) => {
+controller.delete("/deletar/:id",permissaoAdmin, async (req, res) => {
   const id = req.params.id;
   try {
     //buscando usuario
@@ -121,11 +121,13 @@ controller.delete("/deletar/:id", permissaoAdmin, async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "Este usuário nao existe" });
     }
+    
     //eliminando usuario
-    const eliminado = await service.deletar_usuario(id);
-    return res.status(202).json(user);
+    const eliminado = await service.deletar_usuario(user.id_user);
+    return res.status(200).json(user);
   } catch (e) {
-    return res.status(400).json({ message: "Erro ao tentar eiminar usuário" });
+    
+    return res.status(500).json({ message: "Erro ao tentar eiminar usuário" });
   }
 });
 export default controller;
