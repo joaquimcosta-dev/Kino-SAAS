@@ -1,3 +1,4 @@
+const URL_BASE = "http://localhost:3000"
 let funcionarios = [
     { id_fun:'FUN001', nome:'Ana Luísa Ferreira', bi:'003456789LA041', tel:'923 456 789' },
     { id_fun:'FUN002', nome:'Carlos Mendes',      bi:'006712345LA031', tel:'912 345 678' },
@@ -15,6 +16,23 @@ let funcionarios = [
   let idFunEditando = null;
   let idFunDel      = null;
 
+
+//funcao que pega dados do banco
+const getFuncionario = async()=>{
+try{
+const response = await fetch(URL_BASE+"/funcionario/listar")
+if (response.ok){
+const res = await response.json()
+// passando p array completo no funcionarios
+funcionarios=res;
+renderizar(funcionarios)
+console.log(res);
+
+}
+}catch(e){
+console.log('erro no servidor, tentando listar funcionario', e)
+}
+}
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      RENDERIZAR TABELA
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -55,7 +73,7 @@ let funcionarios = [
             </div>
           </div>
         </td>
-        <td data-label="BI">${f.bi}</td>
+        <td data-label="BI">${f.bilhete}</td>
         <td data-label="Telefone">${f.tel}</td>
         <td data-label="Username">${usernameTxt}</td>
         <td data-label="Perfil"><span class="badge ${badgeClass}">${badgeTxt}</span></td>
@@ -192,5 +210,5 @@ let funcionarios = [
     _tt = setTimeout(() => el.classList.remove('v'), 3200);
   }
 
-  /* ── Render inicial ── */
-  renderizar(funcionarios);
+  /* ── Render inicial ── renderizar(funcionarios);*/
+  getFuncionario()
